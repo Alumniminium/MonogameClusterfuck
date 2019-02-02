@@ -50,6 +50,35 @@ namespace monogame.Primitives
             return r;
         }
 
+        internal void DrawTileMap(SpriteBatch spriteBatch)
+        {
+            var pos = new Vector2(0, 0);
+            int count = 0;
+            foreach (var tile in Tiles)
+            {
+                spriteBatch.Draw(tile, pos);
+                spriteBatch.DrawString(Fonts.Generic, count.ToString(), pos, Color.White);
+                pos.X += 32;
+                if (pos.X > Game.Instance.Width)
+                {
+                    pos.Y += 32;
+                    pos.X = 0;
+                }
+                count++;
+            }
+        }
+
+        internal void Draw(SpriteBatch spriteBatch)
+        {
+            for (int x = 0; x < Game.Instance.Width; x += 32)
+            {
+                for (int y = 0; y < Game.Instance.Height; y += 32)
+                {
+                    spriteBatch.Draw(Tiles[109], new Vector2(x, y));
+                }
+            }
+        }
+
         internal void LoadContent(ContentManager content)
         {
             Tilemap = content.Load<Texture2D>("terrain");
