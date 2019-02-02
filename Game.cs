@@ -18,9 +18,11 @@ namespace monogame
         TileMap Map;
         KeyboardState KeyboardState;
         InputManager InputManager;
+        FpsCounter FpsCounter;
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.SynchronizeWithVerticalRetrace = true;
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
@@ -34,6 +36,7 @@ namespace monogame
             Map = new TileMap(32);
             KeyboardState = Keyboard.GetState();
             InputManager = new InputManager();
+            FpsCounter=new FpsCounter();
             base.Initialize();
         }
 
@@ -60,9 +63,14 @@ namespace monogame
                 Map.DrawTileMap(spriteBatch);
             else
                 Map.Draw(spriteBatch);
-
+            if(GlobalState.DisplayHelp)
+                {
+                    spriteBatch.DrawString(Fonts.Generic,"Press H to toggle Tileset Display",new Vector2(Width-235,0),Color.Red);
+                }
+            FpsCounter.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
+            GlobalState.Frames++;
         }
 
     }
