@@ -1,0 +1,13 @@
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/monogame.deps.json
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/monogame.runtimeconfig.json
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/monogame.runtimeconfig.dev.json
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/monogame.dll
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/monogame.pdb
+/home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.csprojAssemblyReference.cache
+/home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.csproj.CoreCompileInputs.cache
+/home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.AssemblyInfoInputs.cache
+/home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.AssemblyInfo.cs
+/home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.dll
+/home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.pdb
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/Content/terrain.xnb
+/home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/Content/Font.xnb
