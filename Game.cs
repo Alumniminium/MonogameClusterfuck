@@ -15,7 +15,7 @@ namespace monogame
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        TileMap Map;
+        TileSet TileSet;
         KeyboardState KeyboardState;
         InputManager InputManager;
         FpsCounter FpsCounter;
@@ -33,17 +33,17 @@ namespace monogame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Map = new TileMap(32);
+            TileSet = new TileSet(32);
             KeyboardState = Keyboard.GetState();
             InputManager = new InputManager();
-            FpsCounter=new FpsCounter();
+            FpsCounter = new FpsCounter();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Map.LoadContent(Content);
+            TileSet.LoadContent(Content);
             Fonts.LoadContent(Content);
         }
 
@@ -59,14 +59,14 @@ namespace monogame
 
             spriteBatch.Begin();
 
-            if (GlobalState.TileMapDrawing)
-                Map.DrawTileMap(spriteBatch);
+            if (GlobalState.DrawTileSet)
+                TileSet.DrawTileSet(spriteBatch);
             else
-                Map.Draw(spriteBatch);
-            if(GlobalState.DisplayHelp)
-                {
-                    spriteBatch.DrawString(Fonts.Generic,"Press H to toggle Tileset Display",new Vector2(Width-235,0),Color.Red);
-                }
+                TileSet.DrawBgTile(spriteBatch);
+            if (GlobalState.DisplayHelp)
+            {
+                spriteBatch.DrawString(Fonts.Generic, "Press H to toggle Tileset Display", new Vector2(Width - 235, 0), Color.Red);
+            }
             FpsCounter.Draw(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
