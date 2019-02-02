@@ -5,13 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace monogame.Primitives
 {
-    public class TileMap
+    public class TileSet
     {
         public int TileSize = 32;
         public Texture2D Tilemap;
         public Texture2D[] Tiles;
 
-        public TileMap(int tileSize)
+        public TileSet(int tileSize)
         {
             TileSize = tileSize;
         }
@@ -21,7 +21,7 @@ namespace monogame.Primitives
             Split();
         }
 
-        internal void DrawTileMap(SpriteBatch spriteBatch)
+        internal void DrawTileSet(SpriteBatch spriteBatch)
         {
             var pos = new Vector2(0, 0);
             int count = 0;
@@ -39,7 +39,7 @@ namespace monogame.Primitives
             }
         }
 
-        internal void Draw(SpriteBatch spriteBatch)
+        internal void DrawBgTile(SpriteBatch spriteBatch)
         {
             for (int x = 0; x < Game.Instance.Width; x += TileSize)
             {

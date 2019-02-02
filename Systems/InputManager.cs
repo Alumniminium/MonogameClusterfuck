@@ -20,7 +20,7 @@ namespace monogame.Systems
 
             if (Keyboard.GetState().IsKeyDown(Keys.H) && lastState.IsKeyUp(Keys.H))
             {
-                GlobalState.TileMapDrawing = !GlobalState.TileMapDrawing;
+                GlobalState.DrawTileSet = !GlobalState.DrawTileSet;
             }
 
         }
