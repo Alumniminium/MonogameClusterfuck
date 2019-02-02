@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using monogame.Primitives;
+using monogame.Systems;
 
 namespace monogame
 {
@@ -14,9 +15,9 @@ namespace monogame
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        private bool TileMapDrawing;
         TileMap Map;
         KeyboardState KeyboardState;
+        InputManager InputManager;
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -32,6 +33,7 @@ namespace monogame
             // TODO: Add your initialization logic here
             Map = new TileMap(32);
             KeyboardState = Keyboard.GetState();
+            InputManager = new InputManager();
             base.Initialize();
         }
 
@@ -44,19 +46,7 @@ namespace monogame
 
         protected override void Update(GameTime gameTime)
         {
-            var lastState = KeyboardState;
-            KeyboardState = Keyboard.GetState();
-
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
-            if (Keyboard.GetState().IsKeyDown(Keys.H) && lastState.IsKeyUp(Keys.H))
-            {
-                TileMapDrawing = !TileMapDrawing;
-            }
-
-            // TODO: Add your update logic here
-
+            InputManager.Update();
             base.Update(gameTime);
         }
 
@@ -66,7 +56,7 @@ namespace monogame
 
             spriteBatch.Begin();
 
-            if (TileMapDrawing)
+            if (GlobalState.TileMapDrawing)
                 Map.DrawTileMap(spriteBatch);
             else
                 Map.Draw(spriteBatch);
