@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using monogame.Db;
 using monogame.Primitives;
 
 namespace monogame
@@ -15,15 +14,14 @@ namespace monogame
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        SpriteFont font;
         private bool TileMapDrawing;
         TileMap Map;
         KeyboardState KeyboardState;
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 960;
-            graphics.PreferredBackBufferWidth = 1024;
+            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1280;
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Instance = this;
@@ -32,7 +30,7 @@ namespace monogame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            Map = new TileMap();
+            Map = new TileMap(32);
             KeyboardState = Keyboard.GetState();
             base.Initialize();
         }

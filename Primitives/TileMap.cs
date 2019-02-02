@@ -7,47 +7,18 @@ namespace monogame.Primitives
 {
     public class TileMap
     {
+        public int TileSize = 32;
         public Texture2D Tilemap;
         public Texture2D[] Tiles;
 
-        public Texture2D[] Split(int tileWidth, int tileHeight)
+        public TileMap(int tileSize)
         {
-            var yCount = Tilemap.Height / tileHeight + (tileHeight % Tilemap.Height == 0 ? 0 : 1);//The number of textures in each horizontal row
-            var xCount = Tilemap.Height / tileHeight + (tileHeight % Tilemap.Height == 0 ? 0 : 1);//The number of textures in each vertical column
-            Texture2D[] r = new Texture2D[xCount * yCount];//Number of parts = (area of original) / (area of each part).
-            int dataPerPart = tileWidth * tileHeight;//Number of pixels in each of the split parts
-
-            //Get the pixel data from the original texture:
-            Color[] originalData = new Color[Tilemap.Width * Tilemap.Height];
-            Tilemap.GetData<Color>(originalData);
-
-            int index = 0;
-            for (int y = 0; y < yCount * tileHeight; y += tileHeight)
-                for (int x = 0; x < xCount * tileWidth; x += tileWidth)
-                {
-                    //The texture at coordinate {x, y} from the top-left of the original texture
-                    Texture2D part = new Texture2D(Tilemap.GraphicsDevice, tileWidth, tileHeight);
-                    //The data for part
-                    Color[] partData = new Color[dataPerPart];
-
-                    //Fill the part data with colors from the original texture
-                    for (int py = 0; py < tileHeight; py++)
-                        for (int px = 0; px < tileWidth; px++)
-                        {
-                            int partIndex = px + py * tileWidth;
-                            //If a part goes outside of the source texture, then fill the overlapping part with Color.Transparent
-                            if (y + py >= Tilemap.Height || x + px >= Tilemap.Width)
-                                partData[partIndex] = Color.Transparent;
-                            else
-                                partData[partIndex] = originalData[(x + px) + (y + py) * Tilemap.Width];
-                        }
-
-                    //Fill the part with the extracted data
-                    part.SetData<Color>(partData);
-                    //Stick the part in the return array:                    
-                    r[index++] = part;
-                }
-            return r;
+            TileSize = tileSize;
+        }
+        internal void LoadContent(ContentManager content)
+        {
+            Tilemap = content.Load<Texture2D>("terrain");
+            Split();
         }
 
         internal void DrawTileMap(SpriteBatch spriteBatch)
@@ -58,10 +29,10 @@ namespace monogame.Primitives
             {
                 spriteBatch.Draw(tile, pos);
                 spriteBatch.DrawString(Fonts.Generic, count.ToString(), pos, Color.White);
-                pos.X += 32;
-                if (pos.X > Game.Instance.Width)
+                pos.X += TileSize;
+                if (pos.X > Tilemap.Width)
                 {
-                    pos.Y += 32;
+                    pos.Y += TileSize;
                     pos.X = 0;
                 }
                 count++;
@@ -70,22 +41,56 @@ namespace monogame.Primitives
 
         internal void Draw(SpriteBatch spriteBatch)
         {
-            for (int x = 0; x < Game.Instance.Width; x += 32)
+            for (int x = 0; x < Game.Instance.Width; x += TileSize)
             {
-                for (int y = 0; y < Game.Instance.Height; y += 32)
+                for (int y = 0; y < Game.Instance.Height; y += TileSize)
                 {
                     spriteBatch.Draw(Tiles[109], new Vector2(x, y));
                 }
             }
         }
 
-        internal void LoadContent(ContentManager content)
-        {
-            Tilemap = content.Load<Texture2D>("terrain");
-            Tiles = Split(32, 32);
 
-            for (int i = 0; i < Tiles.Length; i++)
-                Db.AssetDb.Textures.Add(i, Tiles[i]);
+        private void Split()
+        {
+            var yCount = Tilemap.Height / TileSize + (TileSize % Tilemap.Height == 0 ? 0 : 1);//The number of textures in each horizontal row
+            var xCount = Tilemap.Height / TileSize + (TileSize % Tilemap.Height == 0 ? 0 : 1);//The number of textures in each vertical column
+            Tiles = new Texture2D[xCount * yCount];//Number of parts = (area of original) / (area of each part).
+            int resolution = TileSize * TileSize;//Number of pixels in each of the split parts
+
+            //Get the pixel data from the original texture:
+            Color[] originalData = new Color[Tilemap.Width * Tilemap.Height];
+            Tilemap.GetData<Color>(originalData);
+
+            int index = 0;
+            for (int y = 0; y < yCount * TileSize; y += TileSize)
+            {
+                for (int x = 0; x < xCount * TileSize; x += TileSize)
+                {
+                    //The texture at coordinate {x, y} from the top-left of the original texture
+                    Texture2D chunk = new Texture2D(Tilemap.GraphicsDevice, TileSize, TileSize);
+                    //The data for part
+                    Color[] chunkData = new Color[resolution];
+
+                    //Fill the part data with colors from the original texture
+                    for (int height = 0; height < TileSize; height++)
+                    {
+                        for (int width = 0; width < TileSize; width++)
+                        {
+                            int partIndex = width + height * TileSize;
+                            //If a part goes outside of the source texture, then fill the overlapping part with Color.Transparent
+                            if (y + height >= Tilemap.Height || x + width >= Tilemap.Width)
+                                chunkData[partIndex] = Color.Transparent;
+                            else
+                                chunkData[partIndex] = originalData[(x + width) + (y + height) * Tilemap.Width];
+                        }
+                    }
+                    //Fill the part with the extracted data
+                    chunk.SetData<Color>(chunkData);
+                    //Stick the part in the return array:                    
+                    Tiles[index++] = chunk;
+                }
+            }
         }
     }
 }
