@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "ProjectFilePath": "/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/monogame.csproj",
+=======
+  "ProjectFilePath": "/home/alumni/Projects/monogame/monogame.csproj",
+>>>>>>> 06fc879548ec5139cd2bc2f6fdbc405661d37a93
   "TargetFramework": "netcoreapp2.0",
   "TagHelpers": [],
   "Configuration": {

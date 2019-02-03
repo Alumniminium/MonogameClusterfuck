@@ -11,6 +11,7 @@
 /home/alumni/Projects/monogame/obj/Debug/netcoreapp2.0/monogame.pdb
 /home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/Content/terrain.xnb
 /home/alumni/Projects/monogame/bin/Debug/netcoreapp2.0/Content/Font.xnb
+<<<<<<< HEAD
 S:/Apps/MonogameClusterfuck-master/bin/Debug/netcoreapp2.0/Content/Font.xnb
 S:/Apps/MonogameClusterfuck-master/bin/Debug/netcoreapp2.0/Content/terrain.xnb
 S:/Apps/MonogameClusterfuck-master/bin/Debug/netcoreapp2.0/monogame.deps.json
@@ -36,3 +37,5 @@ S:/Apps/MonogameClusterfuck-master/obj/Debug/netcoreapp2.0/monogame.pdb
 /home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/obj/Debug/netcoreapp2.0/monogame.AssemblyInfo.cs
 /home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/obj/Debug/netcoreapp2.0/monogame.dll
 /home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/obj/Debug/netcoreapp2.0/monogame.pdb
+=======
+>>>>>>> 06fc879548ec5139cd2bc2f6fdbc405661d37a93
