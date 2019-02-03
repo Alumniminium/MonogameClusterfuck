@@ -8,7 +8,7 @@ namespace monogame.Primitives
     public class TileSet
     {
         public int TileSize = 32;
-        public Texture2D Tilemap;
+        public Texture2D FullTileSet;
         public Texture2D[] Tiles;
 
         public TileSet(int tileSize)
@@ -17,7 +17,7 @@ namespace monogame.Primitives
         }
         internal void LoadContent(ContentManager content)
         {
-            Tilemap = content.Load<Texture2D>("terrain");
+            FullTileSet = content.Load<Texture2D>("terrain");
             Split();
         }
 
@@ -30,7 +30,7 @@ namespace monogame.Primitives
                 spriteBatch.Draw(tile, pos);
                 spriteBatch.DrawString(Fonts.Generic, count.ToString(), pos, Color.White);
                 pos.X += TileSize;
-                if (pos.X > Tilemap.Width)
+                if (pos.X > FullTileSet.Width)
                 {
                     pos.Y += TileSize;
                     pos.X = 0;
@@ -53,14 +53,14 @@ namespace monogame.Primitives
 
         private void Split()
         {
-            var yCount = Tilemap.Height / TileSize + (TileSize % Tilemap.Height == 0 ? 0 : 1);//The number of textures in each horizontal row
-            var xCount = Tilemap.Height / TileSize + (TileSize % Tilemap.Height == 0 ? 0 : 1);//The number of textures in each vertical column
+            var yCount = FullTileSet.Height / TileSize + (TileSize % FullTileSet.Height == 0 ? 0 : 1);//The number of textures in each horizontal row
+            var xCount = FullTileSet.Height / TileSize + (TileSize % FullTileSet.Height == 0 ? 0 : 1);//The number of textures in each vertical column
             Tiles = new Texture2D[xCount * yCount];//Number of parts = (area of original) / (area of each part).
             int resolution = TileSize * TileSize;//Number of pixels in each of the split parts
 
             //Get the pixel data from the original texture:
-            Color[] originalData = new Color[Tilemap.Width * Tilemap.Height];
-            Tilemap.GetData<Color>(originalData);
+            Color[] originalData = new Color[FullTileSet.Width * FullTileSet.Height];
+            FullTileSet.GetData<Color>(originalData);
 
             int index = 0;
             for (int y = 0; y < yCount * TileSize; y += TileSize)
@@ -68,7 +68,7 @@ namespace monogame.Primitives
                 for (int x = 0; x < xCount * TileSize; x += TileSize)
                 {
                     //The texture at coordinate {x, y} from the top-left of the original texture
-                    Texture2D chunk = new Texture2D(Tilemap.GraphicsDevice, TileSize, TileSize);
+                    Texture2D chunk = new Texture2D(FullTileSet.GraphicsDevice, TileSize, TileSize);
                     //The data for part
                     Color[] chunkData = new Color[resolution];
 
@@ -79,10 +79,10 @@ namespace monogame.Primitives
                         {
                             int partIndex = width + height * TileSize;
                             //If a part goes outside of the source texture, then fill the overlapping part with Color.Transparent
-                            if (y + height >= Tilemap.Height || x + width >= Tilemap.Width)
+                            if (y + height >= FullTileSet.Height || x + width >= FullTileSet.Width)
                                 chunkData[partIndex] = Color.Transparent;
                             else
-                                chunkData[partIndex] = originalData[(x + width) + (y + height) * Tilemap.Width];
+                                chunkData[partIndex] = originalData[(x + width) + (y + height) * FullTileSet.Width];
                         }
                     }
                     //Fill the part with the extracted data
