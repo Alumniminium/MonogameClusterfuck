@@ -4,10 +4,12 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/home/alumni/Projects/monogame/Content/Font.spritefont</File>
-    <File>/home/alumni/Projects/monogame/Content/terrain.png</File>
+    <File>R:/SourceCode/Apps/MonogameClusterfuck-master/Content/Font.spritefont</File>
+    <File>R:/SourceCode/Apps/MonogameClusterfuck-master/Content/selectionrect.png</File>
+    <File>R:/SourceCode/Apps/MonogameClusterfuck-master/Content/terrain.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

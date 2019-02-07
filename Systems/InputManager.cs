@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace monogame.Systems
+namespace MonoGameClusterFuck.Systems
 {
     public class InputManager
     {
@@ -23,7 +23,7 @@ namespace monogame.Systems
         {
             UpdateStates();
 
-            if (GamePadState.Buttons.Back == ButtonState.Pressed || KeyboardState.IsKeyDown(Keys.Escape))
+            if (KeyPressed(Keys.Escape))
                 Game.Instance.Exit();
 
             if (KeyPressed(Keys.H))

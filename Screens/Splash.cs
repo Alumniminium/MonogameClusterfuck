@@ -1,4 +1,4 @@
-namespace monogame.Screens
+namespace MonoGameClusterFuck.Screens
 {
     public class Splash
     {

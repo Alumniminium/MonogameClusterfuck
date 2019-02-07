@@ -1,3 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"/home/alumni/Projects/monogame/Content/Font.spritefont","/home/alumni/Projects/monogame/Content/bin/DesktopGL/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21521,0.436
-"/home/alumni/Projects/monogame/Content/terrain.png","/home/alumni/Projects/monogame/Content/bin/DesktopGL/terrain.xnb","TextureProcessor","Texture2DContent",254275,4194389,0.238478
+"R:/SourceCode/Apps/MonogameClusterfuck-master/Content/Font.spritefont","R:/SourceCode/Apps/MonogameClusterfuck-master/Content/bin/DesktopGL/Font.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21521,0.404003
+"R:/SourceCode/Apps/MonogameClusterfuck-master/Content/selectionrect.png","R:/SourceCode/Apps/MonogameClusterfuck-master/Content/bin/DesktopGL/selectionrect.xnb","TextureProcessor","Texture2DContent",192,4181,0.0309485
+"R:/SourceCode/Apps/MonogameClusterfuck-master/Content/terrain.png","R:/SourceCode/Apps/MonogameClusterfuck-master/Content/bin/DesktopGL/terrain.xnb","TextureProcessor","Texture2DContent",254275,4194389,0.2490998

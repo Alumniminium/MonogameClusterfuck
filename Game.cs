@@ -1,10 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using monogame.Primitives;
-using monogame.Systems;
+using MonoGameClusterFuck.Primitives;
+using MonoGameClusterFuck.Systems;
+using System;
 
-namespace monogame
+namespace MonoGameClusterFuck
 {
     public class Game : Microsoft.Xna.Framework.Game
     {
@@ -12,11 +13,13 @@ namespace monogame
         public int Height => GraphicsDevice.PresentationParameters.BackBufferHeight;
         public int Width => GraphicsDevice.PresentationParameters.BackBufferWidth;
         public SpriteBatch SpriteBatch;
+        public InputManager InputManager;
+        public Camera Camera;
 
+        public Cursor Cursor;
         GraphicsDeviceManager graphics;
         TileSet TileSet;
         KeyboardState KeyboardState;
-        InputManager InputManager;
         FpsCounter FpsCounter;
 
         public Game()
@@ -24,7 +27,7 @@ namespace monogame
             IsFixedTimeStep = false; //Allow >60fps
             graphics = new GraphicsDeviceManager(this)
             {
-                SynchronizeWithVerticalRetrace = false, //Vsync
+                SynchronizeWithVerticalRetrace = true, //Vsync
                 PreferredBackBufferHeight = 720,
                 PreferredBackBufferWidth = 1280
             };
@@ -36,15 +39,18 @@ namespace monogame
         protected override void Initialize()
         {
             TileSet = new TileSet(32);
+            Cursor = new Cursor(32);
             KeyboardState = Keyboard.GetState();
             InputManager = new InputManager();
             FpsCounter = new FpsCounter();
+            Camera=new Camera(GraphicsDevice.Viewport);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Cursor.LoadContent();
             TileSet.LoadContent(Content);
             Fonts.LoadContent(Content);
         }
@@ -52,6 +58,7 @@ namespace monogame
         protected override void Update(GameTime gameTime)
         {
             InputManager.Update();
+            Camera.Update(GraphicsDevice.Viewport, gameTime);
             base.Update(gameTime);
         }
 
@@ -59,7 +66,8 @@ namespace monogame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SpriteBatch.Begin();
+            SpriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullNone,null,Camera.Transform);
+
 
             if (GlobalState.DrawTileSet)
                 TileSet.Draw();
@@ -71,6 +79,8 @@ namespace monogame
 
             FpsCounter.Draw();
 
+
+            Cursor.Draw();
             SpriteBatch.End();
             base.Draw(gameTime);
             GlobalState.Frames++;

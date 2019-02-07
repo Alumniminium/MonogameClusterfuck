@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
-namespace monogame.Primitives
+namespace MonoGameClusterFuck.Primitives
 {
     public class Tile
     {

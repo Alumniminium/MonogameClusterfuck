@@ -1,7 +1,7 @@
 using System.Timers;
 using Microsoft.Xna.Framework;
 
-namespace monogame.Systems
+namespace MonoGameClusterFuck.Systems
 {
     public class FpsCounter
     {

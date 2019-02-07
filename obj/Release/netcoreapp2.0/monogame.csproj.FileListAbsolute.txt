@@ -1,0 +1,12 @@
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\Content\Font.xnb
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\Content\terrain.xnb
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\monogame.deps.json
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\monogame.runtimeconfig.json
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\monogame.runtimeconfig.dev.json
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\monogame.dll
+R:\SourceCode\Apps\MonogameClusterfuck-master\bin\Release\netcoreapp2.0\monogame.pdb
+R:\SourceCode\Apps\MonogameClusterfuck-master\obj\Release\netcoreapp2.0\monogame.csproj.CoreCompileInputs.cache
+R:\SourceCode\Apps\MonogameClusterfuck-master\obj\Release\netcoreapp2.0\monogame.AssemblyInfoInputs.cache
+R:\SourceCode\Apps\MonogameClusterfuck-master\obj\Release\netcoreapp2.0\monogame.AssemblyInfo.cs
+R:\SourceCode\Apps\MonogameClusterfuck-master\obj\Release\netcoreapp2.0\monogame.dll
+R:\SourceCode\Apps\MonogameClusterfuck-master\obj\Release\netcoreapp2.0\monogame.pdb

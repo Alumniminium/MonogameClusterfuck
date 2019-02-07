@@ -1,4 +1,4 @@
-namespace monogame
+namespace MonoGameClusterFuck
 {
     public static class GlobalState
     {
