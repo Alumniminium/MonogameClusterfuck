@@ -8,6 +8,5 @@ namespace MonoGameClusterFuck.Entities
     {
         public Camera Camera;
         public Sprite Sprite;
-        public Vector2 Location => Sprite.Position;
     }
 }

@@ -27,7 +27,7 @@ namespace MonoGameClusterFuck
             IsFixedTimeStep = false; //Allow >60fps
             graphics = new GraphicsDeviceManager(this)
             {
-                SynchronizeWithVerticalRetrace = true, //Vsync
+                SynchronizeWithVerticalRetrace = false, //Vsync
                 PreferredBackBufferHeight = 720,
                 PreferredBackBufferWidth = 1280
             };
@@ -59,6 +59,7 @@ namespace MonoGameClusterFuck
         {
             InputManager.Update();
             Camera.Update(GraphicsDevice.Viewport, gameTime);
+            Cursor.Update(gameTime);
             base.Update(gameTime);
         }
 
