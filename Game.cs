@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
@@ -22,15 +23,15 @@ namespace MonoGameClusterFuck
         TileSet TileSet;
         KeyboardState KeyboardState;
         FpsCounter FpsCounter;
-
+        Player Player;
         public Game()
         {
             IsFixedTimeStep = false; //Allow >60fps
             graphics = new GraphicsDeviceManager(this)
             {
-                SynchronizeWithVerticalRetrace = false, //Vsync
-                PreferredBackBufferHeight = 480,
-                PreferredBackBufferWidth = 854
+                SynchronizeWithVerticalRetrace = true, //Vsync
+                PreferredBackBufferHeight = 1080,
+                PreferredBackBufferWidth = 1920
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -45,18 +46,20 @@ namespace MonoGameClusterFuck
             InputManager = new InputManager();
             FpsCounter = new FpsCounter();
             Camera = new Camera(GraphicsDevice.Viewport);
+            Player=new Player(32);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+            Player.LoadContent();
             Cursor.LoadContent();
             TileSet.LoadContent();
             Fonts.LoadContent(Content);
-
             GlobalState.Layers[LayerType.UI].Add(Cursor);
             GlobalState.Layers[LayerType.Ground].Add(TileSet);
+            GlobalState.Layers[LayerType.Entity].Add(Player);
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,6 +67,7 @@ namespace MonoGameClusterFuck
             InputManager.Update();
             Camera.Update(GraphicsDevice.Viewport, gameTime);
             Cursor.Update(gameTime);
+            Player.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -77,7 +81,6 @@ namespace MonoGameClusterFuck
             {
                 GlobalState.Layers[(Layers.LayerType)i].Draw();
             }
-            
             SpriteBatch.End();
             SpriteBatch.Begin();
             FpsCounter.Draw();

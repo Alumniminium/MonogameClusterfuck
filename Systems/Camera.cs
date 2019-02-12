@@ -19,7 +19,7 @@ namespace MonoGameClusterFuck.Systems
         public Camera(Viewport viewport)
         {
             Bounds = viewport.Bounds;
-            Zoom = 1f;
+            Zoom = 3f;
             Position = new Vector2(viewport.Width /2, viewport.Height/2);
         }
 
@@ -53,6 +53,10 @@ namespace MonoGameClusterFuck.Systems
             Vector2 newPosition = Position + movePosition;
             Position = newPosition;
         }
+        public void MoveCameraAbs(Vector2 movePosition)
+        {
+            Position = movePosition;
+        }
 
         public void AdjustZoom(float zoomAmount)
         {
@@ -78,19 +82,19 @@ namespace MonoGameClusterFuck.Systems
 
             if (Zoom > .8f)
             {
-                moveSpeed = 150;
+                moveSpeed = 100;
             }
             else if (Zoom < .8f && Zoom >= .6f)
             {
-                moveSpeed = 200;
+                moveSpeed = 100;
             }
             else if (Zoom < .6f && Zoom > .35f)
             {
-                moveSpeed = 250;
+                moveSpeed = 100;
             }
             else if (Zoom <= .35f)
             {
-                moveSpeed = 300;
+                moveSpeed = 100;
             }
             else
             {
