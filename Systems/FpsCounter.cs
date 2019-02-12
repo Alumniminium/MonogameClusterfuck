@@ -23,7 +23,8 @@ namespace MonoGameClusterFuck.Systems
 
         public void Draw()
         {
-            Game.Instance.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{FPS}", new Vector2(Game.Instance.Width-150, 32), Color.Red);
+            var stringSize = Fonts.Generic.MeasureString($"FPS:{FPS}");
+            Game.Instance.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{FPS}", new Vector2(Game.Instance.Width - stringSize.X, 0), Color.Red);
         }
     }
 }

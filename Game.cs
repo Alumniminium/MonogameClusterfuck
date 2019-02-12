@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
 using System;
@@ -28,8 +29,8 @@ namespace MonoGameClusterFuck
             graphics = new GraphicsDeviceManager(this)
             {
                 SynchronizeWithVerticalRetrace = false, //Vsync
-                PreferredBackBufferHeight = 720,
-                PreferredBackBufferWidth = 1280
+                PreferredBackBufferHeight = 480,
+                PreferredBackBufferWidth = 854
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -43,7 +44,7 @@ namespace MonoGameClusterFuck
             KeyboardState = Keyboard.GetState();
             InputManager = new InputManager();
             FpsCounter = new FpsCounter();
-            Camera=new Camera(GraphicsDevice.Viewport);
+            Camera = new Camera(GraphicsDevice.Viewport);
             base.Initialize();
         }
 
@@ -51,8 +52,11 @@ namespace MonoGameClusterFuck
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             Cursor.LoadContent();
-            TileSet.LoadContent(Content);
+            TileSet.LoadContent();
             Fonts.LoadContent(Content);
+
+            GlobalState.Layers[LayerType.UI].Add(Cursor);
+            GlobalState.Layers[LayerType.Ground].Add(TileSet);
         }
 
         protected override void Update(GameTime gameTime)
@@ -67,21 +71,16 @@ namespace MonoGameClusterFuck
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SpriteBatch.Begin(SpriteSortMode.Deferred,BlendState.AlphaBlend,SamplerState.PointClamp,DepthStencilState.Default,RasterizerState.CullNone,null,Camera.Transform);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
 
-
-            if (GlobalState.DrawTileSet)
-                TileSet.Draw();
-            else
-                TileSet.Draw(default(Point));
-
-            if (GlobalState.DisplayHelp)
-                SpriteBatch.DrawString(Fonts.Generic, "Press H to toggle Tileset Display", new Vector2(Width - 235, 0), Color.Red);
-
+            for (int i = GlobalState.Layers.Count-1; i > 0; i--)
+            {
+                GlobalState.Layers[(Layers.LayerType)i].Draw();
+            }
+            
+            SpriteBatch.End();
+            SpriteBatch.Begin();
             FpsCounter.Draw();
-
-
-            Cursor.Draw();
             SpriteBatch.End();
             base.Draw(gameTime);
             GlobalState.Frames++;
