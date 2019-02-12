@@ -27,8 +27,8 @@ namespace MonoGameClusterFuck.Systems
         }
         public override void Update(GameTime deltaTime)
         {
-            var X = Game.Instance.InputManager.MouseState.X;
-            var Y = Game.Instance.InputManager.MouseState.Y;
+            var X = Position.X;
+            var Y = Position.Y;
             if (Game.Instance.InputManager.MouseState.LeftButton == ButtonState.Pressed && Game.Instance.InputManager.LastMouseState.LeftButton != ButtonState.Pressed)
             {
                 SelectionPosition.X = X;
@@ -63,14 +63,19 @@ namespace MonoGameClusterFuck.Systems
             }
             if (Game.Instance.InputManager.MouseState.LeftButton == ButtonState.Released)
             {
-                for(int i=0;i<Lines.Length;i++)
-                    Lines[i]= Rectangle.Empty;
+                for (int i = 0; i < Lines.Length; i++)
+                    Lines[i] = Rectangle.Empty;
             }
         }
         public override void Draw()
         {
-            for(int i =0;i<Lines.Length;i++)
-                Game.Instance.SpriteBatch.Draw(Texture,Lines[i],Source,Color.White);
+            for (int i = 0; i < Lines.Length; i++)
+                Game.Instance.SpriteBatch.Draw(Texture, Lines[i], Source, Color.White);
+        }
+
+        public void SetPosition(Point pos)
+        {
+            Position = pos;
         }
     }
     public class Cursor : Sprite
@@ -80,7 +85,7 @@ namespace MonoGameClusterFuck.Systems
         public Cursor(int size) : base(size)
         {
             CursorVector = Vector2.Zero;
-            SelectionRect=new SelectionRectangle(1);
+            SelectionRect = new SelectionRectangle(1);
         }
 
         public override void LoadContent()
@@ -96,6 +101,7 @@ namespace MonoGameClusterFuck.Systems
             Position.X = (int)(CursorVector.X / 32) * 32 + (int)RotationOrigin.X;
             Position.Y = (int)(CursorVector.Y / 32) * 32 + (int)RotationOrigin.Y;
             Destination.Location = Position;
+            SelectionRect.SetPosition(Position);
             SelectionRect.Update(deltaTime);
         }
         public override void Draw()
