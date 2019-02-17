@@ -19,7 +19,7 @@ namespace MonoGameClusterFuck.Primitives
 
         public override void Draw()
         {
-                int count = 0;
+            int count = 0;
             if (GlobalState.DrawTileSet)
             {
                 var location = Point.Zero;
@@ -28,12 +28,14 @@ namespace MonoGameClusterFuck.Primitives
                 var destRect = new Rectangle(location, Size);
                 var viewbounds = Game.Instance.Camera.VisibleArea;
 
-                var xbounds = viewbounds.X / 32 * 32;
-                var ybounds = viewbounds.Y / 32 * 32;
-                for (int y = 0; y < Game.Instance.Height; y += Size.Y)
+                var left = (viewbounds.Left / Size.X * Size.X) - Size.X;
+                var top = (viewbounds.Top / Size.Y * Size.Y) - Size.Y;
+                for (int y = top; y <= Math.Min(Texture.Height,viewbounds.Bottom); y += Size.Y)
                 {
-                    for (int x = 0; x < Game.Instance.Width; x += Size.X)
+                    for (int x = left; x <= Math.Min(Texture.Width,viewbounds.Right); x += Size.X)
                     {
+                        if (x < 0 || y < 0)
+                            continue;
                         location.X = x;
                         location.Y = y;
                         sourceRect.Location = location;
@@ -42,7 +44,7 @@ namespace MonoGameClusterFuck.Primitives
                         labelPos.Y = location.Y;
 
                         Game.Instance.SpriteBatch.Draw(Texture, destRect, sourceRect, Color.White);
-                        //Game.Instance.SpriteBatch.DrawString(Fonts.Generic, count.ToString(), labelPos, Color.White);
+                        Game.Instance.SpriteBatch.DrawString(Fonts.Generic, count.ToString(), labelPos, Color.White);
                         count++;
                     }
                 }
@@ -57,11 +59,11 @@ namespace MonoGameClusterFuck.Primitives
                 var destRect = new Rectangle(Point.Zero, Size);
                 var viewbounds = Game.Instance.Camera.VisibleArea;
 
-                var xbounds = viewbounds.X / 32 * 32;
-                var ybounds = viewbounds.Y / 32 * 32;
-                for (int x = 0; x < Game.Instance.Width; x += Size.X)
+                var left = (viewbounds.Left / Size.X * Size.X) - Size.X;
+                var top = (viewbounds.Top / Size.Y * Size.Y) - Size.Y;
+                for (int x = left; x <= viewbounds.Right; x += Size.X)
                 {
-                    for (int y = 0; y < Game.Instance.Height; y += Size.Y)
+                    for (int y = top; y <= viewbounds.Bottom; y += Size.Y)
                     {
                         location.X = x;
                         location.Y = y;

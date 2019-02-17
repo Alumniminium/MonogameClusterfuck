@@ -30,8 +30,8 @@ namespace MonoGameClusterFuck
             graphics = new GraphicsDeviceManager(this)
             {
                 SynchronizeWithVerticalRetrace = true, //Vsync
-                PreferredBackBufferHeight = 1080,
-                PreferredBackBufferWidth = 1920
+                PreferredBackBufferHeight = 720,
+                PreferredBackBufferWidth = 1280
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -47,6 +47,7 @@ namespace MonoGameClusterFuck
             FpsCounter = new FpsCounter();
             Camera = new Camera(GraphicsDevice.Viewport);
             Player=new Player(32);
+            Player.Initialize();
             base.Initialize();
         }
 
@@ -73,7 +74,7 @@ namespace MonoGameClusterFuck
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Magenta);
 
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
 

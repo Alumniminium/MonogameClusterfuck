@@ -47,12 +47,6 @@ namespace MonoGameClusterFuck.Systems
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
             UpdateVisibleArea();
         }
-
-        public void MoveCamera(Vector2 movePosition)
-        {
-            Vector2 newPosition = Position + movePosition;
-            Position = newPosition;
-        }
         public void MoveCameraAbs(Vector2 movePosition)
         {
             Position = movePosition;
@@ -61,13 +55,13 @@ namespace MonoGameClusterFuck.Systems
         public void AdjustZoom(float zoomAmount)
         {
             Zoom += zoomAmount;
-            if (Zoom < .05f)
+            if (Zoom < .15f)
             {
-                Zoom = .05f;
+                Zoom = .15f;
             }
-            if (Zoom > 5f)
+            if (Zoom > 3f)
             {
-                Zoom = 5f;
+                Zoom = 3f;
             }
         }
 
@@ -77,74 +71,21 @@ namespace MonoGameClusterFuck.Systems
             Bounds = bounds.Bounds;
             UpdateMatrix();
 
-            Vector2 cameraMovement = Vector2.Zero;
-            float moveSpeed;
-
-            if (Zoom > .8f)
-            {
-                moveSpeed = 100;
-            }
-            else if (Zoom < .8f && Zoom >= .6f)
-            {
-                moveSpeed = 100;
-            }
-            else if (Zoom < .6f && Zoom > .35f)
-            {
-                moveSpeed = 100;
-            }
-            else if (Zoom <= .35f)
-            {
-                moveSpeed = 100;
-            }
-            else
-            {
-                moveSpeed = 100;
-            }
-
-            moveSpeed = moveSpeed * delta;
-
-            if (Keyboard.GetState().IsKeyDown(PlayerControls.Up))
-            {
-                cameraMovement.Y = -moveSpeed;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(PlayerControls.Down))
-            {
-                cameraMovement.Y = moveSpeed;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(PlayerControls.Left))
-            {
-                cameraMovement.X = -moveSpeed;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(PlayerControls.Right))
-            {
-                cameraMovement.X = moveSpeed;
-            }
-
             previousMouseWheelValue = currentMouseWheelValue;
             currentMouseWheelValue = Mouse.GetState().ScrollWheelValue;
 
             if (currentMouseWheelValue > previousMouseWheelValue)
             {
                 AdjustZoom(.05f);
-                Console.WriteLine(moveSpeed);
             }
 
             if (currentMouseWheelValue < previousMouseWheelValue)
             {
                 AdjustZoom(-.05f);
-                Console.WriteLine(moveSpeed);
             }
 
             previousZoom = zoom;
             zoom = Zoom;
-            if (previousZoom != zoom)
-            {
-                Console.WriteLine(zoom);
-            }
-            MoveCamera(cameraMovement);
         }
     }
 

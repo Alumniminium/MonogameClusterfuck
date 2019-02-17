@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -5,9 +6,21 @@ namespace MonoGameClusterFuck.Primitives
 {
     public class Sprite
     {
-        public float LayerDepth =0f;
+        private Vector2 _position;
+        public float LayerDepth = 0f;
         public Texture2D Texture;
-        public Point Position;
+        public Vector2 Position
+        {
+            get
+            {
+                return _position;
+            }
+            set
+            {
+                _position = value;
+                Destination.Location = value.ToPoint();
+            }
+        }
         public Point Size;
         public float Rotation;
         public Vector2 RotationOrigin;
@@ -16,17 +29,23 @@ namespace MonoGameClusterFuck.Primitives
         public Sprite(int size)
         {
             Size = new Point(size);
-            Position = new Point(0, 0);
-            Destination = new Rectangle(Position, Size);
-            Source = new Rectangle(0, 0, size, size);
-            Rotation = 0;
-            RotationOrigin = new Vector2(size/2, size/2);
+            
         }
-
+        
         public virtual void LoadContent()
         {
-
+            Console.WriteLine("Loading Content");
         }
+
+        public virtual void Initialize()
+        {
+            Destination = new Rectangle(0, 0, Size.X, Size.Y);
+            Source = new Rectangle(0, 0, Size.X, Size.Y);
+            
+            Position = new Vector2(Size.X/2, Size.Y/2);
+            Rotation = 0;
+            RotationOrigin = new Vector2(Size.X / 2, Size.Y / 2);
+        }       
         public virtual void Update(GameTime deltaTime)
         {
 

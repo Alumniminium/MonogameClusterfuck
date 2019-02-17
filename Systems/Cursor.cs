@@ -73,7 +73,7 @@ namespace MonoGameClusterFuck.Systems
                 Game.Instance.SpriteBatch.Draw(Texture, Lines[i], Source, Color.White);
         }
 
-        public void SetPosition(Point pos)
+        public void SetPosition(Vector2 pos)
         {
             Position = pos;
         }
@@ -98,9 +98,8 @@ namespace MonoGameClusterFuck.Systems
             CursorVector.X = Game.Instance.InputManager.MouseState.X;
             CursorVector.Y = Game.Instance.InputManager.MouseState.Y;
             CursorVector = Vector2.Transform(CursorVector, Matrix.Invert(Game.Instance.Camera.Transform));
-            Position.X = (int)(CursorVector.X / 32) * 32 + (int)RotationOrigin.X;
-            Position.Y = (int)(CursorVector.Y / 32) * 32 + (int)RotationOrigin.Y;
-            Destination.Location = Position;
+            var newPosition = new Vector2((int)(CursorVector.X / 32) * 32 + (int)RotationOrigin.X,(int)(CursorVector.Y / 32) * 32 + (int)RotationOrigin.Y);
+            Position = newPosition;
             SelectionRect.SetPosition(Position);
             SelectionRect.Update(deltaTime);
         }
