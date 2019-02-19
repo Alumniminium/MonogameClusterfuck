@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Input;
 
-namespace MonoGameClusterFuck.Primitives
+namespace MonoGameClusterFuck.Settings
 {
     public static class PlayerControls
     {

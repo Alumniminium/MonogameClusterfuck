@@ -29,7 +29,6 @@ internal void DrawTileSet(SpriteBatch spriteBatch) //Slow
 
 internal void DrawTileSetOptimized(SpriteBatch spriteBatch) //Fast
 {
-    int count = 0;
     var location = new Point(0, 0);
     for (int y = 0; y < FullTileSet.Height; y += TileSize.Y)
     {
@@ -41,7 +40,6 @@ internal void DrawTileSetOptimized(SpriteBatch spriteBatch) //Fast
             var destRect = sourceRect;
 
             spriteBatch.Draw(FullTileSet, destRect, sourceRect, Color.White);
-            count++;
         }
     }
 }

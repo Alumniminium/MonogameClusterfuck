@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Primitives;
+using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
 using System;
 
@@ -11,9 +12,6 @@ namespace MonoGameClusterFuck
 {
     public class Game : Microsoft.Xna.Framework.Game
     {
-        public static Game Instance;
-        public int Height => GraphicsDevice.PresentationParameters.BackBufferHeight;
-        public int Width => GraphicsDevice.PresentationParameters.BackBufferWidth;
         public SpriteBatch SpriteBatch;
         public InputManager InputManager;
         public Camera Camera;
@@ -29,13 +27,13 @@ namespace MonoGameClusterFuck
             IsFixedTimeStep = false; //Allow >60fps
             graphics = new GraphicsDeviceManager(this)
             {
-                SynchronizeWithVerticalRetrace = true, //Vsync
-                PreferredBackBufferHeight = 720,
-                PreferredBackBufferWidth = 1280
+                SynchronizeWithVerticalRetrace = GraphicsSettings.Instance.VSync,
+                PreferredBackBufferHeight = GraphicsSettings.Instance.Height,
+                PreferredBackBufferWidth = GraphicsSettings.Instance.Width
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Instance = this;
+            GlobalState.Game=this;
         }
 
         protected override void Initialize()
@@ -74,7 +72,7 @@ namespace MonoGameClusterFuck
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Magenta);
+            GraphicsDevice.Clear(Color.CornflowerBlue);
 
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
 
@@ -89,6 +87,5 @@ namespace MonoGameClusterFuck
             base.Draw(gameTime);
             GlobalState.Frames++;
         }
-
     }
 }

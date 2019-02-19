@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "003b24dde467b825d1df4f3ea4cb6542c3bb4c0e"
+    "signature": "b81605dc428d158bd880fa1879de3a0eedf4e141"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,7 +9,8 @@
       "monogame/1.0.0": {
         "dependencies": {
           "MonoGame.Content.Builder": "3.7.0.4",
-          "MonoGame.Framework.DesktopGL.Core": "3.7.0.7"
+          "MonoGame.Framework.DesktopGL.Core": "3.7.0.7",
+          "Newtonsoft.Json": "12.0.1"
         },
         "runtime": {
           "monogame.dll": {}
@@ -75,6 +76,14 @@
             "fileVersion": "0.0.0.0"
           }
         }
+      },
+      "Newtonsoft.Json/12.0.1": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.1.22727"
+          }
+        }
       }
     }
   },
@@ -97,6 +106,13 @@
       "sha512": "sha512-juPb6yv+N362liHMbYQavmlhLzufpGGvNQqcpDGEs4BzRiycBXXjhZjCwpUekx0ozLfQ+kjirnuA3/M2lc4tMQ==",
       "path": "monogame.framework.desktopgl.core/3.7.0.7",
       "hashPath": "monogame.framework.desktopgl.core.3.7.0.7.nupkg.sha512"
+    },
+    "Newtonsoft.Json/12.0.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jmVyoEyk0In8r+AObYQyFKVFm7uSRzE0XSHSbEtBJcZDMV6DqJoyB4FLcHwprPVhAh826so0db3DIKXVnpGoPA==",
+      "path": "newtonsoft.json/12.0.1",
+      "hashPath": "newtonsoft.json.12.0.1.nupkg.sha512"
     }
   }
 }

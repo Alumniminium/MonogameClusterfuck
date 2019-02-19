@@ -14,7 +14,7 @@ namespace MonoGameClusterFuck.Primitives
 
         public override void LoadContent()
         {
-            Texture = Game.Instance.Content.Load<Texture2D>("terrain");
+            Texture = GlobalState.Game.Content.Load<Texture2D>("terrain");
         }
 
         public override void Draw()
@@ -26,7 +26,7 @@ namespace MonoGameClusterFuck.Primitives
                 var labelPos = Vector2.Zero;
                 var sourceRect = new Rectangle(location, Size);
                 var destRect = new Rectangle(location, Size);
-                var viewbounds = Game.Instance.Camera.VisibleArea;
+                var viewbounds = GlobalState.Game.Camera.VisibleArea;
 
                 var left = (viewbounds.Left / Size.X * Size.X) - Size.X;
                 var top = (viewbounds.Top / Size.Y * Size.Y) - Size.Y;
@@ -43,8 +43,8 @@ namespace MonoGameClusterFuck.Primitives
                         labelPos.X = location.X;
                         labelPos.Y = location.Y;
 
-                        Game.Instance.SpriteBatch.Draw(Texture, destRect, sourceRect, Color.White);
-                        Game.Instance.SpriteBatch.DrawString(Fonts.Generic, count.ToString(), labelPos, Color.White);
+                        GlobalState.Game.SpriteBatch.Draw(Texture, destRect, sourceRect, Color.White);
+                        GlobalState.Game.SpriteBatch.DrawString(Fonts.Generic, count.ToString(), labelPos, Color.White);
                         count++;
                     }
                 }
@@ -57,7 +57,7 @@ namespace MonoGameClusterFuck.Primitives
 
                 var location = Point.Zero;
                 var destRect = new Rectangle(Point.Zero, Size);
-                var viewbounds = Game.Instance.Camera.VisibleArea;
+                var viewbounds = GlobalState.Game.Camera.VisibleArea;
 
                 var left = (viewbounds.Left / Size.X * Size.X) - Size.X;
                 var top = (viewbounds.Top / Size.Y * Size.Y) - Size.Y;
@@ -68,7 +68,7 @@ namespace MonoGameClusterFuck.Primitives
                         location.X = x;
                         location.Y = y;
                         destRect.Location = location;
-                        Game.Instance.SpriteBatch.Draw(Texture, destRect, sourceRect, Color.White);
+                        GlobalState.Game.SpriteBatch.Draw(Texture, destRect, sourceRect, Color.White);
                         count++;
                     }
                 }

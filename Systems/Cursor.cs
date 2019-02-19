@@ -22,19 +22,19 @@ namespace MonoGameClusterFuck.Systems
 
         public override void LoadContent()
         {
-            Texture = new Texture2D(Game.Instance.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            Texture = new Texture2D(GlobalState.Game.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             Texture.SetData(new[] { Color.White });
         }
         public override void Update(GameTime deltaTime)
         {
             var X = Position.X;
             var Y = Position.Y;
-            if (Game.Instance.InputManager.MouseState.LeftButton == ButtonState.Pressed && Game.Instance.InputManager.LastMouseState.LeftButton != ButtonState.Pressed)
+            if (GlobalState.Game.InputManager.MouseState.LeftButton == ButtonState.Pressed && GlobalState.Game.InputManager.LastMouseState.LeftButton != ButtonState.Pressed)
             {
                 SelectionPosition.X = X;
                 SelectionPosition.Y = Y;
             }
-            if (Game.Instance.InputManager.MouseState.LeftButton == ButtonState.Pressed && Game.Instance.InputManager.LastMouseState.LeftButton == ButtonState.Pressed)
+            if (GlobalState.Game.InputManager.MouseState.LeftButton == ButtonState.Pressed && GlobalState.Game.InputManager.LastMouseState.LeftButton == ButtonState.Pressed)
             {
                 var x = Math.Min(SelectionPosition.X, X);
                 var y = Math.Min(SelectionPosition.Y, Y);
@@ -61,7 +61,7 @@ namespace MonoGameClusterFuck.Systems
                 Lines[3].Width = (int)SelectionEndPosition.X;
                 Lines[3].Height = BorderThickness;
             }
-            if (Game.Instance.InputManager.MouseState.LeftButton == ButtonState.Released)
+            if (GlobalState.Game.InputManager.MouseState.LeftButton == ButtonState.Released)
             {
                 for (int i = 0; i < Lines.Length; i++)
                     Lines[i] = Rectangle.Empty;
@@ -70,7 +70,7 @@ namespace MonoGameClusterFuck.Systems
         public override void Draw()
         {
             for (int i = 0; i < Lines.Length; i++)
-                Game.Instance.SpriteBatch.Draw(Texture, Lines[i], Source, Color.White);
+                GlobalState.Game.SpriteBatch.Draw(Texture, Lines[i], Source, Color.White);
         }
 
         public void SetPosition(Vector2 pos)
@@ -90,14 +90,14 @@ namespace MonoGameClusterFuck.Systems
 
         public override void LoadContent()
         {
-            Texture = Game.Instance.Content.Load<Texture2D>("selectionrect");
+            Texture = GlobalState.Game.Content.Load<Texture2D>("selectionrect");
             SelectionRect.LoadContent();
         }
         public override void Update(GameTime deltaTime)
         {
-            CursorVector.X = Game.Instance.InputManager.MouseState.X;
-            CursorVector.Y = Game.Instance.InputManager.MouseState.Y;
-            CursorVector = Vector2.Transform(CursorVector, Matrix.Invert(Game.Instance.Camera.Transform));
+            CursorVector.X = GlobalState.Game.InputManager.MouseState.X;
+            CursorVector.Y = GlobalState.Game.InputManager.MouseState.Y;
+            CursorVector = Vector2.Transform(CursorVector, Matrix.Invert(GlobalState.Game.Camera.Transform));
             var newPosition = new Vector2((int)(CursorVector.X / 32) * 32 + (int)RotationOrigin.X,(int)(CursorVector.Y / 32) * 32 + (int)RotationOrigin.Y);
             Position = newPosition;
             SelectionRect.SetPosition(Position);

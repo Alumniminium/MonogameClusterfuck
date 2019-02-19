@@ -1,11 +1,14 @@
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Primitives;
+using MonoGameClusterFuck.Settings;
 using System.Collections.Generic;
 
 namespace MonoGameClusterFuck
 {
     public static class GlobalState
     {
+        public static GraphicsSettings GraphicsSettings = GraphicsSettings.Instance;
+        public static Game Game{get;set;}
         public static bool DrawTileSet { get; set; }
         public static bool DisplayHelp { get; set; } = true;
         public static int Frames { get; internal set; }
@@ -17,13 +20,6 @@ namespace MonoGameClusterFuck
             [LayerType.Entity] = new Layer(LayerType.Entity),
             [LayerType.GroundDecoration] = new Layer(LayerType.GroundDecoration),
             [LayerType.Ground] = new Layer(LayerType.Ground),
-        };
-    }
-    public static class Assets
-    {
-        public static Dictionary<int, Sprite> Tiles = new Dictionary<int, Sprite>
-        {
-            [0] = new Sprite(32),
         };
     }
 }

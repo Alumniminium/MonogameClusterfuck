@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGameClusterFuck.Settings;
 
 namespace MonoGameClusterFuck.Systems
 {
@@ -23,10 +24,12 @@ namespace MonoGameClusterFuck.Systems
             UpdateStates();
 
             if (KManager.KeyPressed(Keys.Escape))
-                Game.Instance.Exit();
-
+            {
+                GlobalState.GraphicsSettings.Save();
+                GlobalState.Game.Exit();
+            }
             if (KManager.KeyPressed(Keys.H))
                 GlobalState.DrawTileSet = !GlobalState.DrawTileSet;
-        }   
+        }
     }
 }
