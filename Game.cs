@@ -7,7 +7,6 @@ using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
 using System;
-
 namespace MonoGameClusterFuck
 {
     public class Game : Microsoft.Xna.Framework.Game
@@ -22,6 +21,7 @@ namespace MonoGameClusterFuck
         KeyboardState KeyboardState;
         FpsCounter FpsCounter;
         Player Player;
+
         public Game()
         {
             IsFixedTimeStep = false; //Allow >60fps
@@ -29,7 +29,8 @@ namespace MonoGameClusterFuck
             {
                 SynchronizeWithVerticalRetrace = GraphicsSettings.Instance.VSync,
                 PreferredBackBufferHeight = GraphicsSettings.Instance.Height,
-                PreferredBackBufferWidth = GraphicsSettings.Instance.Width
+                PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
+                IsFullScreen = GraphicsSettings.Instance.Fullscreen
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -46,6 +47,7 @@ namespace MonoGameClusterFuck
             Camera = new Camera(GraphicsDevice.Viewport);
             Player=new Player(32);
             Player.Initialize();
+
             base.Initialize();
         }
 

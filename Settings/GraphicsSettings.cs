@@ -42,7 +42,7 @@ namespace MonoGameClusterFuck.Settings
         }
         public void Save()
         {
-            var json = JsonConvert.SerializeObject(_instance);
+            var json = JsonConvert.SerializeObject(_instance,Formatting.Indented);
             File.WriteAllText(ConfigPath,json);
         }
     }
