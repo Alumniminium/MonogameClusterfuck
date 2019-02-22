@@ -17,14 +17,14 @@ namespace MonoGameClusterFuck.Systems
 
         private void Elapsed(object sender, ElapsedEventArgs e)
         {
-            FPS = GlobalState.Frames;
-            GlobalState.Frames = 0;
+            FPS = Engine.Frames;
+            Engine.Frames = 0;
         }
 
         public void Draw()
         {
             var stringSize = Fonts.Generic.MeasureString($"FPS:{FPS}");
-            GlobalState.Game.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{FPS}", new Vector2(GlobalState.Game.GraphicsDevice.Viewport.Width - stringSize.X, 0), Color.Red);
+            Engine.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{FPS}", new Vector2(Engine.Instance.GraphicsDevice.Viewport.Width - stringSize.X, 0), Color.Red);
         }
     }
 }

@@ -11,12 +11,8 @@ namespace MonoGameClusterFuck.Entities
 {
     public class Player : Sprite
     {
-        bool idle = true;
         WalkAnimations WalkAnimations;
         Animation currentAnimation;
-        Vector2 StartPosition;
-        Vector2 EndPosition;
-        float Timer;
         float Speed = 40f;
         public Player(int size) : base(size)
         {
@@ -25,7 +21,7 @@ namespace MonoGameClusterFuck.Entities
 
         public override void LoadContent()
         {
-            Texture = GlobalState.Game.Content.Load<Texture2D>("player_f");
+            Texture = Engine.Instance.Content.Load<Texture2D>("player_f");
         }
 
         public override void Initialize()
@@ -35,7 +31,7 @@ namespace MonoGameClusterFuck.Entities
             currentAnimation = WalkAnimations.idleDown;
 
             RotationOrigin = new Vector2(Size.X, Size.Y);
-            Position= new Vector2(0,0);
+            Position = new Vector2(0, 0);
         }
         public void Move(Vector2 position)
         {
@@ -98,53 +94,45 @@ namespace MonoGameClusterFuck.Entities
         public override void Update(GameTime deltaTime)
         {
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
-            var keyboard = GlobalState.Game.InputManager.KManager;
-            
-            if (keyboard.KeyDown(PlayerControls.Up))
-                {
-                    idle = false;
-                    Position += new Vector2(StartPosition.X, StartPosition.Y - (Speed*delta));
-                    Timer = 0;
-                    currentAnimation = WalkAnimations.walkUp;
-                }
-                else if (keyboard.KeyDown(PlayerControls.Left))
-                {
-                    idle = false;
-                    Position += new Vector2(StartPosition.X - (Speed*delta), StartPosition.Y);
-                    Timer = 0;
-                    currentAnimation = WalkAnimations.walkLeft;
-                }
-                else if (keyboard.KeyDown(PlayerControls.Right))
-                {
-                    idle = false;
-                    Position += new Vector2(StartPosition.X + (Speed*delta), StartPosition.Y);
-                    Timer = 0;
-                    currentAnimation = WalkAnimations.walkRight;
-                }
-                else if (keyboard.KeyDown(PlayerControls.Down))
-                {
-                    idle = false;
-                    Position += new Vector2(StartPosition.X, StartPosition.Y + (Speed*delta));
-                    Timer = 0;
-                    currentAnimation = WalkAnimations.walkDown;
-                }
+            var keyboard = Engine.InputManager.KManager;
+            var currentPosition = Position;
 
-                if (idle)
-                {
-                    if (currentAnimation == WalkAnimations.walkUp)
-                        currentAnimation = WalkAnimations.idleUp;
-                    else if (currentAnimation == WalkAnimations.walkLeft)
-                        currentAnimation = WalkAnimations.idleLeft;
-                    else if (currentAnimation == WalkAnimations.walkRight)
-                        currentAnimation = WalkAnimations.idleRight;
-                    else if(currentAnimation == WalkAnimations.walkDown)
-                        currentAnimation = WalkAnimations.idleDown;
-                }
-                
+            if (keyboard.KeyDown(PlayerControls.Up))
+            {
+                Position -= new Vector2(0, Speed * delta);
+                currentAnimation = WalkAnimations.walkUp;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Left))
+            {
+                Position -= new Vector2(Speed * delta, 0);
+                currentAnimation = WalkAnimations.walkLeft;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Right))
+            {
+                Position += new Vector2(Speed * delta, 0);
+                currentAnimation = WalkAnimations.walkRight;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Down))
+            {
+                Position += new Vector2(0, Speed * delta);
+                currentAnimation = WalkAnimations.walkDown;
+            }
+            else
+            {
+                if (currentAnimation == WalkAnimations.walkUp)
+                    currentAnimation = WalkAnimations.idleUp;
+                else if (currentAnimation == WalkAnimations.walkLeft)
+                    currentAnimation = WalkAnimations.idleLeft;
+                else if (currentAnimation == WalkAnimations.walkRight)
+                    currentAnimation = WalkAnimations.idleRight;
+                else if (currentAnimation == WalkAnimations.walkDown)
+                    currentAnimation = WalkAnimations.idleDown;
+            }
+
             currentAnimation.Update(deltaTime);
             Source = currentAnimation.CurrentRectangle;
-            var cameraPos = Position - new Vector2(Size.X/2,0);
-            GlobalState.Game.Camera.MoveCameraAbs(cameraPos);
+            var cameraPos = Position - new Vector2(Size.X / 2, Size.Y / 2);
+            Engine.Camera.MoveCameraAbs(cameraPos);
         }
         public override void Draw()
         {

@@ -875,11 +875,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/monogame.csproj",
+      "projectUniqueName": "/home/alumni/Projects/monogame/monogame.csproj",
       "projectName": "monogame",
-      "projectPath": "/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/monogame.csproj",
+      "projectPath": "/home/alumni/Projects/monogame/monogame.csproj",
       "packagesPath": "/home/alumni/.nuget/packages/",
-      "outputPath": "/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/obj/",
+      "outputPath": "/home/alumni/Projects/monogame/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/opt/dotnet/sdk/NuGetFallbackFolder"

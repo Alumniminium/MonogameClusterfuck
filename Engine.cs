@@ -6,23 +6,29 @@ using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
+using MonogameClusterfuck_master.Primitives;
 using System;
+using System.Collections.Generic;
+
 namespace MonoGameClusterFuck
 {
-    public class Game : Microsoft.Xna.Framework.Game
+    public class Engine : Microsoft.Xna.Framework.Game
     {
-        public SpriteBatch SpriteBatch;
-        public InputManager InputManager;
-        public Camera Camera;
+        public static Engine Instance;
+        public static bool DrawTileSet { get; set; }
+        public static bool DisplayHelp { get; set; } = true;
+        public static int Frames { get; internal set; }
+        public static SpriteBatch SpriteBatch;
+        public static Camera Camera;
+        public static KeyboardManager KeyboardManager;
+        public static InputManager InputManager;
+        public static Cursor Cursor;
+        public static GraphicsDeviceManager graphics;
+        public static TileSet TileSet;
+        public static FpsCounter FpsCounter;
+        public static Player Player;
 
-        public Cursor Cursor;
-        GraphicsDeviceManager graphics;
-        TileSet TileSet;
-        KeyboardState KeyboardState;
-        FpsCounter FpsCounter;
-        Player Player;
-
-        public Game()
+        public Engine()
         {
             IsFixedTimeStep = false; //Allow >60fps
             graphics = new GraphicsDeviceManager(this)
@@ -34,15 +40,15 @@ namespace MonoGameClusterFuck
             };
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            GlobalState.Game=this;
+            Instance = this;
         }
 
         protected override void Initialize()
         {
             TileSet = new TileSet(32);
             Cursor = new Cursor(32);
-            KeyboardState = Keyboard.GetState();
             InputManager = new InputManager();
+            KeyboardManager = InputManager.KManager;
             FpsCounter = new FpsCounter();
             Camera = new Camera(GraphicsDevice.Viewport);
             Player=new Player(32);
@@ -58,9 +64,9 @@ namespace MonoGameClusterFuck
             Cursor.LoadContent();
             TileSet.LoadContent();
             Fonts.LoadContent(Content);
-            GlobalState.Layers[LayerType.UI].Add(Cursor);
-            GlobalState.Layers[LayerType.Ground].Add(TileSet);
-            GlobalState.Layers[LayerType.Entity].Add(Player);
+            GameMap.Layers[LayerType.UI].Add(Cursor);
+            GameMap.Layers[LayerType.Ground].Add(TileSet);
+            GameMap.Layers[LayerType.Entity].Add(Player);
         }
 
         protected override void Update(GameTime gameTime)
@@ -78,16 +84,16 @@ namespace MonoGameClusterFuck
 
             SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
 
-            for (int i = GlobalState.Layers.Count-1; i > 0; i--)
+            for (int i = GameMap.Layers.Count-1; i > 0; i--)
             {
-                GlobalState.Layers[(Layers.LayerType)i].Draw();
+                GameMap.Layers[(Layers.LayerType)i].Draw();
             }
             SpriteBatch.End();
             SpriteBatch.Begin();
             FpsCounter.Draw();
             SpriteBatch.End();
             base.Draw(gameTime);
-            GlobalState.Frames++;
+            Frames++;
         }
     }
 }

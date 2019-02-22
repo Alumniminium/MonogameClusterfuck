@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/Content/Font.spritefont</File>
-    <File>/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/Content/player_f.png</File>
-    <File>/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/Content/selectionrect.png</File>
-    <File>/home/alumni/SERVERS/HomeServer/SourceCode/Apps/MonogameClusterfuck-master/Content/terrain.png</File>
+    <File>/home/alumni/Projects/monogame/Content/Font.spritefont</File>
+    <File>/home/alumni/Projects/monogame/Content/player_f.png</File>
+    <File>/home/alumni/Projects/monogame/Content/selectionrect.png</File>
+    <File>/home/alumni/Projects/monogame/Content/terrain.png</File>
   </SourceFiles>
 </SourceFileCollection>

@@ -52,7 +52,7 @@ namespace MonoGameClusterFuck.Primitives
         }
         public virtual void Draw()
         {
-            GlobalState.Game.SpriteBatch.Draw(Texture, Destination, Source, Color.White, Rotation, RotationOrigin, SpriteEffects.None, LayerDepth);
+            Engine.SpriteBatch.Draw(Texture, Destination, Source, Color.White, Rotation, RotationOrigin, SpriteEffects.None, LayerDepth);
         }
     }
 }

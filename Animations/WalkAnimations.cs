@@ -6,7 +6,6 @@ namespace MonoGameClusterFuck.Animations
 {
     public class WalkAnimations
     {
-
         public Animation walkDown, idleDown, walkUp, idleUp, walkLeft, idleLeft, walkRight, idleRight;
 
         public WalkAnimations()
