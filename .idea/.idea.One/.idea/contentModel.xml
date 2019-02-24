@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2018.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2018.3/system/resharper-host/local/Transient/ReSharperHost/v183/SolutionCaches/_One.-1052526066.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeFlat">
+      <e p="Game" t="IncludeRecursive">
+        <e p="Content" t="Include">
+          <e p="Content.mgcb" t="Include" />
+        </e>
+        <e p="Game.csproj" t="IncludeRecursive" />
+        <e p="Game1.cs" t="Include" />
+        <e p="Program.cs" t="Include" />
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="Game.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="One" t="IncludeRecursive">
+        <e p="Animations" t="Include">
+          <e p="WalkAnimations.cs" t="Include" />
+        </e>
+        <e p="Content" t="Include">
+          <e p="Content.mgcb" t="Include" />
+          <e p="Font.spritefont" t="Include" />
+          <e p="bin" t="Include">
+            <e p="DesktopGL" t="Include">
+              <e p="Content" t="Include">
+                <e p="Font.xnb" t="Include" />
+                <e p="player_f.xnb" t="Include" />
+                <e p="selectionrect.xnb" t="Include" />
+                <e p="terrain.xnb" t="Include" />
+              </e>
+              <e p="Font.xnb" t="Include" />
+              <e p="player_f.xnb" t="Include" />
+              <e p="selectionrect.xnb" t="Include" />
+              <e p="terrain.xnb" t="Include" />
+            </e>
+          </e>
+          <e p="map.json" t="Include" />
+          <e p="obj" t="Include">
+            <e p="DesktopGL" t="Include">
+              <e p=".mgcontent" t="Include" />
+              <e p=".mgstats" t="Include" />
+              <e p="Content" t="Include">
+                <e p=".mgcontent" t="Include" />
+                <e p="Font.mgcontent" t="Include" />
+                <e p="player_f.mgcontent" t="Include" />
+                <e p="selectionrect.mgcontent" t="Include" />
+                <e p="terrain.mgcontent" t="Include" />
+              </e>
+              <e p="Font.mgcontent" t="Include" />
+              <e p="player_f.mgcontent" t="Include" />
+              <e p="selectionrect.mgcontent" t="Include" />
+              <e p="terrain.mgcontent" t="Include" />
+            </e>
+            <e p="Windows" t="Include">
+              <e p=".mgstats" t="Include" />
+            </e>
+          </e>
+          <e p="player_f.png" t="Include" />
+          <e p="selectionrect.png" t="Include" />
+          <e p="terrain.png" t="Include" />
+          <e p="test.tsx" t="Include" />
+          <e p="untitled.tmx" t="Include" />
+        </e>
+        <e p="Engine.cs" t="Include" />
+        <e p="Entities" t="Include">
+          <e p="Animation.cs" t="Include" />
+          <e p="AnimationFrame.cs" t="Include" />
+          <e p="Player.cs" t="Include" />
+        </e>
+        <e p="Fonts.cs" t="Include" />
+        <e p="GraphicsConfig.json" t="Include" />
+        <e p="Layers" t="Include">
+          <e p="Layer.cs" t="Include" />
+          <e p="LayerType.cs" t="Include" />
+        </e>
+        <e p="One.csproj" t="IncludeRecursive" />
+        <e p="Primitives" t="Include">
+          <e p="GameMap.cs" t="Include" />
+          <e p="Sprite.cs" t="Include" />
+          <e p="Tile.cs" t="Include" />
+          <e p="TileMap.cs" t="Include" />
+        </e>
+        <e p="Program.cs" t="Include" />
+        <e p="READ RnD.txt" t="Include" />
+        <e p="Screens" t="Include">
+          <e p="InGame.cs" t="Include" />
+          <e p="MainMenu.cs" t="Include" />
+          <e p="ScreenManager.cs" t="Include" />
+          <e p="Splash.cs" t="Include" />
+        </e>
+        <e p="Settings" t="Include">
+          <e p="GraphicsSettings.cs" t="Include" />
+          <e p="PlayerControls.cs" t="Include" />
+        </e>
+        <e p="Systems" t="Include">
+          <e p="Camera.cs" t="Include" />
+          <e p="Cursor.cs" t="Include" />
+          <e p="FpsCounter.cs" t="Include" />
+          <e p="InputManager.cs" t="Include" />
+          <e p="KeyboardManager.cs" t="Include" />
+        </e>
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp2.0" t="Include">
+              <e p="One.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+    </e>
+  </component>
+</project>
