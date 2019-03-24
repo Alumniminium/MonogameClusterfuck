@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>/home/alumni/Projects/One/One/Content/Font.spritefont</File>
-    <File>/home/alumni/Projects/One/One/Content/player_f.png</File>
-    <File>/home/alumni/Projects/One/One/Content/selectionrect.png</File>
-    <File>/home/alumni/Projects/One/One/Content/terrain.png</File>
+    <File>/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/Content/Font.spritefont</File>
+    <File>/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/Content/player_f.png</File>
+    <File>/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/Content/selectionrect.png</File>
+    <File>/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/Content/terrain.png</File>
   </SourceFiles>
 </SourceFileCollection>

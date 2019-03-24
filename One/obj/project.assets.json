@@ -869,19 +869,23 @@
     ]
   },
   "packageFolders": {
-    "/home/alumni/.nuget/packages/": {}
+    "/home/alumni/.nuget/packages/": {},
+    "/opt/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/alumni/Projects/One/One/One.csproj",
+      "projectUniqueName": "/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/One.csproj",
       "projectName": "One",
-      "projectPath": "/home/alumni/Projects/One/One/One.csproj",
+      "projectPath": "/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/One.csproj",
       "packagesPath": "/home/alumni/.nuget/packages/",
-      "outputPath": "/home/alumni/Projects/One/One/obj/",
+      "outputPath": "/home/alumni/Projects/MonoGame/MonogameClusterfuck/One/obj/",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "/opt/dotnet/sdk/NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "/home/alumni/.config/NuGet/NuGet.Config"
+        "/home/alumni/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
