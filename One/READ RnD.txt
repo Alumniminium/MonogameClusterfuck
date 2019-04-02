@@ -1,0 +1,47 @@
+﻿---------------------------------------------------------------------------------------------------------------------------------
+Spritebatch.DrawString() is extremely slow.
+-> Pre-render text to a texture, then render the texture using spritebatch.Draw() instead
+
+[No Code examples yet] (https://stackoverflow.com/questions/44948940/best-way-to-draw-text-in-monogame-without-using-a-spritefont)
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+Creating a Texture2D for every Tile in the Tilemap and then rendering those Textures directly is extremely slow.
+-> Load the entire TileSet in a single Texture2D then get a Source and Destination Rectangle to draw parts of the Tilemap
+(https://gamedev.stackexchange.com/questions/82799/in-monogame-why-is-multiple-tile-drawing-slow-when-rendering-in-windowed-fulls)
+
+internal void DrawTileSet(SpriteBatch spriteBatch) //Slow
+{
+    var pos = new Vector2(0, 0);
+    int count = 0;
+    foreach (var tile in Tiles)
+    {
+        spriteBatch.Draw(tile, pos);
+        pos.X += TileSize.X;
+        if (pos.X > FullTileSet.Width)
+        {
+            pos.Y += TileSize.Y;
+            pos.X = 0;
+        }
+        count++;
+    }
+}
+
+internal void DrawTileSetOptimized(SpriteBatch spriteBatch) //Fast
+{
+    var location = new Point(0, 0);
+    for (int y = 0; y < FullTileSet.Height; y += TileSize.Y)
+    {
+        for (int x = 0; x < FullTileSet.Width; x += TileSize.X)
+        {
+            location.X = x;
+            location.Y = y;
+            var sourceRect = new Rectangle(location, TileSize);
+            var destRect = sourceRect;
+
+            spriteBatch.Draw(FullTileSet, destRect, sourceRect, Color.White);
+        }
+    }
+}
+
+---------------------------------------------------------------------------------------------------------------------------------
