@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using NoiseGen;
@@ -72,6 +74,7 @@ namespace MonoGameClusterFuck.Primitives
                     for (var y = top; y <= viewbounds.Bottom; y += Size.Y)
                     {
                         var value = Noise.GetCellular(x, y);
+                        
                         if (value > 0.45f)
                         {
                             destRect.Location = new Point(x, y);

@@ -10,8 +10,7 @@ namespace MonoGameClusterFuck.Entities
     {
         private WalkAnimations _walkAnimations;
         private Animation _currentAnimation;
-        private const float Speed = 400f;
-
+        private float Speed = 250f;
         public Player(int size) : base(size)
         {
             

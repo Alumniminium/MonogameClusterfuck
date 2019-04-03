@@ -36,6 +36,7 @@ namespace MonoGameClusterFuck
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
                 IsFullScreen = GraphicsSettings.Instance.Fullscreen
             };
+            //Graphics.PreferMultiSampling = true;
             Graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
