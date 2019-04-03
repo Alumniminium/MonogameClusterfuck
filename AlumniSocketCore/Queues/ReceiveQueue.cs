@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
 using System.Net.Sockets;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using AlumniSocketCore.Client;
 
@@ -92,7 +90,7 @@ namespace AlumniSocketCore.Queues
                 break;
             }
         }
-        private unsafe static void Copy(SocketAsyncEventArgs e, ClientSocket connection, bool header = false)
+        private static unsafe void Copy(SocketAsyncEventArgs e, ClientSocket connection, bool header = false)
         {
             fixed (byte* dest = connection.Buffer.MergeBuffer)
             fixed (byte* rec = e.Buffer)

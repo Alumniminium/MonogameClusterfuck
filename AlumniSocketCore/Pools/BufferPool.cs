@@ -15,7 +15,7 @@ namespace AlumniSocketCore.Pools
 
         private void Fill()
         {
-            for (int i = 0; i < 128; i++)
+            for (var i = 0; i < 128; i++)
             {
                 _queue.Enqueue(new byte[320]);
             }

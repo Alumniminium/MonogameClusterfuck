@@ -9,7 +9,7 @@ namespace AlumniSocketCore.Pools
 
         public static void Fill(int amount = 16)
         {
-            for (int i = 0; i < amount; i++)
+            for (var i = 0; i < amount; i++)
                 Pool.Enqueue(new SocketAsyncEventArgs());
         }
 

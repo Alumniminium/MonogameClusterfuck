@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/domi/Desktop/MonogameClusterfuck/One/Content/selectionrect.png</SourceFile>
+  <SourceFile>C:/Users/domi/Desktop/GITREPO/MonogameClusterfuck/One/Content/selectionrect.png</SourceFile>
   <SourceTime>2019-03-24T20:18:31.8006209+01:00</SourceTime>
-  <DestFile>C:/Users/domi/Desktop/MonogameClusterfuck/One/Content/bin/DesktopGL/Content/selectionrect.xnb</DestFile>
-  <DestTime>2019-03-31T14:52:15.2125415+02:00</DestTime>
+  <DestFile>C:/Users/domi/Desktop/GITREPO/MonogameClusterfuck/One/Content/bin/DesktopGL/Content/selectionrect.xnb</DestFile>
+  <DestTime>2019-04-03T10:45:47.9333831+02:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2018-01-13T19:18:24+01:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

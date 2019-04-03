@@ -5,7 +5,7 @@ namespace MonoGameClusterFuck.Systems
 {
     public class FpsCounter
     {
-        public int FPS = 0;
+        public int Fps = 0;
         public Timer Timer = new Timer();
 
         public FpsCounter()
@@ -17,14 +17,14 @@ namespace MonoGameClusterFuck.Systems
 
         private void Elapsed(object sender, ElapsedEventArgs e)
         {
-            FPS = Engine.Frames;
+            Fps = Engine.Frames;
             Engine.Frames = 0;
         }
 
         public void Draw()
         {
-            var stringSize = Fonts.Generic.MeasureString($"FPS:{FPS}");
-            Engine.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{FPS}", new Vector2(Engine.Instance.GraphicsDevice.Viewport.Width - stringSize.X, 0), Color.Red);
+            var stringSize = Fonts.Generic.MeasureString($"FPS:{Fps}");
+            Engine.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{Fps}", new Vector2(Engine.Instance.GraphicsDevice.Viewport.Width - stringSize.X, 0), Color.Red);
         }
     }
 }

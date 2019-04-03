@@ -1,17 +1,15 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGameClusterFuck.Primitives;
 
 namespace MonoGameClusterFuck.Systems
 {
     public class Cursor : Sprite
     {
-        Vector2 CursorVector;
+        private Vector2 _cursorVector;
         public Cursor(int size) : base(size)
         {
-            CursorVector = Vector2.Zero;
+            _cursorVector = Vector2.Zero;
         }
 
         public override void LoadContent()
@@ -20,10 +18,10 @@ namespace MonoGameClusterFuck.Systems
         }
         public override void Update(GameTime deltaTime)
         {
-            CursorVector.X = Engine.InputManager.MouseState.X;
-            CursorVector.Y = Engine.InputManager.MouseState.Y;
-            CursorVector = Vector2.Transform(CursorVector, Matrix.Invert(Engine.Camera.Transform));
-            var newPosition = new Vector2((int)(CursorVector.X / 32) * 32 + (int)RotationOrigin.X,(int)(CursorVector.Y / 32) * 32 + (int)RotationOrigin.Y);
+            _cursorVector.X = Engine.InputManager.MouseState.X;
+            _cursorVector.Y = Engine.InputManager.MouseState.Y;
+            _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Engine.Camera.Transform));
+            var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 + (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 + (int)RotationOrigin.Y);
             Position = newPosition;
         }
         public override void Draw(Layers.LayerType type)

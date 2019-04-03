@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\AlumniSocketCore\\AlumniSocketCore.csproj",
+      "projectUniqueName": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\AlumniSocketCore\\AlumniSocketCore.csproj",
       "projectName": "AlumniSocketCore",
-      "projectPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\AlumniSocketCore\\AlumniSocketCore.csproj",
+      "projectPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\AlumniSocketCore\\AlumniSocketCore.csproj",
       "packagesPath": "C:\\Users\\domi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\AlumniSocketCore\\obj\\",
+      "outputPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\AlumniSocketCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

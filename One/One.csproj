@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AlumniSocketCore\AlumniSocketCore.csproj" />
     <ProjectReference Include="..\NoiseGen\NoiseGen.csproj" />
   </ItemGroup>
 

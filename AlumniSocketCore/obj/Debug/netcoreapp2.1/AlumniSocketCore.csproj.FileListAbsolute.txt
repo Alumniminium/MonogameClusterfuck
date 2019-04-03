@@ -73,3 +73,11 @@ C:\Users\domi\Desktop\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2
 C:\Users\domi\Desktop\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.AssemblyInfo.cs
 C:\Users\domi\Desktop\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.dll
 C:\Users\domi\Desktop\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.pdb
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\bin\Debug\netcoreapp2.1\AlumniSocketCore.deps.json
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\bin\Debug\netcoreapp2.1\AlumniSocketCore.dll
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\bin\Debug\netcoreapp2.1\AlumniSocketCore.pdb
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.csproj.CoreCompileInputs.cache
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.AssemblyInfoInputs.cache
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.AssemblyInfo.cs
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.dll
+C:\Users\domi\Desktop\GITREPO\MonogameClusterfuck\AlumniSocketCore\obj\Debug\netcoreapp2.1\AlumniSocketCore.pdb

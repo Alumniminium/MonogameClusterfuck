@@ -694,11 +694,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj",
+      "projectUniqueName": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj",
       "projectName": "NoiseGen",
-      "projectPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj",
+      "projectPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj",
       "packagesPath": "C:\\Users\\domi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\NoiseGen\\obj\\",
+      "outputPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\NoiseGen\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

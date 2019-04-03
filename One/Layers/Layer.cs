@@ -1,19 +1,15 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.Layers
 {
     public class Layer
     {
-        LayerType Type;
+        private readonly LayerType _type;
         public List<Sprite> Sprites;
         public Layer(LayerType type)
         {
-            Type=type;
+            _type=type;
             Sprites=new List<Sprite>();
         }
 
@@ -21,7 +17,7 @@ namespace MonoGameClusterFuck.Layers
         {
             foreach(var sprite in Sprites)
             {
-                sprite.Draw(Type);
+                sprite.Draw(_type);
             }
         }
 

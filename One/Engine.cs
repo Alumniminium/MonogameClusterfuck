@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Networking;
@@ -8,9 +7,6 @@ using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
-using MonogameClusterfuck_master.Primitives;
-using System;
-using System.Collections.Generic;
 
 namespace MonoGameClusterFuck
 {
@@ -25,7 +21,7 @@ namespace MonoGameClusterFuck
         public static KeyboardManager KeyboardManager;
         public static InputManager InputManager;
         public static Cursor Cursor;
-        public static GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager Graphics;
         public static TileSet TileSet;
         public static FpsCounter FpsCounter;
         public static Player Player;
@@ -33,13 +29,14 @@ namespace MonoGameClusterFuck
         public Engine()
         {
             IsFixedTimeStep = false; //Allow >60fps
-            graphics = new GraphicsDeviceManager(this)
+            Graphics = new GraphicsDeviceManager(this)
             {
                 SynchronizeWithVerticalRetrace = GraphicsSettings.Instance.VSync,
                 PreferredBackBufferHeight = GraphicsSettings.Instance.Height,
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
                 IsFullScreen = GraphicsSettings.Instance.Fullscreen
             };
+            Graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Instance = this;
@@ -85,13 +82,13 @@ namespace MonoGameClusterFuck
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
-            
-            for (int i = GameMap.Layers.Count - 1; i > -1; i--)
-            {
-                GameMap.Layers[(Layers.LayerType)i].Draw();
-            }
+            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
+
+            foreach (var layer in GameMap.Layers)
+                layer.Value.Draw();
+
             SpriteBatch.End();
+
             SpriteBatch.Begin();
             FpsCounter.Draw();
             SpriteBatch.End();

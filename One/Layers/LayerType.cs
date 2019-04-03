@@ -2,11 +2,12 @@ namespace MonoGameClusterFuck.Layers
 {
     public enum LayerType
     {
-        Cursor = 0,
-        UI =1,
-        L3 = 2,
-        Entity =3, 
-        GroundDecoration=4,
-        Ground=5
+        Background = 1,
+        Ground = 10,
+        GroundDecoration = 20,
+        Entity = 30,
+        L3 = 40,
+        UI = 50,
+        Cursor = 100
     }
 }

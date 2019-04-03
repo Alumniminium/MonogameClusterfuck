@@ -4,9 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/domi/Desktop/MonogameClusterfuck/One/Content/Font.spritefont</File>
-    <File>C:/Users/domi/Desktop/MonogameClusterfuck/One/Content/player_f.png</File>
-    <File>C:/Users/domi/Desktop/MonogameClusterfuck/One/Content/selectionrect.png</File>
-    <File>C:/Users/domi/Desktop/MonogameClusterfuck/One/Content/terrain.png</File>
+    <File>C:/Users/domi/Desktop/GITREPO/MonogameClusterfuck/One/Content/Font.spritefont</File>
+    <File>C:/Users/domi/Desktop/GITREPO/MonogameClusterfuck/One/Content/player_f.png</File>
+    <File>C:/Users/domi/Desktop/GITREPO/MonogameClusterfuck/One/Content/selectionrect.png</File>
+    <File>C:/Users/domi/Desktop/GITREPO/MonogameClusterfuck/One/Content/terrain.png</File>
   </SourceFiles>
 </SourceFileCollection>

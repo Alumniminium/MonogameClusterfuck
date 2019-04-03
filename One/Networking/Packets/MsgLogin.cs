@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -31,7 +30,7 @@ namespace MonoGameClusterFuck.Networking.Packets
             var pair = ValueTuple.Create(string.Empty, string.Empty);
             fixed (byte* p = Username)
             {
-                for (int i = 0; i < 64; i++)
+                for (var i = 0; i < 64; i++)
                 {
                     if (i == 32)
                     {
@@ -91,6 +90,5 @@ namespace MonoGameClusterFuck.Networking.Packets
                 return *(MsgLogin*)p;
         }
         public static implicit operator MsgLogin(byte* msg) => *(MsgLogin*)msg;
-        public static implicit operator MsgLogin* (MsgLogin msg) => *(MsgLogin*)msg;
     }
 }

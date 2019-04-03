@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -31,7 +30,7 @@ namespace Server
             var pair = ValueTuple.Create(string.Empty, string.Empty);
             fixed (byte* p = Username)
             {
-                for (int i = 0; i < 64; i++)
+                for (var i = 0; i < 64; i++)
                 {
                     if (i == 32)
                     {

@@ -208,6 +208,16 @@
           "build/netstandard2.0/NETStandard.Library.targets": {}
         }
       },
+      "AlumniSocketCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/AlumniSocketCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/AlumniSocketCore.dll": {}
+        }
+      },
       "NoiseGen/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
@@ -691,6 +701,11 @@
         "netstandard.library.nuspec"
       ]
     },
+    "AlumniSocketCore/1.0.0": {
+      "type": "project",
+      "path": "../AlumniSocketCore/AlumniSocketCore.csproj",
+      "msbuildProject": "../AlumniSocketCore/AlumniSocketCore.csproj"
+    },
     "NoiseGen/1.0.0": {
       "type": "project",
       "path": "../NoiseGen/NoiseGen.csproj",
@@ -699,6 +714,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.1": [
+      "AlumniSocketCore >= 1.0.0",
       "Microsoft.NETCore.App >= 2.1.0",
       "NoiseGen >= 1.0.0"
     ]
@@ -710,11 +726,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\Server\\Server.csproj",
+      "projectUniqueName": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\Server\\Server.csproj",
       "projectName": "Server",
-      "projectPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\Server\\Server.csproj",
+      "projectPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\Server\\Server.csproj",
       "packagesPath": "C:\\Users\\domi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\Server\\obj\\",
+      "outputPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\Server\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -733,8 +749,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj": {
-              "projectPath": "C:\\Users\\domi\\Desktop\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj"
+            "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\AlumniSocketCore\\AlumniSocketCore.csproj": {
+              "projectPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\AlumniSocketCore\\AlumniSocketCore.csproj"
+            },
+            "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj": {
+              "projectPath": "C:\\Users\\domi\\Desktop\\GITREPO\\MonogameClusterfuck\\NoiseGen\\NoiseGen.csproj"
             }
           }
         }

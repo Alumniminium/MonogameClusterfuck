@@ -1,8 +1,6 @@
-using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using MonoGameClusterFuck.Primitives;
 
 namespace MonoGameClusterFuck.Systems
 {
@@ -14,13 +12,13 @@ namespace MonoGameClusterFuck.Systems
         public Rectangle VisibleArea { get; protected set; }
         public Matrix Transform { get; protected set; }
 
-        private float currentMouseWheelValue, previousMouseWheelValue, zoom, previousZoom;
+        private float _currentMouseWheelValue, _previousMouseWheelValue, _zoom, _previousZoom;
 
         public Camera(Viewport viewport)
         {
             Bounds = viewport.Bounds;
             Zoom = 3f;
-            Position = new Vector2(viewport.Width /2, viewport.Height/2);
+            Position = new Vector2(viewport.Width /2f, viewport.Height/2f);
         }
 
 
@@ -71,21 +69,21 @@ namespace MonoGameClusterFuck.Systems
             Bounds = bounds.Bounds;
             UpdateMatrix();
 
-            previousMouseWheelValue = currentMouseWheelValue;
-            currentMouseWheelValue = Mouse.GetState().ScrollWheelValue;
+            _previousMouseWheelValue = _currentMouseWheelValue;
+            _currentMouseWheelValue = Mouse.GetState().ScrollWheelValue;
 
-            if (currentMouseWheelValue > previousMouseWheelValue)
+            if (_currentMouseWheelValue > _previousMouseWheelValue)
             {
                 AdjustZoom(.05f);
             }
 
-            if (currentMouseWheelValue < previousMouseWheelValue)
+            if (_currentMouseWheelValue < _previousMouseWheelValue)
             {
                 AdjustZoom(-.05f);
             }
 
-            previousZoom = zoom;
-            zoom = Zoom;
+            _previousZoom = _zoom;
+            _zoom = Zoom;
         }
     }
 

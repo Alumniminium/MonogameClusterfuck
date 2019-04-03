@@ -7,14 +7,10 @@ namespace MonoGameClusterFuck.Primitives
     public class Sprite
     {
         private Vector2 _position;
-        public float LayerDepth = 0f;
         public Texture2D Texture;
         public Vector2 Position
         {
-            get
-            {
-                return _position;
-            }
+            get => _position;
             set
             {
                 _position = value;
@@ -42,9 +38,9 @@ namespace MonoGameClusterFuck.Primitives
             Destination = new Rectangle(0, 0, Size.X, Size.Y);
             Source = new Rectangle(0, 0, Size.X, Size.Y);
             
-            Position = new Vector2(Size.X/2, Size.Y/2);
+            Position = new Vector2(Size.X/2f, Size.Y/2f);
             Rotation = 0;
-            RotationOrigin = new Vector2(Size.X / 2, Size.Y / 2);
+            RotationOrigin = new Vector2(Size.X / 2f, Size.Y / 2f);
         }       
         public virtual void Update(GameTime deltaTime)
         {
@@ -52,7 +48,7 @@ namespace MonoGameClusterFuck.Primitives
         }
         public virtual void Draw(Layers.LayerType layer)
         {
-            Engine.SpriteBatch.Draw(Texture, Destination, Source, Color.White, Rotation, RotationOrigin, SpriteEffects.None, (float)0f);
+            Engine.SpriteBatch.Draw(Texture, Destination, Source, Color.White, Rotation, RotationOrigin, SpriteEffects.None, (float)layer/ 100f);
         }
     }
 }
