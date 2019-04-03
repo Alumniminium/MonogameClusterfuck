@@ -1,9 +1,0 @@
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/bin/Debug/netcoreapp3.0/AlumniSocketCore.deps.json
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/bin/Debug/netcoreapp3.0/AlumniSocketCore.dll
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/bin/Debug/netcoreapp3.0/AlumniSocketCore.pdb
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/obj/Debug/netcoreapp3.0/AlumniSocketCore.csprojAssemblyReference.cache
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/obj/Debug/netcoreapp3.0/AlumniSocketCore.csproj.CoreCompileInputs.cache
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/obj/Debug/netcoreapp3.0/AlumniSocketCore.AssemblyInfoInputs.cache
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/obj/Debug/netcoreapp3.0/AlumniSocketCore.AssemblyInfo.cs
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/obj/Debug/netcoreapp3.0/AlumniSocketCore.dll
-/home/alumni/SERVERS/HomeServer/SourceCode/Apps/AlumniDNS/AlumniSocketCore/obj/Debug/netcoreapp3.0/AlumniSocketCore.pdb

@@ -1,8 +1,0 @@
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\bin\Debug\netcoreapp2.0\NoiseGen.deps.json
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\bin\Debug\netcoreapp2.0\NoiseGen.dll
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\bin\Debug\netcoreapp2.0\NoiseGen.pdb
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\obj\Debug\netcoreapp2.0\NoiseGen.csproj.CoreCompileInputs.cache
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\obj\Debug\netcoreapp2.0\NoiseGen.AssemblyInfoInputs.cache
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\obj\Debug\netcoreapp2.0\NoiseGen.AssemblyInfo.cs
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\obj\Debug\netcoreapp2.0\NoiseGen.dll
-C:\Users\domi\Desktop\MonogameClusterfuck\NoiseGen\obj\Debug\netcoreapp2.0\NoiseGen.pdb
