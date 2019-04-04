@@ -21,10 +21,10 @@ namespace MonoGameClusterFuck.Settings
         }
 
         public const string ConfigPath  = "GraphicsConfig.json";
-        public int Width = 1280;
-        public int Height = 720;
-        public bool VSync = true;
-        public bool Fullscreen = false;
+        public int Width = 2560;
+        public int Height = 1440;
+        public bool VSync = false;
+        public bool Fullscreen = true;
 
         private GraphicsSettings()
         {

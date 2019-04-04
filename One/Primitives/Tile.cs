@@ -2,9 +2,9 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGameClusterFuck.Primitives
 {
-    public class Tile : Sprite
+    public class Tile : DrawableComponent
     {
-        public Tile(int size) : base(size)
+        public Tile(int size)
         {
 
         }

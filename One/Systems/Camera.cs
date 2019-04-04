@@ -45,10 +45,6 @@ namespace MonoGameClusterFuck.Systems
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
             UpdateVisibleArea();
         }
-        public void MoveCameraAbs(Vector2 movePosition)
-        {
-            Position = movePosition;
-        }
 
         public void AdjustZoom(float zoomAmount)
         {
@@ -65,7 +61,6 @@ namespace MonoGameClusterFuck.Systems
 
         public void Update(Viewport bounds, GameTime gameTime)
         {
-            var delta = (float)gameTime.ElapsedGameTime.TotalSeconds;
             Bounds = bounds.Bounds;
             UpdateMatrix();
 

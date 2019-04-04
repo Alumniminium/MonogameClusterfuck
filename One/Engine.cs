@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
@@ -28,15 +29,15 @@ namespace MonoGameClusterFuck
 
         public Engine()
         {
-            IsFixedTimeStep = false; //Allow >60fps
+            IsFixedTimeStep = true; //Allow >60fps
             Graphics = new GraphicsDeviceManager(this)
             {
                 SynchronizeWithVerticalRetrace = GraphicsSettings.Instance.VSync,
                 PreferredBackBufferHeight = GraphicsSettings.Instance.Height,
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
-                IsFullScreen = GraphicsSettings.Instance.Fullscreen
+                IsFullScreen = GraphicsSettings.Instance.Fullscreen,
             };
-            //Graphics.PreferMultiSampling = true;
+            TargetElapsedTime = TimeSpan.FromMilliseconds(6.8);
             Graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -74,8 +75,8 @@ namespace MonoGameClusterFuck
         protected override void Update(GameTime gameTime)
         {
             InputManager.Update();
-            Camera.Update(GraphicsDevice.Viewport, gameTime);
             Player.Update(gameTime);
+            Camera.Update(GraphicsDevice.Viewport, gameTime);
             Cursor.Update(gameTime);
             base.Update(gameTime);
         }

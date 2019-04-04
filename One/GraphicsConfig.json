@@ -1,6 +1,6 @@
 {
-  "Width": 1280,
-  "Height": 720,
+  "Width": 2560,
+  "Height": 1440,
   "VSync": false,
-  "Fullscreen": false
+  "Fullscreen": true
 }

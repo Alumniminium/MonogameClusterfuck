@@ -7,13 +7,13 @@ using NoiseGen;
 
 namespace MonoGameClusterFuck.Primitives
 {
-    public class TileSet : Sprite
+    public class TileSet : DrawableComponent
     {
         public static FastNoise Noise = new FastNoise();
         public Tile FloorTile;
         public Tile WallTile;
 
-        public TileSet(int size) : base(size)
+        public TileSet(int size)
         {
 
         }
@@ -27,6 +27,11 @@ namespace MonoGameClusterFuck.Primitives
             WallTile.Texture = Texture;
             FloorTile.Source.Location = new Point(Size.X * 13, Size.Y * 3);
             WallTile.Source.Location = new Point(Size.X * 4, Size.Y * 15);
+        }
+
+        public override void Update(GameTime deltaTime)
+        {
+
         }
 
         public override void Draw(Layers.LayerType type)

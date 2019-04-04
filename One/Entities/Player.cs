@@ -6,12 +6,12 @@ using MonoGameClusterFuck.Animations;
 
 namespace MonoGameClusterFuck.Entities
 {
-    public class Player : Sprite
+    public class Player : DrawableComponent
     {
         private WalkAnimations _walkAnimations;
         private Animation _currentAnimation;
-        private float Speed = 250f;
-        public Player(int size) : base(size)
+        private float Speed = 200;
+        public Player(int size)
         {
             
         }
@@ -68,9 +68,9 @@ namespace MonoGameClusterFuck.Entities
             }
 
             _currentAnimation.Update(deltaTime);
-            Source = _currentAnimation.CurrentRectangle;
+            //Source = _currentAnimation.CurrentRectangle;
             var cameraPos = Position - new Vector2(Size.X / 2f, Size.Y / 2f);
-            Engine.Camera.MoveCameraAbs(cameraPos);
+            Engine.Camera.Position = cameraPos;
         }
         public override void Draw(Layers.LayerType type)
         {

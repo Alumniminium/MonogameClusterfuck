@@ -6,11 +6,11 @@ namespace MonoGameClusterFuck.Layers
     public class Layer
     {
         private readonly LayerType _type;
-        public List<Sprite> Sprites;
+        public List<DrawableComponent> Sprites;
         public Layer(LayerType type)
         {
             _type=type;
-            Sprites=new List<Sprite>();
+            Sprites=new List<DrawableComponent>();
         }
 
         public void Draw()
@@ -21,7 +21,7 @@ namespace MonoGameClusterFuck.Layers
             }
         }
 
-        internal void Add(Sprite cursor)
+        internal void Add(DrawableComponent cursor)
         {
             Sprites.Add(cursor);
         }

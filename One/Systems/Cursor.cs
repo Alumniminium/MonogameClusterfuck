@@ -4,10 +4,10 @@ using MonoGameClusterFuck.Primitives;
 
 namespace MonoGameClusterFuck.Systems
 {
-    public class Cursor : Sprite
+    public class Cursor : DrawableComponent
     {
         private Vector2 _cursorVector;
-        public Cursor(int size) : base(size)
+        public Cursor(int size)
         {
             _cursorVector = Vector2.Zero;
         }
