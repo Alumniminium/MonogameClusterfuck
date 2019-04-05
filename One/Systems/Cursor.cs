@@ -7,9 +7,9 @@ namespace MonoGameClusterFuck.Systems
     public class Cursor : DrawableComponent
     {
         private Vector2 _cursorVector;
-        public Cursor(int size)
+        
+        public Cursor(int size) : base(size)
         {
-            _cursorVector = Vector2.Zero;
         }
 
         public override void LoadContent()
@@ -20,7 +20,6 @@ namespace MonoGameClusterFuck.Systems
         {
             _cursorVector.X = Engine.InputManager.MouseState.X;
             _cursorVector.Y = Engine.InputManager.MouseState.Y;
-            _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Engine.Camera.Transform));
             var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 + (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 + (int)RotationOrigin.Y);
             Position = newPosition;
         }
@@ -28,5 +27,6 @@ namespace MonoGameClusterFuck.Systems
         {
             base.Draw(type);
         }
+
     }
 }

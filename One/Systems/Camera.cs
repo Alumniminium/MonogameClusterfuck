@@ -1,5 +1,4 @@
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace MonoGameClusterFuck.Systems
@@ -9,18 +8,17 @@ namespace MonoGameClusterFuck.Systems
         public float Zoom { get; set; }
         public Vector2 Position { get; set; }
         public Rectangle Bounds { get; protected set; }
-        public Rectangle VisibleArea { get; protected set; }
-        public Matrix Transform { get; protected set; }
+        public static Rectangle VisibleArea { get; protected set; }
+        public static Matrix Transform { get; protected set; }
 
         private float _currentMouseWheelValue, _previousMouseWheelValue, _zoom, _previousZoom;
 
-        public Camera(Viewport viewport)
+        public Camera()
         {
-            Bounds = viewport.Bounds;
+            Bounds = Engine.Graphics.GraphicsDevice.Viewport.Bounds;
             Zoom = 3f;
-            Position = new Vector2(viewport.Width /2f, viewport.Height/2f);
+            Position = new Vector2(Engine.Graphics.GraphicsDevice.Viewport.Width / 2f, Engine.Graphics.GraphicsDevice.Viewport.Height / 2f);
         }
-
 
         private void UpdateVisibleArea()
         {
@@ -59,9 +57,9 @@ namespace MonoGameClusterFuck.Systems
             }
         }
 
-        public void Update(Viewport bounds, GameTime gameTime)
+        public void Update(GameTime deltaTime)
         {
-            Bounds = bounds.Bounds;
+            Bounds = Engine.Graphics.GraphicsDevice.Viewport.Bounds;
             UpdateMatrix();
 
             _previousMouseWheelValue = _currentMouseWheelValue;
@@ -81,5 +79,4 @@ namespace MonoGameClusterFuck.Systems
             _zoom = Zoom;
         }
     }
-
 }

@@ -2,7 +2,7 @@
 {
     public class PacketHandler
     {
-        public static void Handle(Client client, byte[] buffer)
+        public static void Handle(NetworkClient networkClient, byte[] buffer)
         {
 
         }

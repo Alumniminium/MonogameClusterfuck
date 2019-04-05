@@ -4,9 +4,8 @@ namespace MonoGameClusterFuck.Primitives
 {
     public class Tile : DrawableComponent
     {
-        public Tile(int size)
+        public Tile(int size) : base(size)
         {
-
         }
 
         public override void LoadContent()
@@ -23,5 +22,6 @@ namespace MonoGameClusterFuck.Primitives
         {
             base.Draw(type);
         }
+
     }
 }

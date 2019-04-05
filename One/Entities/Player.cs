@@ -3,57 +3,58 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Animations;
+using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {
     public class Player : DrawableComponent
     {
+        public Camera Camera;
         private WalkAnimations _walkAnimations;
         private Animation _currentAnimation;
         private float Speed = 200;
-        public Player(int size)
+
+        public Player(int size) : base(size)
         {
-            
         }
 
         public override void LoadContent()
         {
             Texture = Engine.Instance.Content.Load<Texture2D>("player_f");
+            base.LoadContent();
         }
 
         public override void Initialize()
         {
-            base.Initialize();
             _walkAnimations = new WalkAnimations();
             _currentAnimation = _walkAnimations.IdleDown;
-
-            RotationOrigin = new Vector2(Size.X, Size.Y);
-            Position = new Vector2(0, 0);
+            Camera = new Camera();
+            base.Initialize();
         }
         public override void Update(GameTime deltaTime)
         {
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var keyboard = Engine.InputManager.KManager;
-
+            var velocity = Vector2.Zero;
             if (keyboard.KeyDown(PlayerControls.Up))
             {
-                Position -= new Vector2(0, Speed * delta);
+                velocity.Y = -Speed;
                 _currentAnimation = _walkAnimations.WalkUp;
-            }
-            else if (keyboard.KeyDown(PlayerControls.Left))
-            {
-                Position -= new Vector2(Speed * delta, 0);
-                _currentAnimation = _walkAnimations.WalkLeft;
-            }
-            else if (keyboard.KeyDown(PlayerControls.Right))
-            {
-                Position += new Vector2(Speed * delta, 0);
-                _currentAnimation = _walkAnimations.WalkRight;
             }
             else if (keyboard.KeyDown(PlayerControls.Down))
             {
-                Position += new Vector2(0, Speed * delta);
+                velocity.Y = Speed;
                 _currentAnimation = _walkAnimations.WalkDown;
+            }
+            else if(keyboard.KeyDown(PlayerControls.Left))
+            {
+                velocity.X = -Speed;
+                _currentAnimation = _walkAnimations.WalkLeft;
+            }
+            else if(keyboard.KeyDown(PlayerControls.Right))
+            {
+                velocity.X = Speed;
+                _currentAnimation = _walkAnimations.WalkRight;
             }
             else
             {
@@ -66,11 +67,12 @@ namespace MonoGameClusterFuck.Entities
                 else if (_currentAnimation == _walkAnimations.WalkDown)
                     _currentAnimation = _walkAnimations.IdleDown;
             }
-
+            Position += velocity * delta;
             _currentAnimation.Update(deltaTime);
-            //Source = _currentAnimation.CurrentRectangle;
-            var cameraPos = Position - new Vector2(Size.X / 2f, Size.Y / 2f);
-            Engine.Camera.Position = cameraPos;
+            Source = _currentAnimation.CurrentRectangle;
+
+            Camera.Position = Position;
+            Camera.Update(deltaTime);
         }
         public override void Draw(Layers.LayerType type)
         {

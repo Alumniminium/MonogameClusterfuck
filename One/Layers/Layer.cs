@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using MonoGameClusterFuck.Primitives;
 
 namespace MonoGameClusterFuck.Layers
@@ -6,24 +7,39 @@ namespace MonoGameClusterFuck.Layers
     public class Layer
     {
         private readonly LayerType _type;
-        public List<DrawableComponent> Sprites;
+        public List<DrawableComponent> Components;
+
         public Layer(LayerType type)
         {
             _type=type;
-            Sprites=new List<DrawableComponent>();
+            Components=new List<DrawableComponent>();
         }
 
         public void Draw()
         {
-            foreach(var sprite in Sprites)
-            {
-                sprite.Draw(_type);
-            }
+            foreach(var component in Components)
+                component.Draw(_type);
         }
 
-        internal void Add(DrawableComponent cursor)
+        internal void Add(DrawableComponent component)
         {
-            Sprites.Add(cursor);
+            Components.Add(component);
+            component.Initialize();
+            component.LoadContent();
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            foreach (var component in Components)
+                component.Update(gameTime);
+        }
+
+        public void LoadContent()
+        {
+            foreach (var component in Components)
+            {
+                component.LoadContent();
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ using AlumniSocketCore.Queues;
 
 namespace MonoGameClusterFuck.Networking
 {
-    public class Client
+    public class NetworkClient
     {
         public ClientSocket Socket;
         public string Ip = "192.168.0.3";
@@ -24,7 +24,7 @@ namespace MonoGameClusterFuck.Networking
 
         private void Disconnected() => ConnectAsync(Ip, Port);
 
-        private void OnPacket(ClientSocket client, byte[] buffer) => PacketHandler.Handle((Client)client.StateObject, buffer);
+        private void OnPacket(ClientSocket client, byte[] buffer) => PacketHandler.Handle((NetworkClient)client.StateObject, buffer);
 
         public void Send(byte[] packet) => Socket.Send(packet);
     }

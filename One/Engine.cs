@@ -1,31 +1,23 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Networking;
-using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck
 {
-    public class Engine : Microsoft.Xna.Framework.Game
+    public class Engine : Game
     {
-        public static Client Client;
         public static Engine Instance;
-        public static bool DrawTileSet { get; set; }
-        public static int Frames { get; internal set; }
-        public static SpriteBatch SpriteBatch;
-        public static Camera Camera;
-        public static KeyboardManager KeyboardManager;
         public static InputManager InputManager;
-        public static Cursor Cursor;
+        public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
-        public static TileSet TileSet;
-        public static FpsCounter FpsCounter;
-        public static Player Player;
+        public static NetworkClient NetworkClient;
 
         public Engine()
         {
@@ -37,7 +29,7 @@ namespace MonoGameClusterFuck
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
                 IsFullScreen = GraphicsSettings.Instance.Fullscreen,
             };
-            TargetElapsedTime = TimeSpan.FromMilliseconds(6.8);
+            TargetElapsedTime = TimeSpan.FromMilliseconds(6.5);
             Graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -46,56 +38,58 @@ namespace MonoGameClusterFuck
 
         protected override void Initialize()
         {
-            TileSet = new TileSet(32);
-            Cursor = new Cursor(32);
+            GameMap.Layers[LayerType.Cursor].Add(new Cursor(32));
+            GameMap.Layers[LayerType.Ground].Add(new TileSet(32));
+            GameMap.Layers[LayerType.Entity].Add(new Player(32));
+            GameMap.Layers[LayerType.UI].Add(new FpsCounter(32));
+
             InputManager = new InputManager();
-            KeyboardManager = InputManager.KManager;
-            FpsCounter = new FpsCounter();
-            Camera = new Camera(GraphicsDevice.Viewport);
-            Player = new Player(32);
-            Player.Initialize();
-            Client = new Client();
+            NetworkClient = new NetworkClient();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
-            Player.LoadContent();
-            Cursor.LoadContent();
-            TileSet.LoadContent();
             Fonts.LoadContent(Content);
-            GameMap.Layers[LayerType.Cursor].Add(Cursor);
-            GameMap.Layers[LayerType.Ground].Add(TileSet);
-            GameMap.Layers[LayerType.Entity].Add(Player);
-            Client.ConnectAsync("192.168.0.3", 1337);
-            Client.Send(MsgLogin.Create("monogame","password"));
+            //NetworkClient.ConnectAsync("192.168.0.3", 1337);
+            //NetworkClient.Send(MsgLogin.Create("monogame","password"));
         }
 
         protected override void Update(GameTime gameTime)
         {
             InputManager.Update();
-            Player.Update(gameTime);
-            Camera.Update(GraphicsDevice.Viewport, gameTime);
-            Cursor.Update(gameTime);
+            foreach (var layer in GameMap.Layers)
+                layer.Value.Update(gameTime);
+            
             base.Update(gameTime);
         }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Camera.Transform);
+            DrawGame();
+            DrawUI();
 
-            foreach (var layer in GameMap.Layers)
+            base.Draw(gameTime);
+        }
+
+        private static void DrawUI()
+        {
+            SpriteBatch.Begin();
+            foreach (var layer in GameMap.Layers.Where(k => k.Key == LayerType.UI))
+                layer.Value.Draw();
+            SpriteBatch.End();
+        }
+
+        private static void DrawGame()
+        {
+            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
+
+            foreach (var layer in GameMap.Layers.Where(k => k.Key != LayerType.UI))
                 layer.Value.Draw();
 
             SpriteBatch.End();
-
-            SpriteBatch.Begin();
-            FpsCounter.Draw();
-            SpriteBatch.End();
-            base.Draw(gameTime);
-            Frames++;
         }
     }
 }

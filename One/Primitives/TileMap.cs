@@ -1,8 +1,7 @@
 using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameClusterFuck.Systems;
 using NoiseGen;
 
 namespace MonoGameClusterFuck.Primitives
@@ -12,10 +11,9 @@ namespace MonoGameClusterFuck.Primitives
         public static FastNoise Noise = new FastNoise();
         public Tile FloorTile;
         public Tile WallTile;
-
-        public TileSet(int size)
+        
+        public TileSet(int size) : base(size)
         {
-
         }
 
         public override void LoadContent()
@@ -25,8 +23,9 @@ namespace MonoGameClusterFuck.Primitives
             WallTile = new Tile(32);
             FloorTile.Texture = Texture;
             WallTile.Texture = Texture;
-            FloorTile.Source.Location = new Point(Size.X * 13, Size.Y * 3);
-            WallTile.Source.Location = new Point(Size.X * 4, Size.Y * 15);
+            FloorTile.Source.Location = new Point(SpriteSize.X * 13, SpriteSize.Y * 3);
+            WallTile.Source.Location = new Point(SpriteSize.X * 4, SpriteSize.Y * 15);
+            base.LoadContent();
         }
 
         public override void Update(GameTime deltaTime)
@@ -37,19 +36,19 @@ namespace MonoGameClusterFuck.Primitives
         public override void Draw(Layers.LayerType type)
         {
             var count = 0;
-            if (Engine.DrawTileSet)
+            if (InputState.DrawTileSet)
             {
                 var location = Point.Zero;
                 var labelPos = Vector2.Zero;
-                var sourceRect = new Rectangle(location, Size);
-                var destRect = new Rectangle(location, Size);
-                var viewbounds = Engine.Camera.VisibleArea;
+                var sourceRect = new Rectangle(location, SpriteSize);
+                var destRect = new Rectangle(location, SpriteSize);
+                var viewbounds = Camera.VisibleArea;
 
-                var left = (viewbounds.Left / Size.X * Size.X) - Size.X;
-                var top = (viewbounds.Top / Size.Y * Size.Y) - Size.Y;
-                for (var y = top; y <= Math.Min(Texture.Height,viewbounds.Bottom); y += Size.Y)
+                var left = (viewbounds.Left / SpriteSize.X * SpriteSize.X) - SpriteSize.X;
+                var top = (viewbounds.Top / SpriteSize.Y * SpriteSize.Y) - SpriteSize.Y;
+                for (var y = top; y <= Math.Min(Texture.Height,viewbounds.Bottom); y += SpriteSize.Y)
                 {
-                    for (var x = left; x <= Math.Min(Texture.Width,viewbounds.Right); x += Size.X)
+                    for (var x = left; x <= Math.Min(Texture.Width,viewbounds.Right); x += SpriteSize.X)
                     {
                         if (x < 0 || y < 0)
                             continue;
@@ -68,15 +67,15 @@ namespace MonoGameClusterFuck.Primitives
             }
             else
             {
-                var destRect = new Rectangle(Point.Zero, Size);
-                var viewbounds = Engine.Camera.VisibleArea;
+                var destRect = new Rectangle(Point.Zero, SpriteSize);
+                var viewbounds = Camera.VisibleArea;
 
-                var left = (viewbounds.Left / Size.X * Size.X) - Size.X;
-                var top = (viewbounds.Top / Size.Y * Size.Y) - Size.Y;
+                var left = (viewbounds.Left / SpriteSize.X * SpriteSize.X) - SpriteSize.X;
+                var top = (viewbounds.Top / SpriteSize.Y * SpriteSize.Y) - SpriteSize.Y;
                 
-                for (var x = left; x <= viewbounds.Right; x += Size.X)
+                for (var x = left; x <= viewbounds.Right; x += SpriteSize.X)
                 {
-                    for (var y = top; y <= viewbounds.Bottom; y += Size.Y)
+                    for (var y = top; y <= viewbounds.Bottom; y += SpriteSize.Y)
                     {
                         var value = Noise.GetCellular(x, y);
                         

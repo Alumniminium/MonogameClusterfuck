@@ -5,6 +5,10 @@ using MonoGameClusterFuck.Settings;
 
 namespace MonoGameClusterFuck.Systems
 {
+    public static class InputState
+    {
+        public static bool DrawTileSet;
+    }
     public class InputManager
     {
         public KeyboardManager KManager = new KeyboardManager();
@@ -30,7 +34,7 @@ namespace MonoGameClusterFuck.Systems
                 Environment.Exit(0);
             }
             if (KManager.KeyPressed(Keys.H))
-                Engine.DrawTileSet = !Engine.DrawTileSet;
+                InputState.DrawTileSet = !InputState.DrawTileSet;
         }
     }
 }
