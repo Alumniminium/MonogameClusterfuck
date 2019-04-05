@@ -8,6 +8,7 @@ namespace MonoGameClusterFuck.Systems
     {
         private Vector2 _cursorVector;
         
+
         public Cursor(int size) : base(size)
         {
         }
@@ -20,7 +21,8 @@ namespace MonoGameClusterFuck.Systems
         {
             _cursorVector.X = Engine.InputManager.MouseState.X;
             _cursorVector.Y = Engine.InputManager.MouseState.Y;
-            var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 + (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 + (int)RotationOrigin.Y);
+            _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Camera.Transform));
+            var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 - (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 - (int)RotationOrigin.Y);
             Position = newPosition;
         }
         public override void Draw(Layers.LayerType type)

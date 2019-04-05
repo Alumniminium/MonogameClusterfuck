@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using Newtonsoft.Json;
 
@@ -23,7 +24,7 @@ namespace MonoGameClusterFuck.Settings
         public const string ConfigPath  = "GraphicsConfig.json";
         public int Width = 2560;
         public int Height = 1440;
-        public bool VSync = false;
+        public bool VSync = true;
         public bool Fullscreen = true;
 
         private GraphicsSettings()

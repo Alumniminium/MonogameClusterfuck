@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Primitives;
@@ -41,17 +42,17 @@ namespace MonoGameClusterFuck.Entities
                 velocity.Y = -Speed;
                 _currentAnimation = _walkAnimations.WalkUp;
             }
-            else if (keyboard.KeyDown(PlayerControls.Down))
+            if (keyboard.KeyDown(PlayerControls.Down))
             {
                 velocity.Y = Speed;
                 _currentAnimation = _walkAnimations.WalkDown;
             }
-            else if(keyboard.KeyDown(PlayerControls.Left))
+            if(keyboard.KeyDown(PlayerControls.Left))
             {
                 velocity.X = -Speed;
                 _currentAnimation = _walkAnimations.WalkLeft;
             }
-            else if(keyboard.KeyDown(PlayerControls.Right))
+            if(keyboard.KeyDown(PlayerControls.Right))
             {
                 velocity.X = Speed;
                 _currentAnimation = _walkAnimations.WalkRight;
@@ -67,10 +68,13 @@ namespace MonoGameClusterFuck.Entities
                 else if (_currentAnimation == _walkAnimations.WalkDown)
                     _currentAnimation = _walkAnimations.IdleDown;
             }
-            Position += velocity * delta;
             _currentAnimation.Update(deltaTime);
             Source = _currentAnimation.CurrentRectangle;
 
+            if (Math.Abs(Math.Abs(velocity.Y) - Speed) < 1 && Math.Abs(Math.Abs(velocity.X) - Speed) < 1)
+                velocity /= 1.45f;
+
+            Position += velocity * delta;
             Camera.Position = Position;
             Camera.Update(deltaTime);
         }

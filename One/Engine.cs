@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
@@ -21,7 +20,7 @@ namespace MonoGameClusterFuck
 
         public Engine()
         {
-            IsFixedTimeStep = true; //Allow >60fps
+            IsFixedTimeStep = false;
             Graphics = new GraphicsDeviceManager(this)
             {
                 SynchronizeWithVerticalRetrace = GraphicsSettings.Instance.VSync,
@@ -29,7 +28,6 @@ namespace MonoGameClusterFuck
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
                 IsFullScreen = GraphicsSettings.Instance.Fullscreen,
             };
-            TargetElapsedTime = TimeSpan.FromMilliseconds(6.5);
             Graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
@@ -74,7 +72,7 @@ namespace MonoGameClusterFuck
             base.Draw(gameTime);
         }
 
-        private static void DrawUI()
+        private void DrawUI()
         {
             SpriteBatch.Begin();
             foreach (var layer in GameMap.Layers.Where(k => k.Key == LayerType.UI))
@@ -82,7 +80,7 @@ namespace MonoGameClusterFuck
             SpriteBatch.End();
         }
 
-        private static void DrawGame()
+        private void DrawGame()
         {
             SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
 

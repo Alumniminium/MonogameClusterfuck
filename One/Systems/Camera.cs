@@ -16,7 +16,7 @@ namespace MonoGameClusterFuck.Systems
         public Camera()
         {
             Bounds = Engine.Graphics.GraphicsDevice.Viewport.Bounds;
-            Zoom = 3f;
+            Zoom = 1f;
             Position = new Vector2(Engine.Graphics.GraphicsDevice.Viewport.Width / 2f, Engine.Graphics.GraphicsDevice.Viewport.Height / 2f);
         }
 

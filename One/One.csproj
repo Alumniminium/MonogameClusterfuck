@@ -30,4 +30,10 @@
     <ProjectReference Include="..\NoiseGen\NoiseGen.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="GraphicsConfig.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
