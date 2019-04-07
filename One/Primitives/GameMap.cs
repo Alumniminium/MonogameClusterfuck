@@ -14,6 +14,7 @@ namespace MonoGameClusterFuck.Primitives
             [LayerType.UI] = new Layer(LayerType.UI),
             [LayerType.Cursor] = new Layer(LayerType.Cursor),
         };
+
         public void Load()
         {
             

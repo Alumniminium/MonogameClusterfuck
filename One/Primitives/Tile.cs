@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 
 namespace MonoGameClusterFuck.Primitives
 {
-    public class Tile : DrawableComponent
+    public class Tile : Sprite
     {
         public Tile(int size) : base(size)
         {
@@ -21,14 +21,6 @@ namespace MonoGameClusterFuck.Primitives
         public override void Draw(Layers.LayerType type)
         {
             base.Draw(type);
-        }
-        public override bool Equals(object obj)
-        {
-            return Source.X == (obj as Tile).Source.X && Source.Y == (obj as Tile).Source.Y;
-        }
-       public override int GetHashCode()
-       {
-            return Source.X + Source.Y;
         }
     }
 }

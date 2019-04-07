@@ -5,7 +5,7 @@ using MonoGameClusterFuck.Primitives;
 
 namespace MonoGameClusterFuck.Systems
 {
-    public class FpsCounter : DrawableComponent
+    public class FpsCounter : Sprite
     {
         public int Fps;
         public Timer Timer = new Timer();

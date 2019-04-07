@@ -17,6 +17,7 @@ namespace MonoGameClusterFuck
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
         public static NetworkClient NetworkClient;
+
         public Engine()
         {
             IsFixedTimeStep = false;
@@ -36,7 +37,6 @@ namespace MonoGameClusterFuck
         protected override void Initialize()
         {
             GameMap.Layers[LayerType.Cursor].Add(new Cursor(32));
-            GameMap.Layers[LayerType.Ground].Add(new TileSet(32));
             GameMap.Layers[LayerType.Entity].Add(new Player(32));
             GameMap.Layers[LayerType.UI].Add(new FpsCounter(32));
 

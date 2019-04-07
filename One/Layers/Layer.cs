@@ -7,38 +7,38 @@ namespace MonoGameClusterFuck.Layers
     public class Layer
     {
         private readonly LayerType _type;
-        public List<DrawableComponent> Components;
+        public List<Sprite> Sprites;
 
         public Layer(LayerType type)
         {
             _type=type;
-            Components=new List<DrawableComponent>();
+            Sprites=new List<Sprite>();
         }
 
         public void Draw()
         {
-            foreach(var component in Components)
-                component.Draw(_type);
+            foreach(var sprite in Sprites)
+                sprite.Draw(_type);
         }
 
-        internal void Add(DrawableComponent component)
+        internal void Add(Sprite sprite)
         {
-            Components.Add(component);
-            component.Initialize();
-            component.LoadContent();
+            Sprites.Add(sprite);
+            sprite.Initialize();
+            sprite.LoadContent();
         }
 
         public void Update(GameTime gameTime)
         {
-            foreach (var component in Components)
-                component.Update(gameTime);
+            foreach (var sprite in Sprites)
+                sprite.Update(gameTime);
         }
 
         public void LoadContent()
         {
-            foreach (var component in Components)
+            foreach (var sprite in Sprites)
             {
-                component.LoadContent();
+                sprite.LoadContent();
             }
         }
     }

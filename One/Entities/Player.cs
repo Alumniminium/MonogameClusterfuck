@@ -8,7 +8,7 @@ using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {
-    public class Player : DrawableComponent
+    public class Player : Sprite
     {
         public Camera Camera;
         private WalkAnimations _walkAnimations;

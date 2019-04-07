@@ -6,7 +6,7 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace MonoGameClusterFuck.Primitives
 {
-    public abstract class DrawableComponent
+    public abstract class Sprite
     {
         public Texture2D Texture;
         public Vector2 Position { get; set; }
@@ -16,7 +16,7 @@ namespace MonoGameClusterFuck.Primitives
         public Vector2 RotationOrigin;
         public Rectangle Source;
 
-        protected DrawableComponent(int size)
+        protected Sprite(int size)
         {
             SpriteSize = new Point(size, size);
         }
