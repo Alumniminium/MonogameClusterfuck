@@ -17,7 +17,6 @@ namespace MonoGameClusterFuck
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
         public static NetworkClient NetworkClient;
-
         public Engine()
         {
             IsFixedTimeStep = false;

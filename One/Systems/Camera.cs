@@ -47,9 +47,9 @@ namespace MonoGameClusterFuck.Systems
         public void AdjustZoom(float zoomAmount)
         {
             Zoom += zoomAmount;
-            if (Zoom < .15f)
+            if (Zoom < .10f)
             {
-                Zoom = .15f;
+                Zoom = .10f;
             }
             if (Zoom > 3f)
             {
@@ -67,12 +67,12 @@ namespace MonoGameClusterFuck.Systems
 
             if (_currentMouseWheelValue > _previousMouseWheelValue)
             {
-                AdjustZoom(.05f);
+                AdjustZoom(.1f);
             }
 
             if (_currentMouseWheelValue < _previousMouseWheelValue)
             {
-                AdjustZoom(-.05f);
+                AdjustZoom(-.1f);
             }
 
             _previousZoom = _zoom;

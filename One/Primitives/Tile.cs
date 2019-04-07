@@ -22,6 +22,13 @@ namespace MonoGameClusterFuck.Primitives
         {
             base.Draw(type);
         }
-
+        public override bool Equals(object obj)
+        {
+            return Source.X == (obj as Tile).Source.X && Source.Y == (obj as Tile).Source.Y;
+        }
+       public override int GetHashCode()
+       {
+            return Source.X + Source.Y;
+        }
     }
 }

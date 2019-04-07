@@ -37,6 +37,7 @@ namespace MonoGameClusterFuck.Entities
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var keyboard = Engine.InputManager.KManager;
             var velocity = Vector2.Zero;
+
             if (keyboard.KeyDown(PlayerControls.Up))
             {
                 velocity.Y = -Speed;
@@ -57,7 +58,7 @@ namespace MonoGameClusterFuck.Entities
                 velocity.X = Speed;
                 _currentAnimation = _walkAnimations.WalkRight;
             }
-            else
+            if(velocity.Length() == 0f)
             {
                 if (_currentAnimation == _walkAnimations.WalkUp)
                     _currentAnimation = _walkAnimations.IdleUp;
