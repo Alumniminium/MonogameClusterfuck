@@ -8,7 +8,6 @@ namespace MonoGameClusterFuck.Primitives
     {
         public readonly int TileSize;
         public Texture2D Atlas;
-
         public List<Tile> Tiles;
 
         public TileSet(int tilesize)
@@ -17,7 +16,7 @@ namespace MonoGameClusterFuck.Primitives
             Tiles = new List<Tile>();
         }
 
-        public void Slice(string textureName)
+        public void Slice()
         {
             Atlas = Engine.Instance.Content.Load<Texture2D>("terrain");
 

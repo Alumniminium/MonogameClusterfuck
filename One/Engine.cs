@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
@@ -17,7 +18,8 @@ namespace MonoGameClusterFuck
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
         public static NetworkClient NetworkClient;
-
+        public static TileSet TileSet;
+        public static FastNoise NoiseGen = new FastNoise();
         public Engine()
         {
             IsFixedTimeStep = false;
@@ -39,7 +41,10 @@ namespace MonoGameClusterFuck
             GameMap.Layers[LayerType.Cursor].Add(new Cursor(32));
             GameMap.Layers[LayerType.Entity].Add(new Player(32));
             GameMap.Layers[LayerType.UI].Add(new FpsCounter(32));
-
+            TileSet = new TileSet(32);
+            TileSet.Slice();
+            chunk = new Chunk(Vector2.Zero);
+            chunk2 = new Chunk(new Vector2(32*16,0));
             InputManager = new InputManager();
             NetworkClient = new NetworkClient();
             base.Initialize();
@@ -79,6 +84,8 @@ namespace MonoGameClusterFuck
             SpriteBatch.End();
         }
 
+        private Chunk chunk;
+        private Chunk chunk2;
         private void DrawGame()
         {
             SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
@@ -86,6 +93,29 @@ namespace MonoGameClusterFuck
             foreach (var layer in GameMap.Layers.Where(k => k.Key != LayerType.UI))
                 layer.Value.Draw();
 
+            var SpriteSize = TileSet.TileSize;
+            var destRect = new Rectangle(Point.Zero, new Point(SpriteSize));
+            var viewbounds = Camera.VisibleArea;
+
+            var left = (viewbounds.Left / SpriteSize * SpriteSize) - SpriteSize;
+            var top = (viewbounds.Top / SpriteSize * SpriteSize) - SpriteSize;
+            var FloorTile = TileSet.Tiles[357];
+            var WallTile = TileSet.Tiles[5];
+            for (var x = left; x <= viewbounds.Right; x += SpriteSize)
+            {
+                for (var y = top; y <= viewbounds.Bottom; y += SpriteSize)
+                {
+                    
+                }
+            }
+            for (int x = 0; x < 16; x++)
+            {
+                for (int y = 0; y < 16; y++)
+                {
+                    chunk.Blocks[x * 16 + y].Draw(LayerType.Ground);
+                    //chunk2.Blocks[i * 16 + j].Draw(LayerType.Ground);
+                }
+            }
             SpriteBatch.End();
         }
     }

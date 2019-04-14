@@ -22,5 +22,11 @@ namespace MonoGameClusterFuck.Primitives
         {
             base.Draw(type);
         }
+
+        public Tile Clone()
+        {
+            var clone = new Tile(32) {Texture = Texture, Source = Source, SpriteSize = SpriteSize};
+            return clone;
+        }
     }
 }

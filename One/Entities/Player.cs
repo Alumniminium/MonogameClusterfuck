@@ -14,6 +14,7 @@ namespace MonoGameClusterFuck.Entities
         private WalkAnimations _walkAnimations;
         private Animation _currentAnimation;
         private float Speed = 200;
+        private float SprintFactor = 3;
 
         public Player(int size) : base(size)
         {
@@ -53,12 +54,17 @@ namespace MonoGameClusterFuck.Entities
                 velocity.X = -Speed;
                 _currentAnimation = _walkAnimations.WalkLeft;
             }
-            if(keyboard.KeyDown(PlayerControls.Right))
+            if (keyboard.KeyDown(PlayerControls.Right))
             {
                 velocity.X = Speed;
                 _currentAnimation = _walkAnimations.WalkRight;
             }
-            if(velocity.Length() == 0f)
+            if (keyboard.KeyDown(PlayerControls.Sprint))
+            {
+                velocity.X *= SprintFactor;
+                velocity.Y *= SprintFactor;
+            }
+            if (Math.Abs(velocity.X) < 1  && Math.Abs(velocity.Y) < 1)
             {
                 if (_currentAnimation == _walkAnimations.WalkUp)
                     _currentAnimation = _walkAnimations.IdleUp;

@@ -6,7 +6,7 @@ namespace MonoGameClusterFuck.Systems
     public class Camera
     {
         public float Zoom { get; set; }
-        public Vector2 Position { get; set; }
+        public static Vector2 Position { get; set; }
         public Rectangle Bounds { get; protected set; }
         public static Rectangle VisibleArea { get; protected set; }
         public static Matrix Transform { get; protected set; }
