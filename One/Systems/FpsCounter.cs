@@ -38,7 +38,7 @@ namespace MonoGameClusterFuck.Systems
         public override void Draw(LayerType layer)
         {
             var stringSize = Fonts.Generic.MeasureString($"FPS:{Fps:000} PING: {Ping:000}");
-            Engine.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{Fps:000} PING: {Ping:000}", new Vector2(Engine.Instance.GraphicsDevice.Viewport.Width - stringSize.X*4, 0), Color.Red,0, RotationOrigin, scale: new Vector2(4,4), SpriteEffects.None,0);
+            Engine.SpriteBatch.DrawString(Fonts.Generic, $"FPS:{Fps:000} PING: {Ping:000}", new Vector2(Engine.Instance.GraphicsDevice.Viewport.Width - stringSize.X*4, 0), Color.Red,0, RotationOrigin, new Vector2(4,4), SpriteEffects.None,0);
             Frames++;
         }
 

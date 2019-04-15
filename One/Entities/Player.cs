@@ -25,7 +25,7 @@ namespace MonoGameClusterFuck.Entities
         {
         }
 
-        public int LastPingTick { get; set; }
+        public DateTime LastPing { get; set; }
 
         public override void LoadContent()
         {
