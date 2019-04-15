@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
-using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;

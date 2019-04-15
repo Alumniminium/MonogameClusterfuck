@@ -1,13 +1,9 @@
 ﻿using System.Collections.Concurrent;
 using System.Linq;
-using System.Reflection.Metadata;
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
-using MonoGameClusterFuck.Networking;
-using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;

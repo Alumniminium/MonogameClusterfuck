@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using AlumniSocketCore.Client;
 using Server.Packets;
 
@@ -57,7 +56,7 @@ namespace Server
                 {
                     var msgPing = (MsgPing)buffer;
                     var delta = DateTime.UtcNow.Ticks - msgPing.TickCount;
-                    var ms = delta / 1000;
+                    var ms = delta / 10000;
                     msgPing.Ping = (short)ms;
                     socket.Send(msgPing);
                     break;

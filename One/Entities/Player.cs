@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Networking;

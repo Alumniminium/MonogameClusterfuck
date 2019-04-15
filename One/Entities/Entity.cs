@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
-using MonoGameClusterFuck.Networking;
-using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Settings;
-using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {
