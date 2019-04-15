@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Primitives;
@@ -12,6 +13,7 @@ namespace MonoGameClusterFuck.Entities
 {
     public class Player : Entity
     {
+        public Stopwatch LatencyWatch = Stopwatch.StartNew();
         public Camera Camera;
         private float SprintFactor = 3;
 
