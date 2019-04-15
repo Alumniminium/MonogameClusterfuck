@@ -31,7 +31,7 @@ namespace Server
                         }
                     }
 
-                    Thread.Sleep(10);
+                    Thread.Sleep(1);
                 }
             });
             t.Start();

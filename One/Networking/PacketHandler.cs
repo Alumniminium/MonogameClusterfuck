@@ -70,9 +70,10 @@ namespace MonoGameClusterFuck.Networking
                 case 1002:
                 {
                     var msgPing = (MsgPing)buffer;
-                    socket.Player.LatencyWatch.Stop();
-                    FpsCounter.Ping = (int)socket.Player.LatencyWatch.Elapsed.TotalMilliseconds - 1000;
-                    socket.Player.LatencyWatch.Restart();
+                    var currentTicks = DateTime.UtcNow.Ticks;
+                    var deltaTicks = currentTicks - msgPing.TickCount;
+                    var ms = (int)deltaTicks / 1000;
+                    FpsCounter.Ping = ms;
                         break;
                 }
             }
