@@ -3,7 +3,9 @@ using AlumniSocketCore.Server;
 using System;
 using System.Collections.Concurrent;
 using System.Numerics;
+using System.Threading;
 using AlumniSocketCore.Client;
+using Server.Packets;
 
 namespace Server
 {
@@ -14,6 +16,25 @@ namespace Server
             ReceiveQueue.Start(PacketHandler.Handle);
             ServerSocket.Start(1337);
 
+            var t = new Thread(() =>
+            {
+                while (true)
+                {
+                    foreach (var kvp in Collections.Players)
+                    {
+                        var player = kvp.Value;
+
+                        if (DateTime.Now >= player.LastPing.AddSeconds(1))
+                        {
+                            player.Socket.Send(MsgPing.Create(player.UniqueId));
+                            player.LastPing = DateTime.Now;
+                        }
+                    }
+
+                    Thread.Sleep(10);
+                }
+            });
+            t.Start();
             while (true)
             {
                 Console.ReadLine();
@@ -33,6 +54,14 @@ namespace Server
         public Player(ClientSocket socket)
         {
             Socket = socket;
+            Socket.OnConnected += OnConnected;
+        }
+
+        public DateTime LastPing { get; set; }
+
+        private void OnConnected()
+        {
+            Collections.Players.TryRemove(UniqueId, out _);
         }
     }
     public static class Collections

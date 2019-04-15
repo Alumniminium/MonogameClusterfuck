@@ -23,6 +23,8 @@ namespace MonoGameClusterFuck.Entities
         {
         }
 
+        public int LastPingTick { get; set; }
+
         public override void LoadContent()
         {
             Texture = Engine.Instance.Content.Load<Texture2D>("player_f");

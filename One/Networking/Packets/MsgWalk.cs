@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 
 namespace MonoGameClusterFuck.Networking.Packets
@@ -8,6 +9,7 @@ namespace MonoGameClusterFuck.Networking.Packets
     {
         public int Length;
         public ushort Id;
+        public int TickCount;
         public uint UniqueId;
         public Vector2 Location;
         
@@ -16,6 +18,7 @@ namespace MonoGameClusterFuck.Networking.Packets
             var msg = stackalloc MsgWalk[1];
             msg->Length = sizeof(MsgWalk);
             msg->Id = 1001;
+            msg->TickCount = Environment.TickCount;
             msg->UniqueId = uniqueId;
             msg->Location = location;
             return *msg;

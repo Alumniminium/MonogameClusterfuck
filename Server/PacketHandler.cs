@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using AlumniSocketCore.Client;
 using Server.Packets;
 
@@ -42,14 +43,11 @@ namespace Server
                     var msgWalk = (MsgWalk)buffer;
                     var player = (Player) socket.StateObject;
                     player.Location = msgWalk.Location;
-
+                    msgWalk.TickCount = Environment.TickCount;
                     Console.WriteLine($"Player: {player.Username} ({msgWalk.UniqueId}) moved to: {player.Location.X},{player.Location.Y}");
 
                     foreach (var kvp in Collections.Players)
                     {
-                        if(kvp.Key==msgWalk.UniqueId)
-                            continue;
-                        
                         kvp.Value.Socket.Send(msgWalk);
                     }
 

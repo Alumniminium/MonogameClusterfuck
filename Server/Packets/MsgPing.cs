@@ -1,39 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Server.Packets
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
-    public unsafe struct MsgWalk
+    public unsafe struct MsgPing
     {
         public int Length;
         public ushort Id;
         public int TickCount;
         public uint UniqueId;
-        public Vector2 Location;
 
-        public static MsgWalk Create(uint uniqueId, Vector2 location)
+        public static MsgPing Create(uint uniqueId)
         {
-            var msg = stackalloc MsgWalk[1];
-            msg->Length = sizeof(MsgWalk);
-            msg->Id = 1001;
+            var msg = stackalloc MsgPing[1];
+            msg->Length = sizeof(MsgPing);
+            msg->Id = 1002;
             msg->TickCount = Environment.TickCount;
             msg->UniqueId = uniqueId;
-            msg->Location = location;
             return *msg;
         }
-        public static implicit operator byte[] (MsgWalk msg)
+        public static implicit operator byte[] (MsgPing msg)
         {
-            var buffer = new byte[sizeof(MsgWalk)];
+            var buffer = new byte[sizeof(MsgPing)];
             fixed (byte* p = buffer)
-                *(MsgWalk*)p = *&msg;
+                *(MsgPing*)p = *&msg;
             return buffer;
         }
-        public static implicit operator MsgWalk(byte[] msg)
+        public static implicit operator MsgPing(byte[] msg)
         {
             fixed (byte* p = msg)
-                return *(MsgWalk*)p;
+                return *(MsgPing*)p;
         }
     }
 }

@@ -5,6 +5,7 @@ using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
+using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.Networking
 {
@@ -16,13 +17,13 @@ namespace MonoGameClusterFuck.Networking
             switch (packetId)
             {
                 case 1000:
-                    {
-                        var msgLogin = (MsgLogin)buffer;
-                        socket.Player.UniqueId = msgLogin.UniqueId;
+                {
+                    var msgLogin = (MsgLogin)buffer;
+                    socket.Player.UniqueId = msgLogin.UniqueId;
 
-                        Collections.Entities.TryAdd(socket.Player.UniqueId, socket.Player);
-                        break;
-                    }
+                    Collections.Entities.TryAdd(socket.Player.UniqueId, socket.Player);
+                    break;
+                }
                 case 1001:
                     {
                         var msgWalk = (MsgWalk)buffer;
@@ -66,6 +67,13 @@ namespace MonoGameClusterFuck.Networking
 
                         break;
                     }
+                case 1002:
+                {
+                    var msgPing = (MsgPing)buffer;
+                    FpsCounter.Ping = Environment.TickCount - socket.Player.LastPingTick - 1000;
+                    socket.Player.LastPingTick = Environment.TickCount;
+                        break;
+                }
             }
         }
     }
