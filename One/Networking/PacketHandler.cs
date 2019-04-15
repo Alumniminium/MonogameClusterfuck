@@ -17,13 +17,13 @@ namespace MonoGameClusterFuck.Networking
             switch (packetId)
             {
                 case 1000:
-                {
-                    var msgLogin = (MsgLogin)buffer;
-                    socket.Player.UniqueId = msgLogin.UniqueId;
+                    {
+                        var msgLogin = (MsgLogin)buffer;
+                        socket.Player.UniqueId = msgLogin.UniqueId;
 
-                    Collections.Entities.TryAdd(socket.Player.UniqueId, socket.Player);
-                    break;
-                }
+                        Collections.Entities.TryAdd(socket.Player.UniqueId, socket.Player);
+                        break;
+                    }
                 case 1001:
                     {
                         var msgWalk = (MsgWalk)buffer;
@@ -35,8 +35,8 @@ namespace MonoGameClusterFuck.Networking
                             var heading = msgWalk.Location - entity.Position;
                             var distance = heading.Length();
                             var direction = heading / distance;
-                            
-                            if (Math.Round(direction.X,0) == 1)
+
+                            if (Math.Round(direction.X, 0) == 1)
                             {
                                 entity.CurrentAnimation = entity.WalkAnimations.IdleRight;
                             }
@@ -57,25 +57,23 @@ namespace MonoGameClusterFuck.Networking
                         }
                         else
                         {
-                                entity = new Entity(32);
-                                entity.UniqueId = msgWalk.UniqueId;
-                                entity.Initialize();
-                                entity.LoadContent();
-                                GameMap.Layers[LayerType.Entity].Add(entity);
-                                Collections.Entities.TryAdd(entity.UniqueId, entity);
+                            entity = new Entity(32);
+                            entity.UniqueId = msgWalk.UniqueId;
+                            entity.Initialize();
+                            entity.LoadContent();
+                            GameMap.Layers[LayerType.Entity].Add(entity);
+                            Collections.Entities.TryAdd(entity.UniqueId, entity);
                         }
 
                         break;
                     }
                 case 1002:
-                {
-                    var msgPing = (MsgPing)buffer;
-                    var currentTicks = DateTime.UtcNow.Ticks;
-                    var deltaTicks = currentTicks - msgPing.TickCount;
-                    var ms = (int)deltaTicks / 1000;
-                    FpsCounter.Ping = ms;
+                    {
+                        var msgPing = (MsgPing)buffer;
+                        FpsCounter.Ping = (DateTime.Now - socket.Player.LastPing).Milliseconds;
+                        socket.Player.LastPing = DateTime.Now;
                         break;
-                }
+                    }
             }
         }
     }
