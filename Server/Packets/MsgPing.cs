@@ -11,8 +11,9 @@ namespace Server.Packets
     {
         public int Length;
         public ushort Id;
-        public long TickCount;
         public uint UniqueId;
+        public long TickCount;
+        public short Ping;
 
         public static MsgPing Create(uint uniqueId)
         {

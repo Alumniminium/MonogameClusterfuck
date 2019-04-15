@@ -70,8 +70,12 @@ namespace MonoGameClusterFuck.Networking
                 case 1002:
                     {
                         var msgPing = (MsgPing)buffer;
-                        FpsCounter.Ping = (DateTime.Now - socket.Player.LastPing).Milliseconds;
-                        socket.Player.LastPing = DateTime.Now;
+                        if (msgPing.Ping == 0)
+                            socket.Send(msgPing);
+                        else
+                        {
+                            FpsCounter.Ping = msgPing.Ping;
+                        }
                         break;
                     }
             }

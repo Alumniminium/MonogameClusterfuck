@@ -41,7 +41,7 @@ namespace Server
                 case 1001:
                 {
                     var msgWalk = (MsgWalk)buffer;
-                    var player = (Player) socket.StateObject;
+                    var player = (Player)socket.StateObject;
                     player.Location = msgWalk.Location;
                     msgWalk.TickCount = Environment.TickCount;
                     Console.WriteLine($"Player: {player.Username} ({msgWalk.UniqueId}) moved to: {player.Location.X},{player.Location.Y}");
@@ -51,6 +51,15 @@ namespace Server
                         kvp.Value.Socket.Send(msgWalk);
                     }
 
+                    break;
+                }
+                case 1002:
+                {
+                    var msgPing = (MsgPing)buffer;
+                    var delta = DateTime.UtcNow.Ticks - msgPing.TickCount;
+                    var ms = delta / 1000;
+                    msgPing.Ping = (short)ms;
+                    socket.Send(msgPing);
                     break;
                 }
             }
