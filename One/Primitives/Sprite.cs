@@ -6,17 +6,17 @@ using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
 namespace MonoGameClusterFuck.Primitives
 {
-    public abstract class Sprite
+    public class Sprite
     {
         public Texture2D Texture;
-        public Vector2 Position { get; set; }
+        public virtual Vector2 Position { get; set; }
         public Point TextureSize;
         public Point SpriteSize;
         public float Rotation;
         public Vector2 RotationOrigin;
         public Rectangle Source;
 
-        protected Sprite(int size)
+        public Sprite(int size)
         {
             SpriteSize = new Point(size, size);
         }
@@ -35,12 +35,20 @@ namespace MonoGameClusterFuck.Primitives
             TextureSize = Texture.Bounds.Size;
         }
 
-        public abstract void Update(GameTime deltaTime);
+        public virtual void Update(GameTime deltaTime)
+        {
+
+        }
 
         public virtual void Draw(Layers.LayerType layer)
         {
             if(Texture!=null)
             Engine.SpriteBatch.Draw(Texture, Position, Source, Color.White, Rotation, RotationOrigin, Vector2.One, SpriteEffects.None, (float)layer/ 100f);
+        }
+        public Sprite Clone()
+        {
+            var clone = new Sprite(32) {Texture = Texture, Source = Source, SpriteSize = SpriteSize};
+            return clone;
         }
     }
 }

@@ -8,12 +8,12 @@ namespace MonoGameClusterFuck.Primitives
     {
         public readonly int TileSize;
         public Texture2D Atlas;
-        public List<Tile> Tiles;
+        public List<Sprite> Tiles;
 
         public TileSet(int tilesize)
         {
             TileSize = tilesize;
-            Tiles = new List<Tile>();
+            Tiles = new List<Sprite>();
         }
 
         public void Slice()
@@ -24,7 +24,7 @@ namespace MonoGameClusterFuck.Primitives
             {
                 for (int y = 0; y < Atlas.Height; y += TileSize)
                 {
-                    var tile = new Tile(TileSize);
+                    var tile = new Sprite(TileSize);
                     tile.Texture = Atlas;
                     tile.Source = new Rectangle(x, y, TileSize, TileSize);
                     Tiles.Add(tile);

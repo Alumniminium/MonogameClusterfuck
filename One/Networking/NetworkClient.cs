@@ -1,4 +1,5 @@
-﻿using AlumniSocketCore.Client;
+﻿using System;
+using AlumniSocketCore.Client;
 using AlumniSocketCore.Queues;
 using MonoGameClusterFuck.Entities;
 
@@ -11,6 +12,8 @@ namespace MonoGameClusterFuck.Networking
         public string Ip = "192.168.0.3";
         public ushort Port = 65534;
         public bool IsConnected;
+        public int LastUpdateTick = Environment.TickCount;
+        public bool NeedsUpdate = true;
 
         public NetworkClient(Player player)
         {
@@ -23,7 +26,7 @@ namespace MonoGameClusterFuck.Networking
             Socket = new ClientSocket(this);
             Socket.OnDisconnect += Disconnected;
             Socket.OnConnected += Connected;
-            Socket.Connect(ip, port);
+            Socket.ConnectAsync(ip, port);
         }
 
         private void Connected() => IsConnected = true;

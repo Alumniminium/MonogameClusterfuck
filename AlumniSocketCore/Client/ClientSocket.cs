@@ -34,7 +34,7 @@ namespace AlumniSocketCore.Client
         }
 
 
-        public void Connect(string host, ushort port)
+        public void ConnectAsync(string host, ushort port)
         {
             try
             {

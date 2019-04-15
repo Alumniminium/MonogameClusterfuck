@@ -12,7 +12,7 @@ namespace MonoGameClusterFuck.Primitives
         /// <summary>
         /// Gets or sets the blocks in the Chunk
         /// </summary>
-        public Tile[] Blocks
+        public Sprite[] Blocks
         {
             get;
             set;
@@ -34,7 +34,7 @@ namespace MonoGameClusterFuck.Primitives
         public Chunk(Vector2 location)
         {
             Location = location;
-            Blocks = new Tile[ChunkSize * ChunkSize];
+            Blocks = new Sprite[ChunkSize * ChunkSize];
             Generate();
         }
 

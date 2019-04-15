@@ -1,4 +1,7 @@
+using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGameClusterFuck.Settings;
 
 namespace MonoGameClusterFuck.Systems
 {
@@ -54,5 +57,36 @@ namespace MonoGameClusterFuck.Systems
             }
             return result;
         } 
+        public Vector2 GetVelocity(float speed)
+        {
+            var keyboard = Engine.InputManager.KManager;
+            var velocity = Vector2.Zero;
+            if (keyboard.KeyDown(PlayerControls.Up))
+            {
+                velocity.Y = -speed;
+            }
+            if (keyboard.KeyDown(PlayerControls.Down))
+            {
+                velocity.Y = speed;
+            }
+            if (keyboard.KeyDown(PlayerControls.Left))
+            {
+                velocity.X = -speed;
+            }
+            if (keyboard.KeyDown(PlayerControls.Right))
+            {
+                velocity.X = speed;
+            }
+            if (keyboard.KeyDown(PlayerControls.Sprint))
+            {
+                velocity.X *= 20;
+                velocity.Y *= 20;
+            }
+
+            if (Math.Abs(Math.Abs(velocity.Y) - speed) < 1 && Math.Abs(Math.Abs(velocity.X) - speed) < 1)
+                velocity /= 1.55f;
+
+            return velocity;
+        }
     }
 }

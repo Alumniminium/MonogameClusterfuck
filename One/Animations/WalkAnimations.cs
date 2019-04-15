@@ -46,5 +46,28 @@ namespace MonoGameClusterFuck.Animations
             IdleUp.AddFrame(new Rectangle(32, 96, 32, 32), TimeSpan.FromSeconds(.5));
 
         }
+        public Animation GetWalkingAnimationFrom(Vector2 velocity)
+        {
+            if (velocity.Y < 0)
+                return WalkUp;
+            else if (velocity.Y > 0)
+                return WalkDown;
+            else if (velocity.X < 0)
+                return WalkLeft;
+            else
+                return WalkRight;
+        }
+        public Animation GetIdleAnimationFrom(Animation currentAnimation)
+        {
+            if (currentAnimation == WalkUp)
+                currentAnimation = IdleUp;
+            else if (currentAnimation == WalkLeft)
+                currentAnimation = IdleLeft;
+            else if (currentAnimation == WalkRight)
+                currentAnimation = IdleRight;
+            else if (currentAnimation == WalkDown)
+                currentAnimation = IdleDown;
+            return currentAnimation;
+        }
     }
 }

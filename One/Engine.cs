@@ -17,6 +17,7 @@ namespace MonoGameClusterFuck
     public class Engine : Game
     {
         public static Engine Instance;
+        public static FpsCounter FpsCounter;
         public static InputManager InputManager;
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
@@ -40,13 +41,11 @@ namespace MonoGameClusterFuck
 
         protected override void Initialize()
         {
+            FpsCounter=new FpsCounter();
             GameMap.Layers[LayerType.Cursor].Add(new Cursor(32));
             GameMap.Layers[LayerType.Entity].Add(new Player(32));
-            GameMap.Layers[LayerType.UI].Add(new FpsCounter(32));
             TileSet = new TileSet(32);
             TileSet.Slice();
-            chunk = new Chunk(Vector2.Zero);
-            chunk2 = new Chunk(new Vector2(32*16,0));
             InputManager = new InputManager();
             base.Initialize();
         }
@@ -80,11 +79,9 @@ namespace MonoGameClusterFuck
             SpriteBatch.Begin();
             foreach (var layer in GameMap.Layers.Where(k => k.Key == LayerType.UI))
                 layer.Value.Draw();
+            FpsCounter.Draw();
             SpriteBatch.End();
         }
-
-        private Chunk chunk;
-        private Chunk chunk2;
         private void DrawGame()
         {
             SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);

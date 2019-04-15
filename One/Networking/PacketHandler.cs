@@ -3,6 +3,7 @@ using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
+using MonoGameClusterFuck.Entities;
 
 namespace MonoGameClusterFuck.Networking
 {
