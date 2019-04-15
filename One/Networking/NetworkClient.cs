@@ -1,15 +1,21 @@
 ﻿using AlumniSocketCore.Client;
 using AlumniSocketCore.Queues;
+using MonoGameClusterFuck.Entities;
 
 namespace MonoGameClusterFuck.Networking
 {
     public class NetworkClient
     {
         public ClientSocket Socket;
+        public Player Player;
         public string Ip = "192.168.0.3";
         public ushort Port = 65534;
         public bool IsConnected;
 
+        public NetworkClient(Player player)
+        {
+            Player = player;
+        }
 
         public void ConnectAsync(string ip, ushort port)
         {

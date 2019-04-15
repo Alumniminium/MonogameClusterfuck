@@ -1,23 +1,29 @@
-﻿using System.Linq;
+﻿using System.Collections.Concurrent;
+using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Networking;
+using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck
 {
+    public static class Collections
+    {
+        public static ConcurrentDictionary<uint, Entity> Entities = new ConcurrentDictionary<uint, Entity>();
+    }
     public class Engine : Game
     {
         public static Engine Instance;
         public static InputManager InputManager;
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
-        public static NetworkClient NetworkClient;
         public static TileSet TileSet;
         public static FastNoise NoiseGen = new FastNoise();
         public Engine()
@@ -46,7 +52,6 @@ namespace MonoGameClusterFuck
             chunk = new Chunk(Vector2.Zero);
             chunk2 = new Chunk(new Vector2(32*16,0));
             InputManager = new InputManager();
-            NetworkClient = new NetworkClient();
             base.Initialize();
         }
 
@@ -54,8 +59,6 @@ namespace MonoGameClusterFuck
         {
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             Fonts.LoadContent(Content);
-            //NetworkClient.ConnectAsync("192.168.0.3", 1337);
-            //NetworkClient.Send(MsgLogin.Create("monogame","password"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -105,15 +108,18 @@ namespace MonoGameClusterFuck
             {
                 for (var y = top; y <= viewbounds.Bottom; y += SpriteSize)
                 {
-                    
-                }
-            }
-            for (int x = 0; x < 16; x++)
-            {
-                for (int y = 0; y < 16; y++)
-                {
-                    chunk.Blocks[x * 16 + y].Draw(LayerType.Ground);
-                    //chunk2.Blocks[i * 16 + j].Draw(LayerType.Ground);
+                    var value = NoiseGen.GetCellular(x, y);
+
+                    if (value > 0.45f)
+                    {
+                        destRect.Location = new Point(x, y);
+                        SpriteBatch.Draw(FloorTile.Texture, destRect, FloorTile.Source, Color.White);
+                    }
+                    else
+                    {
+                        destRect.Location = new Point(x, y);
+                        SpriteBatch.Draw(WallTile.Texture, destRect, WallTile.Source, Color.White);
+                    }
                 }
             }
             SpriteBatch.End();

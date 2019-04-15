@@ -1,7 +1,9 @@
-﻿using AlumniSocketCore.Client;
-using AlumniSocketCore.Queues;
+﻿using AlumniSocketCore.Queues;
 using AlumniSocketCore.Server;
 using System;
+using System.Collections.Concurrent;
+using System.Numerics;
+using AlumniSocketCore.Client;
 
 namespace Server
 {
@@ -19,30 +21,22 @@ namespace Server
         }
     }
 
-    public class PacketHandler
+    public class Player
     {
-        public static void Handle(ClientSocket socket, byte[] buffer)
+        public string Name;
+        public uint UniqueId;
+        public Vector2 Location;
+        public ClientSocket Socket;
+        public string Username;
+        public string Password;
+
+        public Player(ClientSocket socket)
         {
-            var packetId = BitConverter.ToUInt16(buffer, 4);
-            switch (packetId)
-            {
-                case 1000:
-                    {
-                        var msgLogin = (MsgLogin)buffer;
-                        var uniqueId = msgLogin.UniqueId;
-                        var user = msgLogin.GetUsername();
-                        var pass = msgLogin.GetPassword();
-
-                        Console.WriteLine($"Login request for {user} using password {pass}");
-
-
-                        if (uniqueId != 0)
-                            Console.WriteLine("Authentication successful. Your customer Id is: " + uniqueId);
-                        else
-                            Console.WriteLine("Authentication failed.");
-                        break;
-                    }
-            }
+            Socket = socket;
         }
+    }
+    public static class Collections
+    {
+        public static ConcurrentDictionary<uint, Player> Players = new ConcurrentDictionary<uint, Player>();
     }
 }
