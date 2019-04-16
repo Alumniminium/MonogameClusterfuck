@@ -9,13 +9,13 @@ namespace MonoGameClusterFuck.Systems
     {
         public static bool DrawTileSet;
     }
-    public class InputManager
+    public static class InputManager
     {
-        public KeyboardManager KManager = new KeyboardManager();
-        public GamePadState GamePadState, LastGamePadState;
-        public MouseState MouseState, LastMouseState;
+        public static KeyboardManager KManager = new KeyboardManager();
+        public static GamePadState GamePadState, LastGamePadState;
+        public static MouseState MouseState, LastMouseState;
 
-        private void UpdateStates()
+        private static void UpdateStates()
         {
             LastGamePadState = GamePadState;
             LastMouseState = MouseState;
@@ -23,7 +23,7 @@ namespace MonoGameClusterFuck.Systems
             MouseState = Mouse.GetState();
         }
 
-        public void Update()
+        public static void Update()
         {
             KManager.Update();
             UpdateStates();

@@ -38,10 +38,5 @@ namespace MonoGameClusterFuck.Entities
         {
             base.Draw(type);
         }
-
-        public void Move(Vector2 location)
-        {
-            Position = Vector2.Lerp(Position, location,0.1f);
-        }
     }
 }

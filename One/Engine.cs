@@ -12,13 +12,12 @@ namespace MonoGameClusterFuck
 {
     public static class Collections
     {
-        public static ConcurrentDictionary<uint, Entity> Entities = new ConcurrentDictionary<uint, Entity>();
+        public static ConcurrentDictionary<uint, NPC> Entities = new ConcurrentDictionary<uint, NPC>();
     }
     public class Engine : Game
     {
         public static Engine Instance;
         public static FpsCounter FpsCounter;
-        public static InputManager InputManager;
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
         public static TileSet TileSet;
@@ -46,7 +45,6 @@ namespace MonoGameClusterFuck
             GameMap.Layers[LayerType.Entity].Add(new Player(32));
             TileSet = new TileSet(32);
             TileSet.Slice();
-            InputManager = new InputManager();
             base.Initialize();
         }
 

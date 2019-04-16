@@ -14,7 +14,7 @@ namespace Server
         public static void Main(string[] args)
         {
             ReceiveQueue.Start(PacketHandler.Handle);
-            ServerSocket.Start(1337);
+            ServerSocket.Start(13337);
 
             var t = new Thread(() =>
             {

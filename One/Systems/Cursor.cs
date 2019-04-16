@@ -19,8 +19,8 @@ namespace MonoGameClusterFuck.Systems
         }
         public override void Update(GameTime deltaTime)
         {
-            _cursorVector.X = Engine.InputManager.MouseState.X;
-            _cursorVector.Y = Engine.InputManager.MouseState.Y;
+            _cursorVector.X = InputManager.MouseState.X;
+            _cursorVector.Y = InputManager.MouseState.Y;
             _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Camera.Transform));
             var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 - (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 - (int)RotationOrigin.Y);
             Position = newPosition;

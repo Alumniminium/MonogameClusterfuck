@@ -18,16 +18,14 @@ namespace MonoGameClusterFuck.Networking
                     {
                         var msgLogin = (MsgLogin)buffer;
                         socket.Player.UniqueId = msgLogin.UniqueId;
-
-                        Collections.Entities.TryAdd(socket.Player.UniqueId, socket.Player);
                         break;
                     }
                 case 1001:
                     {
                         var msgWalk = (MsgWalk)buffer;
-                        if (msgWalk.UniqueId == socket.Player.UniqueId)
-                            return;
-
+                        if(msgWalk.UniqueId ==  socket.Player.UniqueId)
+                        return;
+                        
                         if (Collections.Entities.TryGetValue(msgWalk.UniqueId, out var entity))
                         {
                             var heading = msgWalk.Location - entity.Position;
@@ -55,7 +53,7 @@ namespace MonoGameClusterFuck.Networking
                         }
                         else
                         {
-                            entity = new Entity(32);
+                            entity = new NPC(32);
                             entity.UniqueId = msgWalk.UniqueId;
                             entity.Initialize();
                             entity.LoadContent();

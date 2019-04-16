@@ -57,25 +57,25 @@ namespace MonoGameClusterFuck.Systems
             }
             return result;
         } 
-        public Vector2 GetVelocity(float speed)
+        public Vector2 GetInputAxis()
         {
-            var keyboard = Engine.InputManager.KManager;
+            var keyboard = InputManager.KManager;
             var velocity = Vector2.Zero;
             if (keyboard.KeyDown(PlayerControls.Up))
             {
-                velocity.Y = -speed;
+                velocity.Y = -1;
             }
             if (keyboard.KeyDown(PlayerControls.Down))
             {
-                velocity.Y = speed;
+                velocity.Y = 1;
             }
             if (keyboard.KeyDown(PlayerControls.Left))
             {
-                velocity.X = -speed;
+                velocity.X = -1;
             }
             if (keyboard.KeyDown(PlayerControls.Right))
             {
-                velocity.X = speed;
+                velocity.X = 1;
             }
             if (keyboard.KeyDown(PlayerControls.Sprint))
             {
@@ -83,7 +83,7 @@ namespace MonoGameClusterFuck.Systems
                 velocity.Y *= 20;
             }
 
-            if (Math.Abs(Math.Abs(velocity.Y) - speed) < 1 && Math.Abs(Math.Abs(velocity.X) - speed) < 1)
+            if (Math.Abs(Math.Abs(velocity.Y) - 1) < 1 && Math.Abs(Math.Abs(velocity.X) - 1) < 1)
                 velocity /= 1.55f;
 
             return velocity;
