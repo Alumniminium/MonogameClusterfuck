@@ -11,7 +11,7 @@ namespace MonoGameClusterFuck.Systems
     }
     public static class InputManager
     {
-        public static KeyboardManager KManager = new KeyboardManager();
+        public static KeyboardManager Keyboard = new KeyboardManager();
         public static GamePadState GamePadState, LastGamePadState;
         public static MouseState MouseState, LastMouseState;
 
@@ -25,15 +25,15 @@ namespace MonoGameClusterFuck.Systems
 
         public static void Update()
         {
-            KManager.Update();
+            Keyboard.Update();
             UpdateStates();
 
-            if (KManager.KeyPressed(Keys.Escape))
+            if (Keyboard.KeyPressed(Keys.Escape))
             {
                 GraphicsSettings.Instance.Save();
                 Environment.Exit(0);
             }
-            if (KManager.KeyPressed(Keys.H))
+            if (Keyboard.KeyPressed(Keys.H))
                 InputState.DrawTileSet = !InputState.DrawTileSet;
         }
     }

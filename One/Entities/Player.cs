@@ -1,10 +1,6 @@
 using System;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Settings;
-using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Networking;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Systems;
@@ -15,16 +11,23 @@ namespace MonoGameClusterFuck.Entities
     {
         public NetworkClient Socket;
         public Camera Camera;
+
+        private Vector2 PreviousPosition, ServerPosition;
         public override Vector2 Position
         {
             get => base.Position;
             set
             {
-                Camera.Position = base.Position = value;
-                if (Socket.LastUpdateTick + 50 < Environment.TickCount)
+                if(value == ServerPosition)
+                    return;
+
+                PreviousPosition= Camera.Position = base.Position = value;
+                
+                if (Socket.LastUpdateTick + 50 < Environment.TickCount && value != ServerPosition)
                 {
                     Socket.Send(MsgWalk.Create(UniqueId, Position));
                     Socket.LastUpdateTick = Environment.TickCount;
+                    ServerPosition = Position;
                 }
             }
         }
@@ -40,7 +43,7 @@ namespace MonoGameClusterFuck.Entities
         {
             Camera = new Camera();
             Socket = new NetworkClient(this);
-            Socket.ConnectAsync("84.112.111.13", 13337);
+            Socket.ConnectAsync("84.112.111.13", 13338);
             Socket.Send(MsgLogin.Create("monogame", "password"));
             base.Initialize();
         }

@@ -1,8 +1,6 @@
 using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Layers;
-using MonoGameClusterFuck.Primitives;
 
 namespace MonoGameClusterFuck.Systems
 {

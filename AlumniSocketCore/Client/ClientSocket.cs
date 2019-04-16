@@ -42,8 +42,10 @@ namespace AlumniSocketCore.Client
                     Disconnect();
 
                 Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                var connectArgs = new SocketAsyncEventArgs();
-                connectArgs.RemoteEndPoint = new IPEndPoint(IPAddress.Parse(host), port);
+                var connectArgs = new SocketAsyncEventArgs
+                {
+                    RemoteEndPoint = new IPEndPoint(IPAddress.Parse(host), port)
+                };
                 connectArgs.Completed += Connected;
                 if (!Socket.ConnectAsync(connectArgs))
                     Connected(null, connectArgs);
@@ -62,7 +64,6 @@ namespace AlumniSocketCore.Client
                 try
                 {
                     OnConnected?.Invoke();
-                    //SocketAsyncEventArgsPool.Return(e);
                     if (!Socket.ReceiveAsync(ReceiveArgs))
                         Received(null, ReceiveArgs);
                 }

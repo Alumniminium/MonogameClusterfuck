@@ -59,7 +59,7 @@ namespace MonoGameClusterFuck.Systems
         } 
         public Vector2 GetInputAxis()
         {
-            var keyboard = InputManager.KManager;
+            var keyboard = InputManager.Keyboard;
             var velocity = Vector2.Zero;
             if (keyboard.KeyDown(PlayerControls.Up))
             {

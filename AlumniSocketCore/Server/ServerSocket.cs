@@ -11,7 +11,6 @@ namespace AlumniSocketCore.Server
 
     public static class ServerSocket
     {
-        public static NetworkMonitor NetworkMonitor = new NetworkMonitor();
         internal static Socket Socket;
         internal static SocketAsyncEventArgs AcceptArgs;
         internal static AutoResetEvent AcceptSync = new AutoResetEvent(true);
@@ -39,7 +38,7 @@ namespace AlumniSocketCore.Server
 
         private static void Accepted(object sender, SocketAsyncEventArgs e)
         {
-            var connection = (ClientSocket) e.UserToken;
+            var connection = (ClientSocket)e.UserToken;
             ((ClientSocket)connection.ReceiveArgs.UserToken).Socket = e.AcceptSocket;
 
             try
@@ -51,8 +50,8 @@ namespace AlumniSocketCore.Server
             {
                 Console.WriteLine(exception);
                 CloseClientSocket(e);
+                AcceptSync.Set();
             }
-
             e.AcceptSocket = null;
             e.UserToken = new ClientSocket(null);
             AcceptSync.Set();
@@ -61,8 +60,8 @@ namespace AlumniSocketCore.Server
 
         internal static void Received(object sender, SocketAsyncEventArgs e)
         {
-            Start:
-            var token = (ClientSocket) e.UserToken;
+        Start:
+            var token = (ClientSocket)e.UserToken;
             if (e.BytesTransferred > 0 && e.SocketError == SocketError.Success)
             {
                 try
@@ -75,6 +74,7 @@ namespace AlumniSocketCore.Server
                 catch (Exception)
                 {
                     CloseClientSocket(e);
+                    token.ReceiveSync.Set();
                 }
             }
             else

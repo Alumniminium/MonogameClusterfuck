@@ -14,7 +14,7 @@ namespace Server
         public static void Main(string[] args)
         {
             ReceiveQueue.Start(PacketHandler.Handle);
-            ServerSocket.Start(13337);
+            ServerSocket.Start(13338);
 
             var t = new Thread(() =>
             {
@@ -54,12 +54,12 @@ namespace Server
         public Player(ClientSocket socket)
         {
             Socket = socket;
-            Socket.OnConnected += OnConnected;
+            Socket.OnDisconnect += OnDisconnected;
         }
 
         public DateTime LastPing { get; set; }
 
-        private void OnConnected()
+        private void OnDisconnected()
         {
             Collections.Players.TryRemove(UniqueId, out _);
         }
