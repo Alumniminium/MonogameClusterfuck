@@ -11,23 +11,21 @@ namespace MonoGameClusterFuck.Entities
     {
         public NetworkClient Socket;
         public Camera Camera;
-
-        private Vector2 PreviousPosition, ServerPosition;
         public override Vector2 Position
         {
             get => base.Position;
             set
             {
-                if(value == ServerPosition)
+                if(value == Socket.ServerPosition)
                     return;
 
-                PreviousPosition= Camera.Position = base.Position = value;
+                Camera.Position = base.Position = value;
                 
-                if (Socket.LastUpdateTick + 50 < Environment.TickCount && value != ServerPosition)
+                if (Socket.LastUpdateTick + 50 < Environment.TickCount && value != Socket.ServerPosition)
                 {
                     Socket.Send(MsgWalk.Create(UniqueId, Position));
                     Socket.LastUpdateTick = Environment.TickCount;
-                    ServerPosition = Position;
+                    Socket.ServerPosition = Position;
                 }
             }
         }
@@ -42,6 +40,7 @@ namespace MonoGameClusterFuck.Entities
         public override void Initialize()
         {
             Camera = new Camera();
+            Camera.Position = Position;
             Socket = new NetworkClient(this);
             Socket.ConnectAsync("84.112.111.13", 13338);
             Socket.Send(MsgLogin.Create("monogame", "password"));
@@ -59,14 +58,8 @@ namespace MonoGameClusterFuck.Entities
 
             Position += velocity * delta;
 
-            SendMovementPacket();
             Camera.Update(deltaTime);
             base.Update(deltaTime);
-        }
-
-        private void SendMovementPacket()
-        {
-            
         }
     }
 }

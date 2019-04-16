@@ -20,9 +20,9 @@ namespace MonoGameClusterFuck.Primitives
         {
             Atlas = Engine.Instance.Content.Load<Texture2D>("terrain");
 
-            for (int x = 0; x < Atlas.Width; x += TileSize)
+            for (var x = 0; x < Atlas.Width; x += TileSize)
             {
-                for (int y = 0; y < Atlas.Height; y += TileSize)
+                for (var y = 0; y < Atlas.Height; y += TileSize)
                 {
                     var tile = new Sprite(TileSize);
                     tile.Texture = Atlas;

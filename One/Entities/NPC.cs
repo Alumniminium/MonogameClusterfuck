@@ -4,30 +4,41 @@ namespace MonoGameClusterFuck.Entities
 {
     public class NPC : Entity
     {
-        Vector2 Destination;
-        bool moving;
+        public Vector2 Destination;
+
         public NPC(int size) : base(size)
         {
+
         }
 
         public override void Update(GameTime deltaTime)
         {
-            float distance = Vector2.Distance(Position, Destination);
-            Vector2 direction = Vector2.Normalize(Destination - Position);
-            if(moving == true)
+            if(Position != Destination)
             {
-                Position += direction * Speed * (float)deltaTime.ElapsedGameTime.TotalSeconds;
-                if(Vector2.Distance(Position, Destination) >= distance)
+                var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
+                var distance = Vector2.Distance(Position, Destination);
+                var direction = Vector2.Normalize(Destination - Position);
+                var velocity = direction * Speed * delta;
+
+                Position += velocity;
+
+                if (Vector2.Distance(Position, Destination) >= distance)
                 {
+                    CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
                     Position = Destination;
-                    moving = false;
                 }
+                else
+                    CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(direction);
             }
+
+            base.Update(deltaTime);
         }
-        public void Move(Vector2 location)
+        public void MoveTo(Vector2 location, bool teleport = false)
         {
-            Destination = location;
-            moving=true;
+            if (teleport)
+                Position = Destination = location;
+            else
+                Destination = location;
         }
     }
 }

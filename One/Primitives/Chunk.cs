@@ -40,9 +40,9 @@ namespace MonoGameClusterFuck.Primitives
 
         public void Generate()
         {
-            for (int x = 0; x < ChunkSize; x++)
+            for (var x = 0; x < ChunkSize; x++)
             {
-                for (int y = 0; y < ChunkSize; y++)
+                for (var y = 0; y < ChunkSize; y++)
                 {
                     if (Engine.NoiseGen.GetCellular(x, y) > 0.4)
                     {

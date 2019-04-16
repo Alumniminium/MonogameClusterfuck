@@ -1,5 +1,6 @@
 ﻿using AlumniSocketCore.Client;
 using AlumniSocketCore.Queues;
+using Microsoft.Xna.Framework;
 using MonoGameClusterFuck.Entities;
 
 namespace MonoGameClusterFuck.Networking
@@ -13,6 +14,7 @@ namespace MonoGameClusterFuck.Networking
         public bool IsConnected;
         public int LastUpdateTick;
 
+        public Vector2 ServerPosition;
         public NetworkClient(Player player)
         {
             Player = player;

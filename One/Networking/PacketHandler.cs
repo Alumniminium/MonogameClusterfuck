@@ -49,7 +49,7 @@ namespace MonoGameClusterFuck.Networking
                                 entity.CurrentAnimation = entity.WalkAnimations.IdleDown;
                             }
 
-                            entity.Move(msgWalk.Location);
+                            entity.MoveTo(msgWalk.Location);
                         }
                         else
                         {
