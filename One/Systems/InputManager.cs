@@ -1,14 +1,11 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Settings;
 
 namespace MonoGameClusterFuck.Systems
 {
-    public static class InputState
-    {
-        public static bool DrawTileSet;
-    }
     public static class InputManager
     {
         public static KeyboardManager Keyboard = new KeyboardManager();
@@ -35,6 +32,11 @@ namespace MonoGameClusterFuck.Systems
             }
             if (Keyboard.KeyPressed(Keys.H))
                 InputState.DrawTileSet = !InputState.DrawTileSet;
+                if(Keyboard.KeyPressed(Keys.C))
+                {
+                    var cursorPos = InputManager.MouseState.Position;
+                    Entity.Spawn(0,cursorPos.ToVector2());
+                }
         }
     }
 }

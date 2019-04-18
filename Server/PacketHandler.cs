@@ -22,6 +22,7 @@ namespace Server
                     msgLogin.UniqueId = (uint)Core.Random.Next(0, 10000);
                     var player = new Player(socket)
                     {
+                        UniqueId = msgLogin.UniqueId,
                         Username = user,
                         Password = pass
                     };

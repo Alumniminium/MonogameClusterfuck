@@ -71,10 +71,10 @@ namespace AlumniSocketCore.Server
                     if (!token.Socket.ReceiveAsync(e))
                         goto Start;
                 }
-                catch (Exception)
+                catch (Exception exception)
                 {
+                Console.WriteLine(exception);
                     CloseClientSocket(e);
-                    token.ReceiveSync.Set();
                 }
             }
             else

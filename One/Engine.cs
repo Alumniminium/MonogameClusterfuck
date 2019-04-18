@@ -1,4 +1,4 @@
-﻿using System.Collections.Concurrent;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,9 +10,49 @@ using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck
 {
-    public static class Collections
+    public class State
     {
-        public static ConcurrentDictionary<uint, NPC> Entities = new ConcurrentDictionary<uint, NPC>();
+        public List<Entity> Entities = new List<Entity>();
+        public List<UIElement> UIElements = new List<UIElement>();
+
+        
+    }
+    public class StateManager
+    {
+        State currentState;
+        public void Initialize()
+        {
+            foreach(var component in currentState.Entities)
+            {
+                component.Initialize();
+            }
+        }
+        public void LoadContent()
+        {
+            foreach(var component in currentState.Entities)
+            {
+                component.LoadContent();
+            }
+        }
+        public void Update(GameTime gameTime)
+        {
+            foreach(var component in currentState.Entities)
+            {
+                component.Update(gameTime);
+            }
+        }
+        public void Draw()
+        {
+            foreach(var component in currentState.Entities)
+            {
+                component.Draw(LayerType.Entity);
+            }
+        }
+
+        public void Switch()
+        {
+
+        }
     }
     public class Engine : Game
     {

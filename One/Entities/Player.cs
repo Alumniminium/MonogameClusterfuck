@@ -42,8 +42,7 @@ namespace MonoGameClusterFuck.Entities
             Camera = new Camera();
             Camera.Position = Position;
             Socket = new NetworkClient(this);
-            Socket.ConnectAsync("84.112.111.13", 13338);
-            Socket.Send(MsgLogin.Create("monogame", "password"));
+            Socket.ConnectAsync("84.112.111.13", 13337);
             base.Initialize();
         }
         public override void Update(GameTime deltaTime)
@@ -57,7 +56,7 @@ namespace MonoGameClusterFuck.Entities
                 CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(velocity);
 
             Position += velocity * delta;
-
+            Destination=Position;
             Camera.Update(deltaTime);
             base.Update(deltaTime);
         }
