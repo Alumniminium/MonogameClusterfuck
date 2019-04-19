@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Layers;
@@ -50,6 +49,7 @@ namespace MonoGameClusterFuck.Entities
             CurrentAnimation.Update(deltaTime);
             Source = CurrentAnimation.CurrentRectangle;
         }
+
         private void UpdateMove(GameTime deltaTime)
         {
             if (Position != Destination)

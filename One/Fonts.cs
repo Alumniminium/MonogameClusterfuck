@@ -7,9 +7,9 @@ namespace MonoGameClusterFuck
     {
         public static SpriteFont Generic = null;
 
-        public static void LoadContent(ContentManager cm)
+        public static void LoadContent()
         {
-            Generic = cm.Load<SpriteFont>("Font");
+            Generic = Engine.Instance.Content.Load<SpriteFont>("Font");
         }
 
     }
