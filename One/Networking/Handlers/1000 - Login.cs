@@ -1,4 +1,3 @@
-using System;
 using Microsoft.Xna.Framework;
 using MonoGameClusterFuck;
 using MonoGameClusterFuck.Entities;
@@ -14,11 +13,11 @@ namespace One.Networking.Handlers
 
             if(player.UniqueId == 0)
             {
-                    MonoGameClusterFuck.Engine.SpriteBatch.DrawString(Fonts.Generic,"U GOT DISCONNECTED M8",Vector2.Zero, Color.Red);
+
             }
             else
             {
-                    MonoGameClusterFuck.Engine.SpriteBatch.DrawString(Fonts.Generic,"U GOT CONNECTED M8",Vector2.Zero, Color.Red);
+
             }
         }
     }

@@ -25,9 +25,9 @@ namespace MonoGameClusterFuck.Systems
             var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 - (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 - (int)RotationOrigin.Y);
             Position = newPosition;
         }
-        public override void Draw(Layers.LayerType type)
+        public override void Draw()
         {
-            base.Draw(type);
+            base.Draw();
         }
 
     }

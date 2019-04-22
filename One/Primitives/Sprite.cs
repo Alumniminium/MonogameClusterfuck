@@ -8,6 +8,9 @@ namespace MonoGameClusterFuck.Primitives
 {
     public class Sprite
     {
+        public bool IsInitialized;
+        public bool IsLoaded;
+        public float LayerDepth = 0f;
         public Texture2D Texture;
         public virtual Vector2 Position { get; set; }
         public Point TextureSize;
@@ -20,19 +23,21 @@ namespace MonoGameClusterFuck.Primitives
         {
             SpriteSize = new Point(size, size);
         }
-        
+
         public virtual void Initialize()
         {
             Source = new Rectangle(0, 0, SpriteSize.X, SpriteSize.Y);
             Position = new Vector2(0, 0);
             Rotation = 0;
             RotationOrigin = new Vector2(SpriteSize.X / 2f, SpriteSize.Y / 2f);
+            IsInitialized = true;
         }
 
         public virtual void LoadContent()
         {
-            if(Texture!=null)
-            TextureSize = Texture.Bounds.Size;
+            if (Texture != null)
+                TextureSize = Texture.Bounds.Size;
+            IsLoaded = true;
         }
 
         public virtual void Update(GameTime deltaTime)
@@ -40,14 +45,14 @@ namespace MonoGameClusterFuck.Primitives
 
         }
 
-        public virtual void Draw(Layers.LayerType layer)
+        public virtual void Draw()
         {
-            if(Texture!=null)
-            Engine.SpriteBatch.Draw(Texture, Position, Source, Color.White, Rotation, RotationOrigin, Vector2.One, SpriteEffects.None, (float)layer/ 100f);
+            if (Texture != null || !IsLoaded)
+                Engine.SpriteBatch.Draw(Texture, Position, Source, Color.White, Rotation, RotationOrigin, Vector2.One, SpriteEffects.None, LayerDepth);
         }
         public Sprite Clone()
         {
-            var clone = new Sprite(32) {Texture = Texture, Source = Source, SpriteSize = SpriteSize};
+            var clone = new Sprite(32) { Texture = Texture, Source = Source, SpriteSize = SpriteSize };
             return clone;
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Networking;
@@ -42,11 +43,20 @@ namespace MonoGameClusterFuck.Entities
             Camera = new Camera();
             Camera.Position = Position;
             Socket = new NetworkClient(this);
-            Socket.ConnectAsync("84.112.111.13", 13337);
+            //if (!Debugger.IsAttached)
+            //    Socket.ConnectAsync("84.112.111.13", 13338);
+            //else
+                Socket.ConnectAsync("127.0.0.1", 13338);
+
+            Socket.Send(MsgLogin.Create("Test","123"));
+
+            Console.WriteLine("Player Init");
             base.Initialize();
         }
         public override void Update(GameTime deltaTime)
         {
+            if (!IsLoaded || !IsInitialized)
+                return;
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var velocity = InputManager.Keyboard.GetInputAxis() * Speed;
 

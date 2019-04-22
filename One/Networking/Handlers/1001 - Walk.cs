@@ -1,6 +1,7 @@
 using MonoGameClusterFuck;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Networking.Packets;
+using MonoGameClusterFuck.Scenes;
 
 namespace One.Networking.Handlers
 {
@@ -23,6 +24,7 @@ namespace One.Networking.Handlers
             else
             {
                 entity = Entity.Spawn(uniqueId, location);
+                SceneManager.CurrentScene.Entities.Add(entity);
             }
 
         }

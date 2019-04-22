@@ -1,0 +1,84 @@
+﻿using Microsoft.Xna.Framework;
+using MonoGameClusterFuck.Entities;
+using MonoGameClusterFuck.Primitives;
+using MonoGameClusterFuck.Systems;
+
+namespace MonoGameClusterFuck.Scenes
+{
+    public class InfiniteWorld : Scene
+    {
+        public TileSet TileSet;
+        public FastNoise NoiseGen = new FastNoise();
+
+        public InfiniteWorld()
+        {
+        }
+
+        public override void Initialize()
+        {
+            TileSet = new TileSet(32);
+            TileSet.Slice();
+            Entities.Add(new Player(32));
+            base.Initialize();
+        }
+
+        public override void LoadContent()
+        {
+            foreach (var entity in Entities)
+            {
+                entity.LoadContent();
+            }
+            base.LoadContent();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            foreach (var entity in Entities)
+            {
+                entity.Update(gameTime);
+            }
+            base.Update(gameTime);
+        }
+
+        public override void DrawUI()
+        {
+            FpsCounter.Draw();
+            base.DrawUI();
+        }
+
+        public override void DrawGame()
+        {
+            var SpriteSize = TileSet.TileSize;
+            var destRect = new Rectangle(Point.Zero, new Point(SpriteSize));
+            var viewbounds = Camera.VisibleArea;
+
+            var left = (viewbounds.Left / SpriteSize * SpriteSize) - SpriteSize;
+            var top = (viewbounds.Top / SpriteSize * SpriteSize) - SpriteSize;
+            var FloorTile = TileSet.Tiles[357];
+            var WallTile = TileSet.Tiles[5];
+            for (var x = left; x <= viewbounds.Right; x += SpriteSize)
+            {
+                for (var y = top; y <= viewbounds.Bottom; y += SpriteSize)
+                {
+                    var value = NoiseGen.GetCellular(x, y);
+
+                    if (value > 0.45f)
+                    {
+                        destRect.Location = new Point(x, y);
+                        SpriteBatch.Draw(FloorTile.Texture, destRect, FloorTile.Source, Color.White);
+                    }
+                    else
+                    {
+                        destRect.Location = new Point(x, y);
+                        SpriteBatch.Draw(WallTile.Texture, destRect, WallTile.Source, Color.White);
+                    }
+                }
+            }
+            foreach (var entity in Entities)
+            {
+                entity.Draw();
+            }
+            base.DrawGame();
+        }
+    }
+}

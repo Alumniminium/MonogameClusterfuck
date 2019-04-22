@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
-using MonoGameClusterFuck.Layers;
 using MonoGameClusterFuck.Primitives;
+using MonoGameClusterFuck.Scenes;
 
 namespace MonoGameClusterFuck.Entities
 {
@@ -21,12 +21,13 @@ namespace MonoGameClusterFuck.Entities
         
         internal static Entity Spawn(uint uniqueId, Vector2 position)
         {
-            var entity = new Entity(32);
-            entity.UniqueId = uniqueId;
-            entity.Position = position;
+            var entity = new Entity(32)
+            {
+                UniqueId = uniqueId,
+                Position = position
+            };
             entity.Initialize();
             entity.LoadContent();
-            GameMap.Layers[LayerType.Entity].Add(entity);
             Collections.Entities.TryAdd(entity.UniqueId, entity);
             return entity;
         }
@@ -45,6 +46,8 @@ namespace MonoGameClusterFuck.Entities
         }
         public override void Update(GameTime deltaTime)
         {
+            if(!IsLoaded || !IsInitialized)
+                return;
             UpdateMove(deltaTime);
             CurrentAnimation.Update(deltaTime);
             Source = CurrentAnimation.CurrentRectangle;
@@ -78,14 +81,13 @@ namespace MonoGameClusterFuck.Entities
             else
                 Destination = location;
         }
-        public override void Draw(Layers.LayerType type)
+        public override void Draw()
         {
-            base.Draw(type);
+            base.Draw();
         }
 
         public void Destroy()
         {
-            GameMap.Layers[LayerType.Entity].Sprites.Remove(this);
             Collections.Entities.TryRemove(UniqueId, out _);
         }
     }

@@ -12,6 +12,9 @@ namespace MonoGameClusterFuck.Systems
 
         private void Elapsed(object sender, ElapsedEventArgs e)
         {
+            if(Frames==0)
+                return;
+
             Fps = Frames;
             Frames = 0;
         }
