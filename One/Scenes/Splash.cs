@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using One.Systems;
 
 namespace MonoGameClusterFuck.Scenes
 {
@@ -10,11 +11,12 @@ namespace MonoGameClusterFuck.Scenes
         const string Footer = "powered by the AlumniEngine :3";
         public Splash()
         {
-            
+            ThreadedConsole.WriteLine("[Scene][Splash] Constructor called!");
         }
 
         public override void LoadContent()
         {
+            ThreadedConsole.WriteLine("[Scene][Splash] Loading content...");
             _slashTexture = Engine.Instance.Content.Load<Texture2D>("splash");
             base.LoadContent();
         }
@@ -23,6 +25,7 @@ namespace MonoGameClusterFuck.Scenes
         {
             if (SceneActivatedTime.AddSeconds(5) < DateTime.UtcNow)
             {
+                ThreadedConsole.WriteLine("[Scene][Splash] Transitioning to Scene 2");
                 SceneManager.SetState(2);
             }
             base.Update(gameTime);
@@ -32,7 +35,7 @@ namespace MonoGameClusterFuck.Scenes
         {
             var x = (Engine.Graphics.PreferredBackBufferWidth / 2) - (_slashTexture.Width / 2);
             var y = (Engine.Graphics.PreferredBackBufferHeight / 2) - (_slashTexture.Height / 2);
-            SpriteBatch.Draw(_slashTexture,new Vector2(x,y));
+            SpriteBatch.Draw(_slashTexture, new Vector2(x, y), Color.White);
             var size = Fonts.Generic.MeasureString(Footer);
             x = (Engine.Graphics.PreferredBackBufferWidth / 2) - (int)(size.X / 2);
             y = Engine.Graphics.PreferredBackBufferHeight - (int)size.Y;

@@ -2,6 +2,7 @@
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Systems;
 using One.Networking.Handlers;
+using One.Systems;
 
 namespace MonoGameClusterFuck.Networking
 {
@@ -31,7 +32,7 @@ namespace MonoGameClusterFuck.Networking
                             socket.Send(msgPing);
                         else
                             FpsCounter.Ping = msgPing.Ping;
-
+                        ThreadedConsole.WriteLine("[Net][MsgPing] Ping: "+msgPing.Ping);
                         break;
                     }
             }

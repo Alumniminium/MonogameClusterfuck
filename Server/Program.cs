@@ -1,10 +1,7 @@
 ﻿using AlumniSocketCore.Queues;
 using AlumniSocketCore.Server;
 using System;
-using System.Collections.Concurrent;
-using System.Numerics;
 using System.Threading;
-using AlumniSocketCore.Client;
 using Server.Packets;
 
 namespace Server
@@ -15,9 +12,11 @@ namespace Server
         {
             ReceiveQueue.Start(PacketHandler.Handle);
             ServerSocket.Start(13338);
+            Console.WriteLine($"Server running!");
 
             var t = new Thread(() =>
             {
+                            Console.WriteLine($"Heartbeat Thread started.");
                 while (true)
                 {
                     foreach (var kvp in Collections.Players)
@@ -26,6 +25,7 @@ namespace Server
 
                         if (DateTime.Now >= player.LastPing.AddSeconds(1))
                         {
+                            Console.WriteLine($"Sending Ping to {player.Name}/{player.Username}.");
                             player.Socket.Send(MsgPing.Create(player.UniqueId));
                             player.LastPing = DateTime.Now;
                         }
@@ -40,32 +40,5 @@ namespace Server
                 Console.ReadLine();
             }
         }
-    }
-
-    public class Player
-    {
-        public string Name;
-        public uint UniqueId;
-        public Vector2 Location;
-        public ClientSocket Socket;
-        public string Username;
-        public string Password;
-
-        public Player(ClientSocket socket)
-        {
-            Socket = socket;
-            Socket.OnDisconnect += OnDisconnected;
-        }
-
-        public DateTime LastPing { get; set; }
-
-        private void OnDisconnected()
-        {
-            Collections.Players.TryRemove(UniqueId, out _);
-        }
-    }
-    public static class Collections
-    {
-        public static ConcurrentDictionary<uint, Player> Players = new ConcurrentDictionary<uint, Player>();
     }
 }
