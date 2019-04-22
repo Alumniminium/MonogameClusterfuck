@@ -25,5 +25,10 @@ namespace MonoGameClusterFuck.Primitives
         {
 
         }
+
+        public void Initialize()
+        {
+            
+        }
     }
 }

@@ -19,8 +19,9 @@ namespace MonoGameClusterFuck.Primitives
         public Vector2 RotationOrigin;
         public Rectangle Source;
 
-        public Sprite(int size)
+        public Sprite(int size, float layerDepth)
         {
+            LayerDepth = layerDepth;
             SpriteSize = new Point(size, size);
         }
 
@@ -52,7 +53,7 @@ namespace MonoGameClusterFuck.Primitives
         }
         public Sprite Clone()
         {
-            var clone = new Sprite(32) { Texture = Texture, Source = Source, SpriteSize = SpriteSize };
+            var clone = new Sprite(32,LayerDepth) { Texture = Texture, Source = Source, SpriteSize = SpriteSize };
             return clone;
         }
     }

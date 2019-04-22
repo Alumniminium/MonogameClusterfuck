@@ -12,11 +12,6 @@ namespace MonoGameClusterFuck.Scenes
             
         }
 
-        public override void Initialize()
-        {
-            base.Initialize();
-        }
-
         public override void LoadContent()
         {
             _slashTexture = Engine.Instance.Content.Load<Texture2D>("splash");
@@ -30,11 +25,6 @@ namespace MonoGameClusterFuck.Scenes
                 SceneManager.SetState(2);
             }
             base.Update(gameTime);
-        }
-
-        public override void DrawGame()
-        {
-            base.DrawGame();
         }
 
         public override void DrawUI()

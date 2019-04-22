@@ -9,7 +9,7 @@ namespace MonoGameClusterFuck.Systems
         private Vector2 _cursorVector;
         
 
-        public Cursor(int size) : base(size)
+        public Cursor(int size) : base(size,2)
         {
         }
 

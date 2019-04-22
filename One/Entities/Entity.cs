@@ -15,13 +15,13 @@ namespace MonoGameClusterFuck.Entities
         public uint UniqueId { get; set; }
 
 
-        public Entity(int size) : base(size)
+        public Entity(int size,float layerDepth) : base(size,layerDepth)
         {
         }
         
         internal static Entity Spawn(uint uniqueId, Vector2 position)
         {
-            var entity = new Entity(32)
+            var entity = new Entity(32,1)
             {
                 UniqueId = uniqueId,
                 Position = position

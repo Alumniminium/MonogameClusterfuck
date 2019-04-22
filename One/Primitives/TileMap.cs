@@ -24,7 +24,7 @@ namespace MonoGameClusterFuck.Primitives
             {
                 for (var y = 0; y < Atlas.Height; y += TileSize)
                 {
-                    var tile = new Sprite(TileSize);
+                    var tile = new Sprite(TileSize,0);
                     tile.Texture = Atlas;
                     tile.Source = new Rectangle(x, y, TileSize, TileSize);
                     Tiles.Add(tile);

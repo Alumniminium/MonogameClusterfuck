@@ -10,6 +10,7 @@ namespace MonoGameClusterFuck.Entities
 {
     public class Player : Entity
     {
+        public new float LayerDepth = 1;
         public NetworkClient Socket;
         public Camera Camera;
         public override Vector2 Position
@@ -30,7 +31,7 @@ namespace MonoGameClusterFuck.Entities
                 }
             }
         }
-        public Player(int size) : base(size) { }
+        public Player(int size,float layerDepth) : base(size, layerDepth) { }
 
         public override void LoadContent()
         {

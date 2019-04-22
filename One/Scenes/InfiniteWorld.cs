@@ -18,25 +18,17 @@ namespace MonoGameClusterFuck.Scenes
         {
             TileSet = new TileSet(32);
             TileSet.Slice();
-            Entities.Add(new Player(32));
+            Entities.Add(new Player(32,1));
             base.Initialize();
         }
 
         public override void LoadContent()
         {
-            foreach (var entity in Entities)
-            {
-                entity.LoadContent();
-            }
             base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            foreach (var entity in Entities)
-            {
-                entity.Update(gameTime);
-            }
             base.Update(gameTime);
         }
 
@@ -73,10 +65,6 @@ namespace MonoGameClusterFuck.Scenes
                         SpriteBatch.Draw(WallTile.Texture, destRect, WallTile.Source, Color.White);
                     }
                 }
-            }
-            foreach (var entity in Entities)
-            {
-                entity.Draw();
             }
             base.DrawGame();
         }

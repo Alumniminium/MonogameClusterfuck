@@ -5,7 +5,7 @@ namespace MonoGameClusterFuck.Entities
     public class NPC : Entity
     {
 
-        public NPC(int size) : base(size)
+        public NPC(int size,float layerDepth) : base(size, layerDepth)
         {
 
         }

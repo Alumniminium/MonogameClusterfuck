@@ -30,17 +30,31 @@ namespace MonoGameClusterFuck.Scenes
         public virtual void Initialize()
         {
             FpsCounter = new FpsCounter();
-            //GameMap.Layers[LayerType.Cursor].Add(new Cursor(32));
+
+            foreach (var element in UIElements)
+                element.Initialize();
+            foreach (var entity in Entities)
+                entity.Initialize();
         }
 
         public virtual void LoadContent()
         {
             Fonts.LoadContent();
+
+            foreach (var entity in Entities)
+                entity.LoadContent();
+            foreach (var element in UIElements)
+                element.LoadContent();
         }
 
         public virtual void Update(GameTime gameTime)
         {
             InputManager.Update();
+
+            foreach (var entity in Entities)
+                entity.Update(gameTime);
+            foreach (var element in UIElements)
+                element.Update(gameTime);
         }
         public void Draw(GameTime gameTime)
         {
@@ -54,10 +68,13 @@ namespace MonoGameClusterFuck.Scenes
 
         public virtual void DrawUI()
         {
+            foreach (var element in UIElements)
+                element.Draw();
         }
         public virtual void DrawGame()
         {
-
+            foreach (var entity in Entities)
+                entity.Draw();
         }
     }
 }
