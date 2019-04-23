@@ -1,6 +1,9 @@
+using System;
+using MonoGameClusterFuck;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Networking.Packets;
-using MonoGameClusterFuck.SceneManagement;
+using MonoGameClusterFuck.Scenes;
+using One.Systems;
 
 namespace MonoGameClusterFuck.Networking.Handlers
 {
@@ -18,10 +21,12 @@ namespace MonoGameClusterFuck.Networking.Handlers
 
             if (Collections.Entities.TryGetValue(uniqueId, out entity))
             {
+                ThreadedConsole.WriteLine("[Net][MsgWalk] Walk Packet for existing Player #" + entity.UniqueId);
                 entity.MoveTo(location);
             }
             else
             {
+                ThreadedConsole.WriteLine("[Net][MsgWalk] Walk Packet for New Player #" + entity.UniqueId);
                 entity = Entity.Spawn(uniqueId, location);
                 SceneManager.CurrentScene.Entities.Add(entity);
             }

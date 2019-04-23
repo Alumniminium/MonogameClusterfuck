@@ -60,14 +60,10 @@ namespace Server
                     var ms = delta / 10000;
                     msgPing.Ping = (short)ms;
                     socket.Send(msgPing);
+                    Console.WriteLine($"Received Ping from {socket.Socket.RemoteEndPoint.ToString()} - {ms}ms.");
                     break;
                 }
             }
         }
-    }
-
-    public static class Core
-    {
-        public static Random Random = new Random();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using One.Systems;
 
 namespace MonoGameClusterFuck
 {
@@ -7,8 +8,10 @@ namespace MonoGameClusterFuck
         [STAThread]
         private static void Main()
         {
+            ThreadedConsole.WriteLine("Starting the engine...");
             using (var game = new Engine())
                 game.Run();
+            ThreadedConsole.WriteLine("Engine shut down, exiting...");
         }
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Networking;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Systems;
+using One.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {
@@ -18,11 +19,11 @@ namespace MonoGameClusterFuck.Entities
             get => base.Position;
             set
             {
-                if(value == Socket.ServerPosition)
+                if (value == Socket.ServerPosition)
                     return;
 
                 Camera.Position = base.Position = value;
-                
+
                 if (Socket.LastUpdateTick + 50 < Environment.TickCount && value != Socket.ServerPosition)
                 {
                     Socket.Send(MsgWalk.Create(UniqueId, Position));
@@ -31,28 +32,34 @@ namespace MonoGameClusterFuck.Entities
                 }
             }
         }
-        public Player(int size,float layerDepth) : base(size, layerDepth) { }
+        public Player(int size, float layerDepth) : base(size, layerDepth)
+        {
+            ThreadedConsole.WriteLine("[Player] Constructor called!");
+        }
 
         public override void LoadContent()
         {
+            ThreadedConsole.WriteLine("[Player] Loading Content...");
             Texture = Engine.Instance.Content.Load<Texture2D>("player_f");
+            ThreadedConsole.WriteLine("[Player] Loading handed over to base class...");
             base.LoadContent();
         }
 
         public override void Initialize()
         {
+            ThreadedConsole.WriteLine("[Player] Initializing components...");
             Camera = new Camera();
             Camera.Position = Position;
-            Socket = new NetworkClient(this);
+            Socket = new NetworkClient(this);     
+            ThreadedConsole.WriteLine("[Player] Initialization handed over to base class...");       
+            base.Initialize();
             //if (!Debugger.IsAttached)
             //    Socket.ConnectAsync("84.112.111.13", 13338);
             //else
-                Socket.ConnectAsync("127.0.0.1", 13338);
-
-            Socket.Send(MsgLogin.Create("Test","123"));
-
-            Console.WriteLine("Player Init");
-            base.Initialize();
+            ThreadedConsole.WriteLine("Connecting to Server...");
+            Socket.ConnectAsync("127.0.0.1", 13338);
+            ThreadedConsole.WriteLine("Logging in...");
+            Socket.Send(MsgLogin.Create("Test", "123"));
         }
         public override void Update(GameTime deltaTime)
         {
@@ -67,7 +74,7 @@ namespace MonoGameClusterFuck.Entities
                 CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(velocity);
 
             Position += velocity * delta;
-            Destination=Position;
+            Destination = Position;
             Camera.Update(deltaTime);
             base.Update(deltaTime);
         }

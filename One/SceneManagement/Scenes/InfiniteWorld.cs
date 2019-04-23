@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
 using NoiseGen;
+using One.Systems;
 
 namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
@@ -13,18 +15,23 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 
         public InfiniteWorld()
         {
+            ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Constructor called!");
         }
 
         public override void Initialize()
         {
+            ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Initializing components...");
             TileSet = new TileSet(32);
             TileSet.Slice();
             Entities.Add(new Player(32,1));
+            ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Initialization handed over to base class.");
             base.Initialize();
         }
 
         public override void LoadContent()
         {
+            ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Loading content...");
+            ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Loading handed over to base class.");
             base.LoadContent();
         }
 

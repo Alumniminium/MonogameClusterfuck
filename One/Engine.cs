@@ -1,8 +1,10 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.SceneManagement;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
+using One.Systems;
 
 namespace MonoGameClusterFuck
 {
@@ -13,6 +15,7 @@ namespace MonoGameClusterFuck
         public static GraphicsDeviceManager Graphics;
         public Engine()
         {
+            ThreadedConsole.WriteLine("[Engine] Initializing Engine...");
             IsFixedTimeStep = false;
             Graphics = new GraphicsDeviceManager(this)
             {
@@ -21,23 +24,31 @@ namespace MonoGameClusterFuck
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
                 IsFullScreen = GraphicsSettings.Instance.Fullscreen,
             };
+            ThreadedConsole.WriteLine("[Engine] Applying Graphics Settings...");
             Graphics.ApplyChanges();
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             Instance = this;
+
+            ThreadedConsole.WriteLine("[Engine] Creating SpriteBatch...");
             SpriteBatch = new SpriteBatch(GraphicsDevice);
+            ThreadedConsole.WriteLine("[Engine] Starting Scene 0...");
             SceneManager.SetState(0);
         }
 
         protected override void Initialize()
         {
+            ThreadedConsole.WriteLine("[Engine] Initializing components...");
+            ThreadedConsole.WriteLine("[Engine] Further initialization handed over to SceneManager...");
             SceneManager.Initialize();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
+            ThreadedConsole.WriteLine("[Engine] Loading Fonts...");
             Fonts.LoadContent();
+            ThreadedConsole.WriteLine("[Engine] Further content loading handed over to SceneManager...");
             SceneManager.LoadContent();
         }
 
