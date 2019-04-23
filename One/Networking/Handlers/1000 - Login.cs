@@ -1,6 +1,3 @@
-using System;
-using Microsoft.Xna.Framework;
-using MonoGameClusterFuck;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Networking.Packets;
 using One.Systems;

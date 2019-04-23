@@ -1,8 +1,6 @@
-using System;
-using MonoGameClusterFuck;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Networking.Packets;
-using MonoGameClusterFuck.Scenes;
+using MonoGameClusterFuck.SceneManagement;
 using One.Systems;
 
 namespace MonoGameClusterFuck.Networking.Handlers

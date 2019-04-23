@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
