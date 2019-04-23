@@ -1,9 +1,7 @@
-using Microsoft.Xna.Framework;
-using MonoGameClusterFuck;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Networking.Packets;
 
-namespace One.Networking.Handlers
+namespace MonoGameClusterFuck.Networking.Handlers
 {
     public static class Login
     {

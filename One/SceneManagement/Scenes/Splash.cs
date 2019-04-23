@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameClusterFuck.Scenes
+namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
     public class Splash : Scene
     {
@@ -23,7 +23,7 @@ namespace MonoGameClusterFuck.Scenes
         {
             if (SceneActivatedTime.AddSeconds(5) < DateTime.UtcNow)
             {
-                SceneManager.SetState(2);
+                SceneManager.SetState(SceneEnum.InfiniteWorld);
             }
             base.Update(gameTime);
         }

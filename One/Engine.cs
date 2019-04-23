@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Scenes;
+using MonoGameClusterFuck.SceneManagement;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
 

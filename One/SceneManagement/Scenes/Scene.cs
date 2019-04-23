@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
 
-namespace MonoGameClusterFuck.Scenes
+namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
     public class Scene
     {

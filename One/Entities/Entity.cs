@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Scenes;
 
 namespace MonoGameClusterFuck.Entities
 {

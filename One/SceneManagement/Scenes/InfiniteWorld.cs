@@ -4,7 +4,7 @@ using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
 using NoiseGen;
 
-namespace MonoGameClusterFuck.Scenes
+namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
     public class InfiniteWorld : Scene
     {
