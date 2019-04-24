@@ -1,33 +1,35 @@
 using System;
-using System.Threading;
 using System.Collections.Concurrent;
+using System.Threading;
 
-namespace One.Systems
+namespace MonoGameClusterFuck.Systems
 {
     public static class ThreadedConsole
     {
-        private static Thread _workThread;
-        private static AutoResetEvent _block= new AutoResetEvent(false);
-        private static ConcurrentQueue<string> _writeQueue = new ConcurrentQueue<string>();
+        private static readonly AutoResetEvent Block= new AutoResetEvent(false);
+        private static readonly ConcurrentQueue<string> WriteQueue = new ConcurrentQueue<string>();
         static ThreadedConsole()
         {
-            _workThread = new Thread(WorkLoop);
-            _workThread.Start();
+            var workThread = new Thread(WorkLoop)
+            {
+                IsBackground = true
+            };
+            workThread.Start();
         }
         public static void WriteLine(string text)
         {
-            _writeQueue.Enqueue(text);
-            _block.Set();
+            WriteQueue.Enqueue(text);
+            Block.Set();
         }
         private static void WorkLoop()
         {
             while (true)
             {
-                _block.WaitOne();
+                Block.WaitOne();
 
-                while (!_writeQueue.IsEmpty)
+                while (!WriteQueue.IsEmpty)
                 {
-                    if (_writeQueue.TryDequeue(out var obj))
+                    if (WriteQueue.TryDequeue(out var obj))
                         Console.WriteLine(obj);
                 }
             }

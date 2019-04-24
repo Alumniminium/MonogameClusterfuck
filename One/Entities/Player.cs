@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Networking;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Systems;
-using One.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {

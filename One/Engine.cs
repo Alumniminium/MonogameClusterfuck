@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.SceneManagement;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
-using One.Systems;
 
 namespace MonoGameClusterFuck
 {

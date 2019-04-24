@@ -3,7 +3,6 @@ using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
 using NoiseGen;
-using One.Systems;
 
 namespace MonoGameClusterFuck.SceneManagement.Scenes
 {

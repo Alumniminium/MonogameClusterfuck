@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Primitives;
-using One.Systems;
+using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {
