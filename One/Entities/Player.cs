@@ -55,9 +55,7 @@ namespace MonoGameClusterFuck.Entities
             //if (!Debugger.IsAttached)
             //    Socket.ConnectAsync("84.112.111.13", 13338);
             //else
-            ThreadedConsole.WriteLine("Connecting to Server...");
             Socket.ConnectAsync("127.0.0.1", 13338);
-            ThreadedConsole.WriteLine("Logging in...");
             Socket.Send(MsgLogin.Create("Test", "123"));
         }
         public override void Update(GameTime deltaTime)

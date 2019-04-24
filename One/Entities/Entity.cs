@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Primitives;
+using One.Systems;
 
 namespace MonoGameClusterFuck.Entities
 {
@@ -30,7 +31,7 @@ namespace MonoGameClusterFuck.Entities
             entity.LoadContent();
             Collections.Entities.TryAdd(entity.UniqueId, entity);
 
-            Console.WriteLine("[Entity] Spawning new Entity#"+entity.UniqueId);
+            ThreadedConsole.WriteLine("[Entity] Spawning new Entity#"+entity.UniqueId);
             return entity;
         }
 
@@ -78,7 +79,7 @@ namespace MonoGameClusterFuck.Entities
 
         public void MoveTo(Vector2 location, bool teleport = false)
         {
-            Console.WriteLine("[Entity] Got a move order...");
+            ThreadedConsole.WriteLine("[Entity] Got a move order...");
             if (teleport)
                 Position = Destination = location;
             else
@@ -91,7 +92,7 @@ namespace MonoGameClusterFuck.Entities
 
         public void Destroy()
         {
-            Console.WriteLine("[Entity] Destructor called. Killing Entity#"+UniqueId);
+            ThreadedConsole.WriteLine("[Entity] Destructor called. Killing Entity#"+UniqueId);
             Collections.Entities.TryRemove(UniqueId, out _);
         }
     }

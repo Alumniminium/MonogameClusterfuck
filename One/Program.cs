@@ -12,6 +12,7 @@ namespace MonoGameClusterFuck
             using (var game = new Engine())
                 game.Run();
             ThreadedConsole.WriteLine("Engine shut down, exiting...");
+            Environment.Exit(-1);
         }
     }
 }

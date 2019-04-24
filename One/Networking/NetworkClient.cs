@@ -2,6 +2,7 @@
 using AlumniSocketCore.Queues;
 using Microsoft.Xna.Framework;
 using MonoGameClusterFuck.Entities;
+using One.Systems;
 
 namespace MonoGameClusterFuck.Networking
 {
@@ -22,6 +23,7 @@ namespace MonoGameClusterFuck.Networking
 
         public void ConnectAsync(string ip, ushort port)
         {
+            ThreadedConsole.WriteLine("Connecting to Server...");
             ReceiveQueue.Start(OnPacket);
             Socket = new ClientSocket(this);
             Socket.OnDisconnect += Disconnected;
@@ -29,9 +31,17 @@ namespace MonoGameClusterFuck.Networking
             Socket.ConnectAsync(ip, port);
         }
 
-        private void Connected() => IsConnected = true;
+        private void Connected()
+        {
+            ThreadedConsole.WriteLine("[Player][Net] CONNECTED! :D");
+               IsConnected = true;
+        }
 
-        private void Disconnected() => ConnectAsync(Ip, Port);
+        private void Disconnected()
+        {
+            ThreadedConsole.WriteLine("[Player][Net] DISCONNECTED! Reconnecting...");
+            ConnectAsync(Ip, Port);
+        }
 
         private void OnPacket(ClientSocket client, byte[] buffer) => PacketHandler.Handle((NetworkClient)client.StateObject, buffer);
 
