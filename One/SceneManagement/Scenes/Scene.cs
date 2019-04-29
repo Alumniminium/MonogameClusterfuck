@@ -9,6 +9,17 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
     public class Scene
     {
+        private bool _Loaded=false;
+        public bool Loaded
+        {
+            get {
+return _Loaded;
+            }
+            set{
+                _Loaded=value;
+                ThreadedConsole.WriteLine("Scene Loaded: "+value);
+            }
+        }
         public DateTime SceneActivatedTime;
         public Engine Instance;
         public SpriteBatch SpriteBatch;
@@ -45,6 +56,7 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
                 entity.LoadContent();
             foreach (var element in UIElements)
                 element.LoadContent();
+                Loaded=true;
         }
 
         public virtual void Update(GameTime gameTime)

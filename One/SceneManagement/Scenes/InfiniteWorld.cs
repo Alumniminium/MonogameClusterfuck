@@ -35,17 +35,23 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 
         public override void Update(GameTime gameTime)
         {
+            if(!Loaded)
+            return;
             base.Update(gameTime);
         }
 
         public override void DrawUI()
         {
+            if(!Loaded)
+            return;
             FpsCounter.Draw();
             base.DrawUI();
         }
 
         public override void DrawGame()
         {
+            if(!Loaded)
+            return;
             var SpriteSize = TileSet.TileSize;
             var destRect = new Rectangle(Point.Zero, new Point(SpriteSize));
             var viewbounds = Camera.VisibleArea;

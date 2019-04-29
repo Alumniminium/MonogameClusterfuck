@@ -32,6 +32,13 @@
 /processorParam:TextureFormat=Color
 /build:player_f.png
 
+#begin ProFontWindows.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ProFontWindows.spritefont
+
 #begin selectionrect.png
 /importer:TextureImporter
 /processor:TextureProcessor
