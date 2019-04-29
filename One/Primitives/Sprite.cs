@@ -10,7 +10,7 @@ namespace MonoGameClusterFuck.Primitives
     {
         public bool IsInitialized;
         public bool IsLoaded;
-        public float LayerDepth = 0f;
+        public float LayerDepth;
         public Texture2D Texture;
         public virtual Vector2 Position { get; set; }
         public Point TextureSize;
@@ -49,7 +49,9 @@ namespace MonoGameClusterFuck.Primitives
         public virtual void Draw()
         {
             if (Texture != null || !IsLoaded)
-                Engine.SpriteBatch.Draw(Texture, Position, Source, Color.White, Rotation, RotationOrigin, Vector2.One, SpriteEffects.None, LayerDepth);
+            {
+                Engine.SpriteBatch.Draw(Texture, Position, Source, Color.White,Rotation,RotationOrigin, Vector2.One, SpriteEffects.None, LayerDepth);
+            }
         }
         public Sprite Clone()
         {

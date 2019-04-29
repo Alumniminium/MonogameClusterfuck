@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,26 +10,24 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
     public class Scene
     {
-        private bool _Loaded=false;
+        private bool _loaded;
         public bool Loaded
         {
-            get {
-return _Loaded;
-            }
+            get => _loaded;
             set{
-                _Loaded=value;
+                _loaded=value;
                 ThreadedConsole.WriteLine("Scene Loaded: "+value);
             }
         }
         public DateTime SceneActivatedTime;
-        public Engine Instance;
-        public SpriteBatch SpriteBatch;
-        public GraphicsDeviceManager Graphics;
+        public static Engine Instance;
+        public static SpriteBatch SpriteBatch;
+        public static GraphicsDeviceManager Graphics;
 
         public static FpsCounter FpsCounter;
 
-        public List<Sprite> Entities = new List<Sprite>();
-        public List<UIElement> UIElements = new List<UIElement>();
+        public BlockingCollection<Sprite> Entities = new BlockingCollection<Sprite>();
+        public BlockingCollection<UIElement> UIElements = new BlockingCollection<UIElement>();
 
         public Scene()
         {
@@ -67,15 +66,6 @@ return _Loaded;
                 entity.Update(gameTime);
             foreach (var element in UIElements)
                 element.Update(gameTime);
-        }
-        public void Draw(GameTime gameTime)
-        {
-            SpriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
-            DrawGame();
-            SpriteBatch.End();
-            SpriteBatch.Begin();
-            DrawUI();
-            SpriteBatch.End();
         }
 
         public virtual void DrawUI()

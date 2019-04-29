@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Primitives;
 
@@ -9,7 +10,7 @@ namespace MonoGameClusterFuck.Systems
         private Vector2 _cursorVector;
         
 
-        public Cursor(int size) : base(size,2)
+        public Cursor(int size) : base(size,0.01f)
         {
         }
 
@@ -22,8 +23,16 @@ namespace MonoGameClusterFuck.Systems
             _cursorVector.X = InputManager.MouseState.X;
             _cursorVector.Y = InputManager.MouseState.Y;
             _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Camera.Transform));
-            var newPosition = new Vector2((int)(_cursorVector.X / 32) * 32 - (int)RotationOrigin.X,(int)(_cursorVector.Y / 32) * 32 - (int)RotationOrigin.Y);
-            Position = newPosition;
+
+            _cursorVector.X = (int)_cursorVector.X / 32;
+            _cursorVector.Y = (int)_cursorVector.Y / 32;
+            _cursorVector *= 32;
+
+
+            _cursorVector.X += 16;
+            _cursorVector.Y += 16;
+
+            Position = _cursorVector;
         }
         public override void Draw()
         {

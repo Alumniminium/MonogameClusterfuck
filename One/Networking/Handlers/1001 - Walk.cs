@@ -24,8 +24,8 @@ namespace MonoGameClusterFuck.Networking.Handlers
             }
             else
             {
-                ThreadedConsole.WriteLine("[Net][MsgWalk] Walk Packet for New Player #" + entity.UniqueId);
                 entity = Entity.Spawn(uniqueId, location);
+                ThreadedConsole.WriteLine("[Net][MsgWalk] Walk Packet for New Player #" + entity.UniqueId);
                 SceneManager.CurrentScene.Entities.Add(entity);
             }
 

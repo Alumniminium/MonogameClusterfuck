@@ -24,22 +24,22 @@ namespace MonoGameClusterFuck.Systems
         {
             var inverseViewMatrix = Matrix.Invert(Transform);
 
-            var tl = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
-            var tr = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
-            var bl = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
-            var br = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
+            var (x, y) = Vector2.Transform(Vector2.Zero, inverseViewMatrix);
+            var (f, f1) = Vector2.Transform(new Vector2(Bounds.X, 0), inverseViewMatrix);
+            var (x1, y1) = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
+            var (f2, y2) = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
 
-            var min = new Vector2(MathHelper.Min(tl.X, MathHelper.Min(tr.X, MathHelper.Min(bl.X, br.X))),
-                MathHelper.Min(tl.Y, MathHelper.Min(tr.Y, MathHelper.Min(bl.Y, br.Y))));
-            var max = new Vector2(MathHelper.Max(tl.X, MathHelper.Max(tr.X, MathHelper.Max(bl.X, br.X))),
-                MathHelper.Max(tl.Y, MathHelper.Max(tr.Y, MathHelper.Max(bl.Y, br.Y))));
-            VisibleArea = new Rectangle((int)min.X, (int)min.Y, (int)(max.X - min.X), (int)(max.Y - min.Y));
+            var (x2, f3) = new Vector2(MathHelper.Min(x, MathHelper.Min(f, MathHelper.Min(x1, f2))),
+                MathHelper.Min(y, MathHelper.Min(f1, MathHelper.Min(y1, y2))));
+            var (x3, y3) = new Vector2(MathHelper.Max(x, MathHelper.Max(f, MathHelper.Max(x1, f2))),
+                MathHelper.Max(y, MathHelper.Max(f1, MathHelper.Max(y1, y2))));
+            VisibleArea = new Rectangle((int)x2, (int)f3, (int)(x3 - x2), (int)(y3 - f3));
         }
 
         private void UpdateMatrix()
         {
             Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                    Matrix.CreateScale(Zoom) *
+                    Matrix.CreateScale(Zoom,Zoom,1) *
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
             UpdateVisibleArea();
         }
@@ -55,8 +55,17 @@ namespace MonoGameClusterFuck.Systems
             {
                 Zoom = 3f;
             }
-        }
 
+            ThreadedConsole.WriteLine("[Camera][Zoom] = "+Zoom);
+        }
+        public static Vector2 WorldToScreen(Vector2 worldPosition)
+        {
+            return Vector2.Transform(worldPosition, Transform);
+        }
+        public static Vector2 ScreenToWorld(Vector2 screenPosition)
+        {
+            return Vector2.Transform(screenPosition, Matrix.Invert(Transform));
+        }
         public void Update(GameTime deltaTime)
         {
             Bounds = Engine.Graphics.GraphicsDevice.Viewport.Bounds;

@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Primitives;
@@ -22,7 +21,7 @@ namespace MonoGameClusterFuck.Entities
         
         internal static Entity Spawn(uint uniqueId, Vector2 position)
         {
-            var entity = new Entity(32,1)
+            var entity = new Entity(32,0.01f)
             {
                 UniqueId = uniqueId,
                 Position = position

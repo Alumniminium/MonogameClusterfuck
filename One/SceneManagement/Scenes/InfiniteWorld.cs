@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Primitives;
 using MonoGameClusterFuck.Systems;
@@ -21,7 +22,8 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Initializing components...");
             TileSet = new TileSet(32);
             TileSet.Slice();
-            Entities.Add(new Player(32,1));
+            Entities.Add(new Player(32, 0.01f));
+            Entities.Add(new Cursor(32));
             ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Initialization handed over to base class.");
             base.Initialize();
         }
@@ -35,46 +37,46 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            if(!Loaded)
-            return;
+            if (!Loaded)
+                return;
             base.Update(gameTime);
         }
 
         public override void DrawUI()
         {
-            if(!Loaded)
-            return;
+            if (!Loaded)
+                return;
             FpsCounter.Draw();
             base.DrawUI();
         }
 
         public override void DrawGame()
         {
-            if(!Loaded)
-            return;
-            var SpriteSize = TileSet.TileSize;
-            var destRect = new Rectangle(Point.Zero, new Point(SpriteSize));
+            if (!Loaded)
+                return;
+
+            var destRect = new Rectangle(Point.Zero, new Point(TileSet.TileSize));
             var viewbounds = Camera.VisibleArea;
 
-            var left = (viewbounds.Left / SpriteSize * SpriteSize) - SpriteSize;
-            var top = (viewbounds.Top / SpriteSize * SpriteSize) - SpriteSize;
-            var FloorTile = TileSet.Tiles[357];
-            var WallTile = TileSet.Tiles[5];
-            for (var x = left; x <= viewbounds.Right; x += SpriteSize)
+            var left = (viewbounds.Left / TileSet.TileSize * TileSet.TileSize) - TileSet.TileSize;
+            var top = (viewbounds.Top / TileSet.TileSize * TileSet.TileSize) - TileSet.TileSize;
+            var floorTile = TileSet.Tiles[357];
+            var wallTile = TileSet.Tiles[5];
+            for (var x = left; x <= viewbounds.Right; x += TileSet.TileSize)
             {
-                for (var y = top; y <= viewbounds.Bottom; y += SpriteSize)
+                for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize)
                 {
                     var value = NoiseGen.GetCellular(x, y);
 
-                    if (value > 0.45f)
+                    if (value > 0.25f)
                     {
                         destRect.Location = new Point(x, y);
-                        SpriteBatch.Draw(FloorTile.Texture, destRect, FloorTile.Source, Color.White);
+                        SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
                     }
                     else
                     {
                         destRect.Location = new Point(x, y);
-                        SpriteBatch.Draw(WallTile.Texture, destRect, WallTile.Source, Color.White);
+                        SpriteBatch.Draw(wallTile.Texture, destRect, wallTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
                     }
                 }
             }

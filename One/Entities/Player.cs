@@ -9,7 +9,6 @@ namespace MonoGameClusterFuck.Entities
 {
     public class Player : Entity
     {
-        public new float LayerDepth = 1;
         public NetworkClient Socket;
         public Camera Camera;
         public override Vector2 Position
@@ -17,11 +16,11 @@ namespace MonoGameClusterFuck.Entities
             get => base.Position;
             set
             {
-                if (value == Socket.ServerPosition)
+                if (Socket == null || value == Socket.ServerPosition)
                     return;
 
                 Camera.Position = base.Position = value;
-
+                ThreadedConsole.WriteLine($"[Player][Position] X={value.X} Y={value.Y}");
                 if (Socket.LastUpdateTick + 50 < Environment.TickCount && value != Socket.ServerPosition)
                 {
                     Socket.Send(MsgWalk.Create(UniqueId, Position));
@@ -34,6 +33,13 @@ namespace MonoGameClusterFuck.Entities
         {
             ThreadedConsole.WriteLine("[Player] Constructor called!");
         }
+        public override void Initialize()
+        {
+            ThreadedConsole.WriteLine("[Player] Initialization handed over to base class...");
+            base.Initialize();
+            ThreadedConsole.WriteLine("[Player] Initializing components...");
+            Socket = new NetworkClient(this);
+        }
 
         public override void LoadContent()
         {
@@ -41,22 +47,13 @@ namespace MonoGameClusterFuck.Entities
             Texture = Engine.Instance.Content.Load<Texture2D>("player_f");
             ThreadedConsole.WriteLine("[Player] Loading handed over to base class...");
             base.LoadContent();
-        }
-
-        public override void Initialize()
-        {
-            ThreadedConsole.WriteLine("[Player] Initializing components...");
-            Camera = new Camera();
-            Camera.Position = Position;
-            Socket = new NetworkClient(this);     
-            ThreadedConsole.WriteLine("[Player] Initialization handed over to base class...");       
-            base.Initialize();
-            //if (!Debugger.IsAttached)
-            //    Socket.ConnectAsync("84.112.111.13", 13338);
-            //else
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
+            Position = new Vector2(512, 512);
+            Camera = new Camera();
+            Camera.Position = Position;
         }
+
         public override void Update(GameTime deltaTime)
         {
             if (!IsLoaded || !IsInitialized)

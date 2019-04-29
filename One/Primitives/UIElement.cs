@@ -4,31 +4,35 @@ namespace MonoGameClusterFuck.Primitives
 {
     public class UIElement
     {
+        public Sprite Sprite;
+
+        public UIElement(int size, float layerDepth)
+        {
+            Sprite = new Sprite(size, layerDepth);
+        }
+        public virtual void LoadContent()
+        {
+            Sprite.LoadContent();
+        }
+        public virtual void Update(GameTime gameTime)
+        {
+            Sprite.Update(gameTime);
+        }
+
+        public virtual void Draw()
+        {
+            Sprite.Draw();
+        }
 
 
-        public void LoadContent()
+        public virtual void Destroy()
         {
 
         }
-        public void Update(GameTime gameTime)
+
+        public virtual void Initialize()
         {
-
-        }
-
-        public void Draw()
-        {
-
-        }
-
-
-        public void Destroy()
-        {
-
-        }
-
-        public void Initialize()
-        {
-            
+            Sprite.Initialize();
         }
     }
 }
