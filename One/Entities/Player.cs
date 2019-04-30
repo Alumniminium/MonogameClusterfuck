@@ -49,7 +49,7 @@ namespace MonoGameClusterFuck.Entities
             base.LoadContent();
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(512, 512);
+            Position = new Vector2(720, 256);
             Camera = new Camera();
             Camera.Position = Position;
         }

@@ -10,7 +10,7 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
     public class InfiniteWorld : Scene
     {
         public TileSet TileSet;
-        public FastNoise NoiseGen = new FastNoise();
+        public static FastNoise NoiseGen = new FastNoise();
 
         public InfiniteWorld()
         {
@@ -71,12 +71,12 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
                     if (value > 0.25f)
                     {
                         destRect.Location = new Point(x, y);
-                        SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
+                        SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
                     }
                     else
                     {
                         destRect.Location = new Point(x, y);
-                        SpriteBatch.Draw(wallTile.Texture, destRect, wallTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.1f);
+                        SpriteBatch.Draw(wallTile.Texture, destRect, wallTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
                     }
                 }
             }

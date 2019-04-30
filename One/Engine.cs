@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.SceneManagement;
 using MonoGameClusterFuck.Settings;
@@ -48,6 +49,7 @@ namespace MonoGameClusterFuck
             Fonts.LoadContent();
             ThreadedConsole.WriteLine("[Engine] Further content loading handed over to SceneManager...");
             SceneManager.LoadContent();
+            Sw.Start();
         }
 
         protected override void Update(GameTime gameTime)
@@ -56,10 +58,11 @@ namespace MonoGameClusterFuck
             SceneManager.Update(gameTime);
             base.Update(gameTime);
         }
+        public static Stopwatch Sw = new Stopwatch();
         protected override void Draw(GameTime gameTime)
         {
+            Sw.Restart();
             GraphicsDevice.Clear(Color.White);
-
             SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
             SceneManager.DrawGame();
             SpriteBatch.End();
@@ -67,8 +70,9 @@ namespace MonoGameClusterFuck
             SpriteBatch.Begin();
             SceneManager.DrawUI();
             SpriteBatch.End();
-
             base.Draw(gameTime);
+            Sw.Stop();
+            FpsCounter.Frametime = Sw.Elapsed.TotalMilliseconds;
         }
     }
 }
