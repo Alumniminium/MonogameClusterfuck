@@ -77,12 +77,8 @@ namespace MonoGameClusterFuck.Animations
 
         public void Update(GameTime gameTime)
         {
-            var secondsIntoAnimation =
-                _timeIntoAnimation.TotalSeconds + gameTime.ElapsedGameTime.TotalSeconds;
-
-
+            var secondsIntoAnimation = _timeIntoAnimation.TotalSeconds + gameTime.ElapsedGameTime.TotalSeconds;
             var remainder = secondsIntoAnimation % Duration.TotalSeconds;
-
             _timeIntoAnimation = TimeSpan.FromSeconds(remainder);
         }
     }

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Threading.Tasks.Dataflow;
+using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
@@ -12,6 +13,7 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
     {
         public TileSet TileSet;
         public static FastNoise NoiseGen = new FastNoise();
+        public static FastNoise NoiseGen2 = new FastNoise();
 
         public InfiniteWorld()
         {
@@ -60,11 +62,11 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             public TileType Type;
             public TileInfo((float, float) location)
             {
-                var value = NoiseGen.GetCellular(location.Item1, location.Item2);
-                if (value > 0.25f)
-                    Type = TileType.Ground;
-                else
+                var value = NoiseGen.GetCubic(location.Item1, location.Item2);
+                if (value > 0.15f)
                     Type = TileType.Wall;
+                else
+                    Type = TileType.Ground;
             }
         }
         public override void DrawGame()
@@ -74,31 +76,84 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 
             var destRect = new Rectangle(Point.Zero, new Point(TileSet.TileSize));
             var viewbounds = Camera.VisibleArea;
-
             var left = (viewbounds.Left / TileSet.TileSize * TileSet.TileSize) - TileSet.TileSize;
             var top = (viewbounds.Top / TileSet.TileSize * TileSet.TileSize) - TileSet.TileSize;
-            var floorTile = TileSet.Tiles[357];
-            var wallTile = TileSet.Tiles[5];
+
+            if (InputState.DrawTileSet)
+            {
+                int count = 0;
+                int yoffset = 0;
+                int xoffset = 0;
+                destRect.Width = 64;
+                destRect.Height = 64;
+                foreach (var tile in TileSet.Tiles)
+                {
+                    if (TileSet.Tiles.Count == count)
+                        count = 0;
+                    destRect.Location = new Point(xoffset * 64, yoffset * 128);
+                    var stringDest = new Vector2(destRect.Location.X, destRect.Y - 32);
+                    Engine.SpriteBatch.DrawString(Fonts.ProFont, count.ToString(), stringDest, Color.Black, 0, Vector2.One, 1, SpriteEffects.None, 1.0f);
+                    Engine.SpriteBatch.Draw(TileSet.Atlas, destRect, TileSet.Tiles[count].Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
+                    count++;
+                    xoffset++;
+                    if (xoffset == 12)
+                    {
+                        xoffset = 0;
+                        yoffset++;
+                    }
+                }
+                base.DrawGame();
+                return;
+            }
+
+            var floorTile = TileSet.Tiles[69];
+            var wallTile = TileSet.Tiles[144];
+            var upperWallTile = TileSet.Tiles[143];
+            var wallTileLeft = TileSet.Tiles[176];
+            var wallTileRight = TileSet.Tiles[112];
+            var upperWallTileRight = TileSet.Tiles[110];
+            var upperWallTileLeft = TileSet.Tiles[175];
+            
+                    Sprite sprite = floorTile;
+            for (var x = left; x <= viewbounds.Right; x += TileSet.TileSize)
+            {
+                for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize)
+                {
+                        destRect.Location = new Point(x, y);
+                         SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                }
+            }
+
             for (var x = left; x <= viewbounds.Right; x += TileSet.TileSize)
             {
                 for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize)
                 {
                     var value = new TileInfo((x, y));
-                    var a = new TileInfo((x, y -= 32));
-                    var b = new TileInfo((x, y += 32));
-                    var l = new TileInfo((x -= 32, y));
-                    var r = new TileInfo((x += 32, y));
+                    var a = new TileInfo((x, y - 32));
+                    var b = new TileInfo((x, y + 32));
+                    //var l = new TileInfo((x - 32, y));
+                    //var r = new TileInfo((x + 32, y));
 
+                    if(value.Type==TileType.Wall)
+                    {
+                        sprite=wallTile;
+                        if (b.Type == TileType.Ground)
+                            sprite = wallTile;
+                        if(b.Type== TileType.Wall)
+                            sprite=upperWallTile;
 
-                    if (value.Type == TileType.Ground)
-                    {
+                        //if(l.Type == TileType.Ground && r.Type == TileType.Wall && a.Type == TileType.Wall && b.Type == TileType.Ground)
+                          //  sprite = wallTileRight;
+                        //if(l.Type == TileType.Ground && r.Type == TileType.Wall && a.Type== TileType.Wall && b.Type == TileType.Wall)
+                           // sprite = upperWallTileRight;
+                        
+                        //if(l.Type == TileType.Wall && r.Type == TileType.Ground && a.Type == TileType.Wall && b.Type == TileType.Ground)
+                          //  sprite = wallTileLeft;
+                        //if(l.Type == TileType.Wall && r.Type == TileType.Ground && a.Type== TileType.Wall && b.Type == TileType.Wall)
+                          //  sprite = upperWallTileLeft;
+
                         destRect.Location = new Point(x, y);
-                        SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
-                    }
-                    else
-                    {
-                        destRect.Location = new Point(x, y);
-                        SpriteBatch.Draw(wallTile.Texture, destRect, wallTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
+                        SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.99f);
                     }
                 }
             }

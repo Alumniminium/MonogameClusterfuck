@@ -10,7 +10,7 @@ namespace MonoGameClusterFuck.Systems
     {
         private Vector2 _cursorVector;
         public string ToolTip = "Floor";
-        public Cursor(int size) : base(size,0.01f)
+        public Cursor(int size) : base(size, 0.01f)
         {
         }
 
@@ -28,28 +28,28 @@ namespace MonoGameClusterFuck.Systems
             _cursorVector.Y = (int)_cursorVector.Y / 32;
             _cursorVector *= 32;
 
-            var val = InfiniteWorld.NoiseGen.GetCellular(_cursorVector.X,_cursorVector.Y);
-            
+            var val = InfiniteWorld.NoiseGen.GetCellular(_cursorVector.X, _cursorVector.Y);
+
             if (val > 0.25f)
-                ToolTip = "Wall Tile: " + _cursorVector.X+","+_cursorVector.Y;
+                ToolTip = "Wall: " + _cursorVector.X + "," + _cursorVector.Y;
             else
-                ToolTip = "Floor Tile: " + _cursorVector.X+","+_cursorVector.Y;
+                ToolTip = "Floor: " + _cursorVector.X + "," + _cursorVector.Y;
 
-            if(_cursorVector.Y >=0)
-            _cursorVector.Y += 16;
+            if (_cursorVector.Y >= 0)
+                _cursorVector.Y += 16;
             else
-            _cursorVector.Y -= 16;
+                _cursorVector.Y -= 16;
 
-            if(_cursorVector.X >=0)
-            _cursorVector.X += 16;
+            if (_cursorVector.X >= 0)
+                _cursorVector.X += 16;
             else
-            _cursorVector.X -= 16;
+                _cursorVector.X -= 16;
 
             Position = _cursorVector;
         }
         public override void Draw()
         {
-            Engine.SpriteBatch.DrawString(Fonts.ProFont,ToolTip,Position + new Vector2(-16,-48),Color.White);
+            Engine.SpriteBatch.DrawString(Fonts.ProFont, ToolTip, Position + new Vector2(-16, -48), Color.White);
             base.Draw();
         }
 

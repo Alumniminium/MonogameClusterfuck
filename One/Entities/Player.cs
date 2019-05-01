@@ -44,7 +44,7 @@ namespace MonoGameClusterFuck.Entities
             base.Initialize();
             ThreadedConsole.WriteLine("[Player] Initializing components...");
             TextBlock.Initialize();
-            Position = new Vector2(720, 256);
+            Position = new Vector2(736, 256);
             Destination = Position;
             Socket = new NetworkClient(this);
         }
@@ -68,16 +68,11 @@ namespace MonoGameClusterFuck.Entities
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var velocity = InputManager.Keyboard.GetInputAxisConstrained();
 
-            /*if (velocity == Vector2.Zero)
-                CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
-            else
-                CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(velocity);*/
-
-            if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
-                Destination = Position + (velocity * 32);
+            if ((velocity.X != 0 || velocity.Y != 0) && Position==Destination)
+                Destination += (velocity * 32);
 
             TextBlock.Position.X = Position.X - TextBlock.Width / 2;
-            TextBlock.Position.Y = Position.Y - 48;
+            TextBlock.Position.Y = Position.Y - 32;
             TextBlock.Update(deltaTime);
             Camera.Update(deltaTime);
             base.Update(deltaTime);

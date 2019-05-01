@@ -28,7 +28,6 @@ namespace MonoGameClusterFuck.Primitives
         public virtual void Initialize()
         {
             Source = new Rectangle(0, 0, SpriteSize.X, SpriteSize.Y);
-            Position = new Vector2(0, 0);
             Rotation = 0;
             RotationOrigin = new Vector2(SpriteSize.X / 2f, SpriteSize.Y / 2f);
             IsInitialized = true;
