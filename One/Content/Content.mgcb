@@ -51,6 +51,24 @@
 /processorParam:TextureFormat=Color
 /build:selectionrect.png
 
+#begin Shaders/lighteffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/lighteffect.fx
+
+#begin Shaders/lightmask.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Shaders/lightmask.png
+
 #begin ship.png
 /importer:TextureImporter
 /processor:TextureProcessor
