@@ -44,6 +44,8 @@ namespace MonoGameClusterFuck.Entities
             base.Initialize();
             ThreadedConsole.WriteLine("[Player] Initializing components...");
             TextBlock.Initialize();
+            Position = new Vector2(720, 256);
+            Destination = Position;
             Socket = new NetworkClient(this);
         }
 
@@ -55,8 +57,6 @@ namespace MonoGameClusterFuck.Entities
             base.LoadContent();
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(720, 256);
-            Destination=Position;
             Camera = new Camera();
             Camera.Position = Position;
         }
@@ -75,7 +75,9 @@ namespace MonoGameClusterFuck.Entities
 
             if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
                 Destination = Position + (velocity * 32);
-            
+
+            TextBlock.Position.X = Position.X - TextBlock.Width / 2;
+            TextBlock.Position.Y = Position.Y - 48;
             TextBlock.Update(deltaTime);
             Camera.Update(deltaTime);
             base.Update(deltaTime);
