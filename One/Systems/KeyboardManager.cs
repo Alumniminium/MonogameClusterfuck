@@ -88,5 +88,36 @@ namespace MonoGameClusterFuck.Systems
 
             return velocity;
         }
+        public Vector2 GetInputAxisConstrained()
+        {
+            var keyboard = InputManager.Keyboard;
+            var velocity = Vector2.Zero;
+            if (keyboard.KeyDown(PlayerControls.Up))
+            {
+                velocity.Y = -1;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Down))
+            {
+                velocity.Y = 1;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Left))
+            {
+                velocity.X = -1;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Right))
+            {
+                velocity.X = 1;
+            }
+            else if (keyboard.KeyDown(PlayerControls.Sprint))
+            {
+                velocity.X *= 20;
+                velocity.Y *= 20;
+            }
+
+            if (Math.Abs(Math.Abs(velocity.Y) - 1) < 1 && Math.Abs(Math.Abs(velocity.X) - 1) < 1)
+                velocity /= 1.55f;
+
+            return velocity;
+        }
     }
 }

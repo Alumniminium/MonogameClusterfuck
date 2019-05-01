@@ -6,7 +6,8 @@ namespace MonoGameClusterFuck.UI.Controls
 {
     public class UserControl
     {
-        public float LayerDepth;
+        public UserControl Parent;
+        public float LayerDepth = 0.01f;
         public Vector2 Position = Vector2.Zero;
         public Vector2 RotationOrigin = Vector2.Zero;
         public Vector2 Scale = Vector2.One;
@@ -14,10 +15,18 @@ namespace MonoGameClusterFuck.UI.Controls
         public Texture2D Texture;
         public string TextureName;
         public float Rotation;
+        public List<UserControl> Children;
 
         public UserControl(string textureName)
         {
             TextureName = textureName;
+            Children = new List<UserControl>();
+        }
+
+        public void AddChild(UserControl child)
+        {
+            child.Parent=this;
+            Children.Add(child);
         }
 
         public virtual void Initialize()
@@ -26,6 +35,12 @@ namespace MonoGameClusterFuck.UI.Controls
             RotationOrigin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
             SourceRect = new Rectangle(0, 0, Texture.Width, Texture.Height);
             Scale = Vector2.One;
+
+            if(Parent != null)
+            {
+                Position = Parent.Position;
+                LayerDepth = Parent.LayerDepth+0.01f;
+            }
         }
 
         public virtual void Update(GameTime gameTime)
@@ -33,29 +48,38 @@ namespace MonoGameClusterFuck.UI.Controls
 
         }
 
-        public virtual void Draw() => Engine.SpriteBatch.Draw(Texture,Position,SourceRect,Color.White,Rotation,RotationOrigin,Scale,SpriteEffects.None,LayerDepth);
+        public virtual void Draw() 
+        {    
+            Engine.SpriteBatch.Draw(Texture,Position,SourceRect,Color.White,Rotation,RotationOrigin,Scale,SpriteEffects.None,LayerDepth);
+            foreach(var child in Children)
+                child.Draw();
+        } 
     }
 
-    public class TextBlock
+    public class TextBlock : UserControl
     {
         public string Text = "Change me";
-        public List<UserControl> Controls = new List<UserControl>();
+        private Vector2 stringSize;
+        private UserControl backgroundd;
 
-        public TextBlock()
+        public TextBlock() : base("selectionrect")
         {
-            
+            Construct();
         }
 
         public void Construct()
         {
-            var backgroundd = new UserControl("");
-
-            Controls.Add(backgroundd);
+            backgroundd = new UserControl("selectionrect");
+            backgroundd.Initialize();
+            AddChild(backgroundd);
+            stringSize = Fonts.ProFont.MeasureString(Text);
         }
 
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-
+            backgroundd.Position.Y -= 48;
+            backgroundd.Position.X -= stringSize.X/2; 
+            backgroundd.Update(gameTime);
         }
     }
 }

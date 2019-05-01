@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Text.RegularExpressions;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Entities;
 using MonoGameClusterFuck.Primitives;
@@ -49,7 +50,23 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             FpsCounter.Draw();
             base.DrawUI();
         }
-
+        enum TileType
+        {
+            Ground,
+            Wall
+        }
+        struct TileInfo
+        {
+            public TileType Type;
+            public TileInfo((float, float) location)
+            {
+                var value = NoiseGen.GetCellular(location.Item1, location.Item2);
+                if (value > 0.25f)
+                    Type = TileType.Ground;
+                else
+                    Type = TileType.Wall;
+            }
+        }
         public override void DrawGame()
         {
             if (!Loaded)
@@ -66,9 +83,14 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             {
                 for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize)
                 {
-                    var value = NoiseGen.GetCellular(x, y);
+                    var value = new TileInfo((x, y));
+                    var a = new TileInfo((x, y -= 32));
+                    var b = new TileInfo((x, y += 32));
+                    var l = new TileInfo((x -= 32, y));
+                    var r = new TileInfo((x += 32, y));
 
-                    if (value > 0.25f)
+
+                    if (value.Type == TileType.Ground)
                     {
                         destRect.Location = new Point(x, y);
                         SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);

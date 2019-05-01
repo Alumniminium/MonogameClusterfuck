@@ -34,8 +34,11 @@ namespace MonoGameClusterFuck.Systems
                 InputState.DrawTileSet = !InputState.DrawTileSet;
                 if(Keyboard.KeyPressed(Keys.C))
                 {
-                    var cursorPos = InputManager.MouseState.Position;
-                    Entity.Spawn(0,cursorPos.ToVector2());
+                    var _cursorVector = InputManager.MouseState.Position.ToVector2();
+                    _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Camera.Transform));
+
+                    var entity = Entity.Spawn(0,_cursorVector);
+                    SceneManagement.SceneManager.CurrentScene.Entities.Add(entity);
                 }
         }
     }

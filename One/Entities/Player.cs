@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Networking;
 using MonoGameClusterFuck.Networking.Packets;
 using MonoGameClusterFuck.Systems;
+using MonoGameClusterFuck.UI.Controls;
 
 namespace MonoGameClusterFuck.Entities
 {
@@ -29,15 +30,20 @@ namespace MonoGameClusterFuck.Entities
                 }
             }
         }
+
+        public TextBlock TextBlock;
+
         public Player(int size, float layerDepth) : base(size, layerDepth)
         {
             ThreadedConsole.WriteLine("[Player] Constructor called!");
+            TextBlock = new TextBlock();
         }
         public override void Initialize()
         {
             ThreadedConsole.WriteLine("[Player] Initialization handed over to base class...");
             base.Initialize();
             ThreadedConsole.WriteLine("[Player] Initializing components...");
+            TextBlock.Initialize();
             Socket = new NetworkClient(this);
         }
 
@@ -50,6 +56,7 @@ namespace MonoGameClusterFuck.Entities
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
             Position = new Vector2(720, 256);
+            Destination=Position;
             Camera = new Camera();
             Camera.Position = Position;
         }
@@ -59,17 +66,25 @@ namespace MonoGameClusterFuck.Entities
             if (!IsLoaded || !IsInitialized)
                 return;
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
-            var velocity = InputManager.Keyboard.GetInputAxis() * Speed;
+            var velocity = InputManager.Keyboard.GetInputAxisConstrained();
 
-            if (velocity == Vector2.Zero)
+            /*if (velocity == Vector2.Zero)
                 CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
             else
-                CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(velocity);
+                CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(velocity);*/
 
-            Position += velocity * delta;
-            Destination = Position;
+            if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
+                Destination = Position + (velocity * 32);
+            
+            TextBlock.Update(deltaTime);
             Camera.Update(deltaTime);
             base.Update(deltaTime);
+        }
+
+        public override void Draw()
+        {
+            TextBlock.Draw();
+            base.Draw();
         }
     }
 }

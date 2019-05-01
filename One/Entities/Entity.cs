@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.Animations;
 using MonoGameClusterFuck.Primitives;
@@ -24,10 +25,13 @@ namespace MonoGameClusterFuck.Entities
             var entity = new Entity(32,0.01f)
             {
                 UniqueId = uniqueId,
-                Position = position
+                Position = position,
+                Destination = position
             };
             entity.Initialize();
             entity.LoadContent();
+            entity.Position = position;
+            entity.Destination= position;
             Collections.Entities.TryAdd(entity.UniqueId, entity);
 
             ThreadedConsole.WriteLine("[Entity] Spawning new Entity#"+entity.UniqueId);
@@ -59,13 +63,13 @@ namespace MonoGameClusterFuck.Entities
         {
             if (Position != Destination)
             {
+                //ThreadedConsole.WriteLine("[ENTITY][UpdateMove] Pos: "+Position +" Dest: "+Destination);
                 var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
                 var distance = Vector2.Distance(Position, Destination);
                 var direction = Vector2.Normalize(Destination - Position);
                 var velocity = direction * Speed * delta;
 
                 Position += velocity;
-
                 if (Vector2.Distance(Position, Destination) >= distance)
                 {
                     CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
@@ -78,7 +82,6 @@ namespace MonoGameClusterFuck.Entities
 
         public void MoveTo(Vector2 location, bool teleport = false)
         {
-            ThreadedConsole.WriteLine("[Entity] Got a move order...");
             if (teleport)
                 Position = Destination = location;
             else
