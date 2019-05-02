@@ -57,6 +57,8 @@ namespace MonoGameClusterFuck
 
             ThreadedConsole.WriteLine("[Engine] Loading Fonts...");
             Fonts.LoadContent();
+            lightMask = Content.Load<Texture2D>("Shaders/lightmask");
+            effect1 = Content.Load<Effect>("Shaders/lighteffect");
             ThreadedConsole.WriteLine("[Engine] Further content loading handed over to SceneManager...");
             SceneManager.LoadContent();
             Sw.Start();
@@ -75,8 +77,8 @@ namespace MonoGameClusterFuck
             GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             //draw light mask where there should be torches etc...
-            SpriteBatch.Draw(lightMask, new Vector2(0, 0), Color.White);
-            SpriteBatch.Draw(lightMask, new Vector2(500, 500), Color.White);
+            SpriteBatch.Draw(lightMask,
+                new Vector2(Graphics.PreferredBackBufferWidth / 2 - lightMask.Width, Graphics.PreferredBackBufferHeight /2 - lightMask.Height), null, Color.Red, 0, Vector2.Zero,Vector2.One + Vector2.One, SpriteEffects.None, 0f);
 
             SpriteBatch.End();
 
@@ -97,7 +99,7 @@ namespace MonoGameClusterFuck
             SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             effect1.Parameters["lightMask"].SetValue(lightsTarget);
-            effect1.CurrentTechnique.Passes[1].Apply();
+            effect1.CurrentTechnique.Passes[0].Apply();
             SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
             SpriteBatch.End();
             
