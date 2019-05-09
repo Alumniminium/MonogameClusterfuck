@@ -14,15 +14,15 @@ namespace MonoGameClusterFuck.Entities
         public Vector2 Destination;
         public float Speed = 200;
         public uint UniqueId { get; set; }
+        public DateTime DestinationReachedTimeStamp;
 
-
-        public Entity(int size,float layerDepth) : base(size,layerDepth)
+        public Entity(int size, float layerDepth) : base(size, layerDepth)
         {
         }
-        
+
         internal static Entity Spawn(uint uniqueId, Vector2 position)
         {
-            var entity = new Entity(32,0.01f)
+            var entity = new Entity(32, 0.01f)
             {
                 UniqueId = uniqueId,
                 Position = position,
@@ -31,10 +31,10 @@ namespace MonoGameClusterFuck.Entities
             entity.Initialize();
             entity.LoadContent();
             entity.Position = position;
-            entity.Destination= position;
+            entity.Destination = position;
             Collections.Entities.TryAdd(entity.UniqueId, entity);
 
-            ThreadedConsole.WriteLine("[Entity] Spawning new Entity#"+entity.UniqueId);
+            ThreadedConsole.WriteLine("[Entity] Spawning new Entity#" + entity.UniqueId);
             return entity;
         }
 
@@ -52,11 +52,13 @@ namespace MonoGameClusterFuck.Entities
         }
         public override void Update(GameTime deltaTime)
         {
-            if(!IsLoaded || !IsInitialized)
+            if (State != SpriteState.Ready)
                 return;
             UpdateMove(deltaTime);
-            CurrentAnimation.Update(deltaTime);
+            if(DestinationReachedTimeStamp.AddMilliseconds(250)<DateTime.UtcNow)
+            CurrentAnimation=WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
             Source = CurrentAnimation.CurrentRectangle;
+            CurrentAnimation.Update(deltaTime);
         }
 
         private void UpdateMove(GameTime deltaTime)
@@ -72,8 +74,8 @@ namespace MonoGameClusterFuck.Entities
                 Position += velocity;
                 if (Vector2.Distance(Position, Destination) >= distance)
                 {
-                    CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
                     Position = Destination;
+                    DestinationReachedTimeStamp = DateTime.UtcNow;
                 }
                 else
                     CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(direction);
@@ -89,12 +91,16 @@ namespace MonoGameClusterFuck.Entities
         }
         public override void Draw()
         {
+            if (State != SpriteState.Ready)
+                return;
+
             base.Draw();
         }
 
         public void Destroy()
         {
-            ThreadedConsole.WriteLine("[Entity] Destructor called. Killing Entity#"+UniqueId);
+            ThreadedConsole.WriteLine("[Entity] Destructor called. Killing Entity#" + UniqueId);
+            State= SpriteState.Disposing;
             Collections.Entities.TryRemove(UniqueId, out _);
         }
     }

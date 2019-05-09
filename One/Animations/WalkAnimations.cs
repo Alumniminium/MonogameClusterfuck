@@ -34,16 +34,16 @@ namespace MonoGameClusterFuck.Animations
             WalkUp.AddFrame(new Rectangle(32, 96, 32, 32), TimeSpan.FromSeconds(.2));
 
             IdleDown = new Animation();
-            IdleDown.AddFrame(new Rectangle(32, 0, 32, 32), TimeSpan.FromSeconds(.5));
+            IdleDown.AddFrame(new Rectangle(32, 0, 32, 32), TimeSpan.FromSeconds(.01));
 
             IdleRight = new Animation();
-            IdleRight.AddFrame(new Rectangle(32, 32, 32, 32), TimeSpan.FromSeconds(.5));
+            IdleRight.AddFrame(new Rectangle(32, 32, 32, 32), TimeSpan.FromSeconds(.01));
 
             IdleLeft = new Animation();
-            IdleLeft.AddFrame(new Rectangle(32, 64, 32, 32), TimeSpan.FromSeconds(.5));
+            IdleLeft.AddFrame(new Rectangle(32, 64, 32, 32), TimeSpan.FromSeconds(.01));
 
             IdleUp = new Animation();
-            IdleUp.AddFrame(new Rectangle(32, 96, 32, 32), TimeSpan.FromSeconds(.5));
+            IdleUp.AddFrame(new Rectangle(32, 96, 32, 32), TimeSpan.FromSeconds(.01));
 
         }
         public Animation GetWalkingAnimationFrom(Vector2 velocity)

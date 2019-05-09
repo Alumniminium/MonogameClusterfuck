@@ -51,12 +51,6 @@
 /processorParam:TextureFormat=Color
 /build:selectionrect.png
 
-#begin Shaders/lighteffect.fx
-/importer:EffectImporter
-/processor:EffectProcessor
-/processorParam:DebugMode=Auto
-/build:Shaders/lighteffect.fx
-
 #begin Shaders/lightmask.png
 /importer:TextureImporter
 /processor:TextureProcessor

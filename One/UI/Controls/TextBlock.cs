@@ -14,7 +14,7 @@ namespace MonoGameClusterFuck.UI.Controls
             Construct();
         }
 
-        public int Width { get; set; }
+        public int Width => (int)Fonts.ProFont.MeasureString(Text).X;
 
         public void Construct()
         {
@@ -29,7 +29,6 @@ namespace MonoGameClusterFuck.UI.Controls
         {
             backgroundd.Position.Y -= 48;
             backgroundd.Position.X -= stringSize.X;
-            Width = (int)stringSize.X;
             backgroundd.Update(gameTime);
         }
 

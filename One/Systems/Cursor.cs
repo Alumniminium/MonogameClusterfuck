@@ -23,27 +23,29 @@ namespace MonoGameClusterFuck.Systems
             _cursorVector.X = InputManager.MouseState.X;
             _cursorVector.Y = InputManager.MouseState.Y;
             _cursorVector = Vector2.Transform(_cursorVector, Matrix.Invert(Camera.Transform));
-
-            _cursorVector.X = (int)_cursorVector.X / 32;
-            _cursorVector.Y = (int)_cursorVector.Y / 32;
+            _cursorVector.X = ((int)_cursorVector.X) / 32;
+            _cursorVector.Y = ((int)_cursorVector.Y) / 32;
             _cursorVector *= 32;
+            
+            var val = InfiniteWorld.NoiseGen.GetCubic(_cursorVector.X, _cursorVector.Y);
 
-            var val = InfiniteWorld.NoiseGen.GetCellular(_cursorVector.X, _cursorVector.Y);
-
-            if (val > 0.25f)
-                ToolTip = "Wall: " + _cursorVector.X + "," + _cursorVector.Y;
+             if (val > 0.10f)
+                ToolTip = "Wall: " + ((int)_cursorVector.X/32).ToString("D") + "," + ((int)_cursorVector.Y/32).ToString("D");
             else
-                ToolTip = "Floor: " + _cursorVector.X + "," + _cursorVector.Y;
+                ToolTip = "Floor: " + ((int)_cursorVector.X /32).ToString("D") + "," + ((int)_cursorVector.Y/32).ToString("D");
+            //ToolTip+= Environment.NewLine+"Screen: " + InputManager.MouseState.X +"," + InputManager.MouseState.Y;
+            //ToolTip+= Environment.NewLine+"Screen/32: " + (int)InputManager.MouseState.X/32 +"," + (int)InputManager.MouseState.Y/32;
+            //ToolTip+= Environment.NewLine+"*32: " + (InputManager.MouseState.X/32)*32 +"," + (InputManager.MouseState.Y/32)*32;
 
-            if (_cursorVector.Y >= 0)
-                _cursorVector.Y += 16;
-            else
-                _cursorVector.Y -= 16;
+            if(_cursorVector.Y>=0)
+            _cursorVector.Y+=16;
+            if(_cursorVector.Y<0)
+            _cursorVector.Y-=16;
 
-            if (_cursorVector.X >= 0)
-                _cursorVector.X += 16;
-            else
-                _cursorVector.X -= 16;
+            if(_cursorVector.X>=0)
+            _cursorVector.X += 16;
+            if(_cursorVector.X<0)
+            _cursorVector.X -= 16;
 
             Position = _cursorVector;
         }

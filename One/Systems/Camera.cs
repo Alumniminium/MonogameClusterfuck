@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -57,6 +58,24 @@ namespace MonoGameClusterFuck.Systems
             }
 
             ThreadedConsole.WriteLine("[Camera][Zoom] = "+Zoom);
+        }
+        public static bool IsOnScreen(Vector2 position, Vector2 size)
+        {
+            var tl = new Vector2(Position.X,Position.Y);
+            var tr = new Vector2(Position.X+size.X,Position.Y);
+            var bl = new Vector2(Position.X,Position.Y+size.Y);
+            var br = new Vector2(Position.X + size.X,position.Y+size.Y);
+
+            if(tr.X < VisibleArea.Left && tr.Y < VisibleArea.Top)
+                return false;
+            if(tl.X > VisibleArea.Right && tl.Y > VisibleArea.Bottom)
+                return false;
+            if(br.X < VisibleArea.Left && br.Y > VisibleArea.Bottom)
+                return false;
+            if(bl.X > VisibleArea.Right && bl.Y < VisibleArea.Top)
+                return false;
+                
+            return true;
         }
         public static Vector2 WorldToScreen(Vector2 worldPosition)
         {

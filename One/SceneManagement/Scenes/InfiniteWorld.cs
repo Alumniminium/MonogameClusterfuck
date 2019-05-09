@@ -63,7 +63,7 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             public TileInfo((float, float) location)
             {
                 var value = NoiseGen.GetCubic(location.Item1, location.Item2);
-                if (value > 0.15f)
+                if (value > 0.10f)
                     Type = TileType.Wall;
                 else
                     Type = TileType.Ground;
@@ -76,8 +76,8 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
 
             var destRect = new Rectangle(Point.Zero, new Point(TileSet.TileSize));
             var viewbounds = Camera.VisibleArea;
-            var left = (viewbounds.Left / TileSet.TileSize * TileSet.TileSize) - TileSet.TileSize;
-            var top = (viewbounds.Top / TileSet.TileSize * TileSet.TileSize) - TileSet.TileSize;
+            var left = ((viewbounds.Left / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
+            var top = ((viewbounds.Top / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
 
             if (InputState.DrawTileSet)
             {
@@ -131,8 +131,6 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
                     var value = new TileInfo((x, y));
                     var a = new TileInfo((x, y - 32));
                     var b = new TileInfo((x, y + 32));
-                    //var l = new TileInfo((x - 32, y));
-                    //var r = new TileInfo((x + 32, y));
 
                     if(value.Type==TileType.Wall)
                     {
@@ -141,16 +139,6 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
                             sprite = wallTile;
                         if(b.Type== TileType.Wall)
                             sprite=upperWallTile;
-
-                        //if(l.Type == TileType.Ground && r.Type == TileType.Wall && a.Type == TileType.Wall && b.Type == TileType.Ground)
-                          //  sprite = wallTileRight;
-                        //if(l.Type == TileType.Ground && r.Type == TileType.Wall && a.Type== TileType.Wall && b.Type == TileType.Wall)
-                           // sprite = upperWallTileRight;
-                        
-                        //if(l.Type == TileType.Wall && r.Type == TileType.Ground && a.Type == TileType.Wall && b.Type == TileType.Ground)
-                          //  sprite = wallTileLeft;
-                        //if(l.Type == TileType.Wall && r.Type == TileType.Ground && a.Type== TileType.Wall && b.Type == TileType.Wall)
-                          //  sprite = upperWallTileLeft;
 
                         destRect.Location = new Point(x, y);
                         SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.99f);

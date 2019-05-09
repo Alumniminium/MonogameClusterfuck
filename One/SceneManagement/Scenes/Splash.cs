@@ -6,6 +6,15 @@ using MonoGameClusterFuck.Systems;
 
 namespace MonoGameClusterFuck.SceneManagement.Scenes
 {
+    public enum StateEnum
+    {
+        Zero = 0,
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5
+    }
     public class Splash : Scene
     {
         private bool GoRight = true;
@@ -17,6 +26,7 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
         Vector2 FooterDimensions, FooterPosition, FooterDestination;
         Point InvaderPosition, invaderDimensions, ShipPosition, ShipDimensions;
         Rectangle invaderRect, ShipRect;
+        StateEnum State = StateEnum.Zero;
         public Splash()
         {
             ThreadedConsole.WriteLine("[Scene][Splash] Constructor called!");
@@ -38,9 +48,9 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             FooterPosition = UIPlacementHelper.Position(FooterDimensions, UIElementPositioEnEnum.BottomCenter);
             FooterPosition.Y += 100;
 
-            ShipDimensions = new Point(_shipTexture.Width/8,_shipTexture.Height/8);
+            ShipDimensions = new Point(_shipTexture.Width / 8, _shipTexture.Height / 8);
             ShipPosition = UIPlacementHelper.Position(ShipDimensions.ToVector2(), UIElementPositioEnEnum.BottomCenter).ToPoint();
-            ShipPosition.Y -= 32;
+            ShipPosition.Y += 64;
             ShipRect = new Rectangle(ShipPosition, ShipDimensions);
 
             invaderDimensions = new Point(_splashTexture.Width / 8, _splashTexture.Height / 8);
@@ -53,73 +63,123 @@ namespace MonoGameClusterFuck.SceneManagement.Scenes
             if (!Loaded)
                 return;
 
+
+            switch (State)
+            {
+                case StateEnum.Zero:
+                    {
+                        MoveSpaceInvader();
+                        SlideShipIntoView(gameTime);
+                        break;
+                    }
+                case StateEnum.One:
+                    {
+                        MoveSpaceInvader();
+                        SlideFooterIntoView(gameTime);
+                        break;
+                    }
+                case StateEnum.Two:
+                    {
+                        MoveSpaceInvader();
+                        MoveShip();
+                        break;
+                    }
+                case StateEnum.Three:
+                case StateEnum.Four:
+                case StateEnum.Five:
+                    break;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
             if (SceneActivatedTime.AddSeconds(5) < DateTime.UtcNow)
             {
                 SceneManager.SetState(SceneEnum.InfiniteWorld);
                 ThreadedConsole.WriteLine("[Scene][Splash] Transitioning to Scene 2");
             }
+            base.Update(gameTime);
+        }
 
-            if (SceneActivatedTime.AddSeconds(1) < DateTime.UtcNow)
+        private void SlideShipIntoView(GameTime gameTime)
+        {
+            var destination = UIPlacementHelper.Position(ShipDimensions.ToVector2(), UIElementPositioEnEnum.BottomCenter).Y - 48;
+            if (ShipPosition.Y != destination)
             {
-                if (SceneActivatedTime.AddSeconds(1) < DateTime.UtcNow)
-                {
-                    if (FooterPosition.Y != FooterDestination.Y)
-                    {
-                        FooterPosition.Y -= 1 * (float) gameTime.TotalGameTime.TotalSeconds;
-                        if (FooterPosition.Y < FooterDestination.Y)
-                        {
-                            FooterPosition.Y = FooterDestination.Y;
-                        }
-                    }
-                }
+                ShipPosition.Y -= (int)(3 * (float)gameTime.TotalGameTime.TotalSeconds);
 
-                if (LastUpdate.AddMilliseconds(150) < DateTime.UtcNow)
+                if (ShipPosition.Y <= destination)
                 {
-                    if (invaderRect.X + (invaderRect.Width * 1.5) > Engine.Graphics.PreferredBackBufferWidth)
-                    {
-                        invaderRect.X = (int) (Engine.Graphics.PreferredBackBufferWidth - (invaderRect.Width * 1.5));
-                        invaderRect.Y += 96;
-                        GoRight = false;
-                    }
-                    else if (GoRight)
-                        invaderRect.X += 48;
-                    else if (invaderRect.X < invaderRect.Width * 0.5)
-                    {
-                        invaderRect.X = (int) (invaderRect.Width * 0.5);
-                        invaderRect.Y += 96;
-                        GoRight = true;
-                    }
-                    else if (!GoRight)
-                        invaderRect.X -= 48;
-
-                    LastUpdate = DateTime.UtcNow;
+                    ShipPosition.Y = (int)destination;
+                    State = StateEnum.One;
                 }
+                ShipRect.X = ShipPosition.X;
+                ShipRect.Y = ShipPosition.Y;
+            }
+        }
 
-                if (ShipRight)
-                {
-                    if (ShipRect.X + (ShipRect.Width * 1.5) < Engine.Graphics.PreferredBackBufferWidth)
-                    {
-                        ShipRect.X += 2;
-                    }
-                    else
-                    {
-                        ShipRight = false;
-                    }
-                }
+        private void MoveShip()
+        {
+            if (ShipRight)
+            {
+                if (ShipRect.X + (ShipRect.Width * 1.5) < Engine.Graphics.PreferredBackBufferWidth)
+                    ShipRect.X += 6;
                 else
+                ShipRight = false;
+            }
+            else
+            {
+                if (ShipRect.X > (ShipRect.Width * 0.5))
+                    ShipRect.X -= 6;
+                else
+                    ShipRight = true;
+            }
+        }
+
+        private void MoveSpaceInvader()
+        {
+            if (LastUpdate.AddMilliseconds(150) < DateTime.UtcNow)
+            {
+                if (invaderRect.X + (invaderRect.Width * 1.5) > Engine.Graphics.PreferredBackBufferWidth)
                 {
-                    if (ShipRect.X > (ShipRect.Width * 0.5))
-                    {
-                        ShipRect.X -= 2;
-                    }
-                    else
-                    {
-                        ShipRight = true;
-                    }
+                    invaderRect.X = (int)(Engine.Graphics.PreferredBackBufferWidth - (invaderRect.Width * 1.5));
+                    invaderRect.Y += 96;
+                    GoRight = false;
+                }
+                else if (GoRight)
+                    invaderRect.X += 48;
+                else if (invaderRect.X < invaderRect.Width * 0.5)
+                {
+                    invaderRect.X = (int)(invaderRect.Width * 0.5);
+                    invaderRect.Y += 96;
+                    GoRight = true;
+                }
+                else if (!GoRight)
+                    invaderRect.X -= 48;
+
+                LastUpdate = DateTime.UtcNow;
+            }
+        }
+
+        private void SlideFooterIntoView(GameTime gameTime)
+        {
+            if (FooterPosition.Y != FooterDestination.Y)
+            {
+                FooterPosition.Y -= 1 * (float)gameTime.TotalGameTime.TotalSeconds;
+                if (FooterPosition.Y < FooterDestination.Y)
+                {
+                    FooterPosition.Y = FooterDestination.Y;
+                    State = StateEnum.Two;
                 }
             }
-
-            base.Update(gameTime);
         }
 
         public override void DrawUI()
