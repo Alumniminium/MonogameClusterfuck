@@ -97,23 +97,22 @@ namespace MonoGameClusterFuck.Entities
 
         private void UpdateMove(GameTime deltaTime)
         {
-            if (Position != Destination)
+                var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
+
+            if (Position != Destination || keyboardAxis != Vector2.Zero)
             {
-                //ThreadedConsole.WriteLine("[ENTITY][UpdateMove] Pos: "+Position +" Dest: "+Destination);
+                ThreadedConsole.WriteLine("[ENTITY][UpdateMove] Pos: "+Position +" Dest: "+Destination);
                 var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
                 var distance = Vector2.Distance(Position, Destination);
                 var direction = Vector2.Normalize(Destination - Position);
                 var velocity = direction * Speed * delta;
-                var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
-
-
 
                 Position += velocity;
-                if (Vector2.Distance(Position, Destination) >= distance)
+                if (Vector2.Distance(Position, Destination) > distance)
                 {
                     Position = Destination;
 
-                    if ((keyboardAxis.X != 0 || keyboardAxis.Y != 0) && Position == Destination)
+                    if ((keyboardAxis != Vector2.Zero) && Position == Destination)
                     {
                         Destination += (keyboardAxis * 32);
                         direction = Vector2.Normalize(Destination - Position);

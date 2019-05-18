@@ -1,9 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameClusterFuck.SceneManagement;
 using MonoGameClusterFuck.Settings;
 using MonoGameClusterFuck.Systems;
+using One.Primitives;
 
 namespace MonoGameClusterFuck
 {
@@ -14,9 +16,9 @@ namespace MonoGameClusterFuck
         public static GraphicsDeviceManager Graphics;
 
         public static Texture2D lightMask;
-        public static Effect effect1;
         RenderTarget2D lightsTarget;
         RenderTarget2D mainTarget;
+
         public Engine()
         {
             ThreadedConsole.WriteLine("[Engine] Initializing Engine...");
@@ -73,16 +75,16 @@ namespace MonoGameClusterFuck
         public static Stopwatch Sw = new Stopwatch();
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.SetRenderTarget(lightsTarget);
-            GraphicsDevice.Clear(Color.Black);
+            Sw.Restart();
+            //GraphicsDevice.SetRenderTarget(lightsTarget);
+            //GraphicsDevice.Clear(Color.Black);
             //SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
             //draw light mask where there should be torches etc...
             //SpriteBatch.Draw(lightMask,new Vector2(Graphics.PreferredBackBufferWidth / 2 - lightMask.Width, Graphics.PreferredBackBufferHeight /2 - lightMask.Height), null, Color.Red, 0, Vector2.Zero,Vector2.One + Vector2.One, SpriteEffects.None, 0f);
             //SpriteBatch.End();
             
 
-            Sw.Restart();
-            GraphicsDevice.SetRenderTarget(mainTarget);
+            //GraphicsDevice.SetRenderTarget(mainTarget);
             GraphicsDevice.Clear(Color.White);
             SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
             SceneManager.DrawGame();
@@ -92,14 +94,14 @@ namespace MonoGameClusterFuck
             SceneManager.DrawUI();
             SpriteBatch.End();
 
-            GraphicsDevice.SetRenderTarget(null);
-            GraphicsDevice.Clear(Color.Black);
-            SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            //GraphicsDevice.SetRenderTarget(null);
+            //GraphicsDevice.Clear(Color.Black);
+            //SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
 
             //effect1.Parameters["lightMask"].SetValue(lightsTarget);
             //effect1.CurrentTechnique.Passes[0].Apply();
-            SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
-            SpriteBatch.End();
+            //SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
+            //SpriteBatch.End();
             
             base.Draw(gameTime);
             Sw.Stop();
