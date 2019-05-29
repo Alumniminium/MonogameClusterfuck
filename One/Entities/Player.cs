@@ -39,6 +39,7 @@ namespace MonoGameClusterFuck.Entities
         public WalkAnimations WalkAnimations;
         public Animation CurrentAnimation;
         public TextBlock TextBlock;
+        public Vector2 LastDirection;
 
         public Player(int size, float layerDepth) : base(size, layerDepth)
         {
@@ -68,7 +69,7 @@ namespace MonoGameClusterFuck.Entities
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(16, 0);
+            Position = new Vector2(16 + (32 * 10000), 32 * 10000);
             Destination = Position;
             Camera.Position = Position;
             CurrentAnimation = WalkAnimations.IdleDown;
@@ -106,7 +107,7 @@ namespace MonoGameClusterFuck.Entities
                 var distance = Vector2.Distance(Position, Destination);
                 var direction = Vector2.Normalize(Destination - Position);
                 var velocity = direction * Speed * delta;
-
+                LastDirection= direction;
                 Position += velocity;
                 if (Vector2.Distance(Position, Destination) > distance)
                 {
@@ -118,6 +119,7 @@ namespace MonoGameClusterFuck.Entities
                         direction = Vector2.Normalize(Destination - Position);
                         velocity = direction * Speed * delta;
                         Position += velocity;
+                        
                     }
                     else
                     {

@@ -10,6 +10,7 @@
 
 #-------------------------------- References --------------------------------#
 
+/reference:../../../.nuget/packages/infinitespacestudios.pipeline/1.0.9/tools/InfinitespaceStudios.Pipeline.dll
 
 #---------------------------------- Content ---------------------------------#
 
@@ -74,6 +75,15 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:selectionrect.png
+
+#begin Shaders/lighteffect.fx
+/importer:EffectImporter
+/processor:RemoteEffectProcessor
+/processorParam:RemoteAddress=89.163.230.143
+/processorParam:RemotePort=81
+/processorParam:Protocol=http
+/processorParam:DebugMode=Auto
+/build:Shaders/lighteffect.fx
 
 #begin Shaders/lightmask.png
 /importer:TextureImporter

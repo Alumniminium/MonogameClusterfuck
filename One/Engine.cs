@@ -56,11 +56,9 @@ namespace MonoGameClusterFuck
 
         protected override void LoadContent()
         {
-
             ThreadedConsole.WriteLine("[Engine] Loading Fonts...");
             Fonts.LoadContent();
             lightMask = Content.Load<Texture2D>("Shaders/lightmask");
-            //effect1 = Content.Load<Effect>("Shaders/lighteffect");
             ThreadedConsole.WriteLine("[Engine] Further content loading handed over to SceneManager...");
             SceneManager.LoadContent();
             Sw.Start();
@@ -75,14 +73,7 @@ namespace MonoGameClusterFuck
         public static Stopwatch Sw = new Stopwatch();
         protected override void Draw(GameTime gameTime)
         {
-            Sw.Restart();
-            //GraphicsDevice.SetRenderTarget(lightsTarget);
-            //GraphicsDevice.Clear(Color.Black);
-            //SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            //draw light mask where there should be torches etc...
-            //SpriteBatch.Draw(lightMask,new Vector2(Graphics.PreferredBackBufferWidth / 2 - lightMask.Width, Graphics.PreferredBackBufferHeight /2 - lightMask.Height), null, Color.Red, 0, Vector2.Zero,Vector2.One + Vector2.One, SpriteEffects.None, 0f);
-            //SpriteBatch.End();
-            
+            Sw.Restart();       
 
             //GraphicsDevice.SetRenderTarget(mainTarget);
             GraphicsDevice.Clear(Color.White);
@@ -93,15 +84,6 @@ namespace MonoGameClusterFuck
             SpriteBatch.Begin();
             SceneManager.DrawUI();
             SpriteBatch.End();
-
-            //GraphicsDevice.SetRenderTarget(null);
-            //GraphicsDevice.Clear(Color.Black);
-            //SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
-            //effect1.Parameters["lightMask"].SetValue(lightsTarget);
-            //effect1.CurrentTechnique.Passes[0].Apply();
-            //SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
-            //SpriteBatch.End();
             
             base.Draw(gameTime);
             Sw.Stop();
