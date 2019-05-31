@@ -1,9 +1,9 @@
-using MonoGameClusterFuck.Entities;
-using MonoGameClusterFuck.Networking.Packets;
-using MonoGameClusterFuck.SceneManagement;
-using MonoGameClusterFuck.Systems;
+using One.Entities;
+using One.Networking.Packets;
+using One.SceneManagement;
+using One.Systems;
 
-namespace MonoGameClusterFuck.Networking.Handlers
+namespace One.Networking.Handlers
 {
     public static class Walk
     {

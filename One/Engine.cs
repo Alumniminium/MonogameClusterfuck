@@ -1,23 +1,18 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.SceneManagement;
-using MonoGameClusterFuck.Settings;
-using MonoGameClusterFuck.Systems;
-using One.Primitives;
+using One.SceneManagement;
+using One.Settings;
+using One.Systems;
 
-namespace MonoGameClusterFuck
+namespace One
 {
     public class Engine : Game
     {
         public static Engine Instance;
         public static SpriteBatch SpriteBatch;
         public static GraphicsDeviceManager Graphics;
-
-        public static Texture2D lightMask;
-        RenderTarget2D lightsTarget;
-        RenderTarget2D mainTarget;
+        public static Stopwatch Sw = new Stopwatch();
 
         public Engine()
         {
@@ -45,10 +40,6 @@ namespace MonoGameClusterFuck
         protected override void Initialize()
         {
             ThreadedConsole.WriteLine("[Engine] Initializing components...");
-            var pp = GraphicsDevice.PresentationParameters;
-            lightsTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
-            mainTarget = new RenderTarget2D(GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight);
-
             ThreadedConsole.WriteLine("[Engine] Further initialization handed over to SceneManager...");
             SceneManager.Initialize();
             base.Initialize();
@@ -58,7 +49,6 @@ namespace MonoGameClusterFuck
         {
             ThreadedConsole.WriteLine("[Engine] Loading Fonts...");
             Fonts.LoadContent();
-            lightMask = Content.Load<Texture2D>("Shaders/lightmask");
             ThreadedConsole.WriteLine("[Engine] Further content loading handed over to SceneManager...");
             SceneManager.LoadContent();
             Sw.Start();
@@ -70,12 +60,9 @@ namespace MonoGameClusterFuck
             SceneManager.Update(gameTime);
             base.Update(gameTime);
         }
-        public static Stopwatch Sw = new Stopwatch();
         protected override void Draw(GameTime gameTime)
         {
             Sw.Restart();       
-
-            //GraphicsDevice.SetRenderTarget(mainTarget);
             GraphicsDevice.Clear(Color.White);
             SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
             SceneManager.DrawGame();

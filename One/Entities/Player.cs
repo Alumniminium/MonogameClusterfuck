@@ -1,14 +1,14 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Animations;
-using MonoGameClusterFuck.Networking;
-using MonoGameClusterFuck.Networking.Packets;
-using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Systems;
-using MonoGameClusterFuck.UI.Controls;
+using One.Animations;
+using One.Networking;
+using One.Networking.Packets;
+using One.Primitives;
+using One.Systems;
+using One.UI.Controls;
 
-namespace MonoGameClusterFuck.Entities
+namespace One.Entities
 {
     public class Player : Sprite
     {
@@ -86,10 +86,11 @@ namespace MonoGameClusterFuck.Entities
             if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
                 Destination += (velocity * 32);
 
-            TextBlock.Position.X = Position.X - TextBlock.Width / 2;
+            UpdateMove(deltaTime);
+            TextBlock.Position.X = Position.X - TextBlock.Width / 2f;
             TextBlock.Position.Y = Position.Y - 32;
             TextBlock.Update(deltaTime);
-            UpdateMove(deltaTime);
+
             Source = CurrentAnimation.CurrentRectangle;
             CurrentAnimation.Update(deltaTime);
 
@@ -118,7 +119,7 @@ namespace MonoGameClusterFuck.Entities
                         Destination += (keyboardAxis * 32);
                         direction = Vector2.Normalize(Destination - Position);
                         velocity = direction * Speed * delta;
-                        Position += velocity;
+                        //Position += velocity;
                         
                     }
                     else

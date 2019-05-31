@@ -1,4 +1,4 @@
-﻿namespace MonoGameClusterFuck.SceneManagement.Scenes
+﻿namespace One.SceneManagement.Scenes
 {
     public class MainMenu : Scene
     {

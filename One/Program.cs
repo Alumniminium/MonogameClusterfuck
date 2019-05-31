@@ -1,7 +1,7 @@
 ﻿using System;
-using MonoGameClusterFuck.Systems;
+using One.Systems;
 
-namespace MonoGameClusterFuck
+namespace One
 {
     public static class Program
     {

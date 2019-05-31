@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.SceneManagement.Scenes;
+using One.Primitives;
+using One.SceneManagement.Scenes;
 
-namespace MonoGameClusterFuck.Systems
+namespace One.Systems
 {
     public class Cursor : Sprite
     {

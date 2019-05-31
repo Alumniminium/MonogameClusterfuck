@@ -4,7 +4,7 @@ using Color = Microsoft.Xna.Framework.Color;
 using Point = Microsoft.Xna.Framework.Point;
 using Rectangle = Microsoft.Xna.Framework.Rectangle;
 
-namespace MonoGameClusterFuck.Primitives
+namespace One.Primitives
 {
     public class Sprite
     {

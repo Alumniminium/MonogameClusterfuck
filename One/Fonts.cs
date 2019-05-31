@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameClusterFuck
+namespace One
 {
     public static class Fonts
     {

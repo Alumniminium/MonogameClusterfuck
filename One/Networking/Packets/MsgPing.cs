@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace MonoGameClusterFuck.Networking.Packets
+namespace One.Networking.Packets
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct MsgPing

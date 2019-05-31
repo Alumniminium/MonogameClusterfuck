@@ -1,10 +1,10 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using MonoGameClusterFuck.Entities;
-using MonoGameClusterFuck.Settings;
+using One.Entities;
+using One.Settings;
 
-namespace MonoGameClusterFuck.Systems
+namespace One.Systems
 {
     public static class InputManager
     {

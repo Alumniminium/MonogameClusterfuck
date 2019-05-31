@@ -1,11 +1,11 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Animations;
-using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Systems;
+using One.Animations;
+using One.Primitives;
+using One.Systems;
 
-namespace MonoGameClusterFuck.Entities
+namespace One.Entities
 {
     public class Entity : Sprite
     {

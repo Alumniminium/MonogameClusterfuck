@@ -2,14 +2,13 @@
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Entities;
-using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Systems;
-using NoiseGen;
+using One.Entities;
 using One.Primitives;
+using One.Systems;
+using NoiseGen;
 using System;
 
-namespace MonoGameClusterFuck.SceneManagement.Scenes
+namespace One.SceneManagement.Scenes
 {
     public class InfiniteWorld : Scene
     {

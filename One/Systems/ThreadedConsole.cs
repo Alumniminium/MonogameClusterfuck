@@ -2,7 +2,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Threading;
 
-namespace MonoGameClusterFuck.Systems
+namespace One.Systems
 {
     public static class ThreadedConsole
     {

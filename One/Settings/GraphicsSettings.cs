@@ -1,7 +1,7 @@
 using System.IO;
 using Newtonsoft.Json;
 
-namespace MonoGameClusterFuck.Settings
+namespace One.Settings
 {
     public class GraphicsSettings
     {

@@ -1,7 +1,7 @@
 using System.Collections.Concurrent;
-using MonoGameClusterFuck.Entities;
+using One.Entities;
 
-namespace MonoGameClusterFuck
+namespace One
 {
     public static class Collections
     {

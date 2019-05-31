@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MonoGameClusterFuck.SceneManagement.Scenes;
+using One.SceneManagement.Scenes;
 
-namespace MonoGameClusterFuck.SceneManagement
+namespace One.SceneManagement
 {
     public static class SceneManager
     {

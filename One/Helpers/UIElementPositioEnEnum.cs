@@ -1,4 +1,4 @@
-namespace MonoGameClusterFuck.Helpers
+namespace One.Helpers
 {
     public enum UIElementPositioEnEnum
     {

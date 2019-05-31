@@ -1,10 +1,10 @@
 ﻿using AlumniSocketCore.Client;
 using AlumniSocketCore.Queues;
 using Microsoft.Xna.Framework;
-using MonoGameClusterFuck.Entities;
-using MonoGameClusterFuck.Systems;
+using One.Entities;
+using One.Systems;
 
-namespace MonoGameClusterFuck.Networking
+namespace One.Networking
 {
     public class NetworkClient
     {

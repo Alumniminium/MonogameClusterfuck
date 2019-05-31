@@ -1,4 +1,4 @@
-namespace MonoGameClusterFuck.Primitives
+namespace One.Primitives
 {
     public enum SpriteState
     {

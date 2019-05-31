@@ -1,4 +1,4 @@
-namespace MonoGameClusterFuck.Systems
+namespace One.Systems
 {
     public static class InputState
     {

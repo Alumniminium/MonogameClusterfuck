@@ -1,7 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonoGameClusterFuck.UI.Controls
+namespace One.UI.Controls
 {
     public class TextBlock : UserControl
     {

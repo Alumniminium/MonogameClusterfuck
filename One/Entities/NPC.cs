@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace MonoGameClusterFuck.Entities
+namespace One.Entities
 {
     public class NPC : Entity
     {

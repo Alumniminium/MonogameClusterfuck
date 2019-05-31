@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Helpers;
-using MonoGameClusterFuck.Systems;
+using One.Helpers;
+using One.Systems;
 
-namespace MonoGameClusterFuck.SceneManagement.Scenes
+namespace One.SceneManagement.Scenes
 {
     public enum StateEnum
     {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace MonoGameClusterFuck.Primitives
+namespace One.Primitives
 {
     public class UIElement
     {

@@ -1,4 +1,4 @@
-﻿namespace MonoGameClusterFuck.SceneManagement
+﻿namespace One.SceneManagement
 {
     public enum SceneEnum
     {

@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 
-namespace MonoGameClusterFuck.Helpers
+namespace One.Helpers
 {
     public static class UIPlacementHelper
     {

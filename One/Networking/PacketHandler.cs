@@ -1,7 +1,7 @@
 ﻿using System;
-using MonoGameClusterFuck.Networking.Handlers;
+using One.Networking.Handlers;
 
-namespace MonoGameClusterFuck.Networking
+namespace One.Networking
 {
     public static class PacketHandler
     {

@@ -3,10 +3,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameClusterFuck.Primitives;
-using MonoGameClusterFuck.Systems;
+using One.Primitives;
+using One.Systems;
 
-namespace MonoGameClusterFuck.SceneManagement.Scenes
+namespace One.SceneManagement.Scenes
 {
     public class Scene
     {

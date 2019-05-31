@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 
-namespace MonoGameClusterFuck.Animations
+namespace One.Animations
 {
     public class Animation
     {

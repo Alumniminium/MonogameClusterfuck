@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace MonoGameClusterFuck.Networking.Packets
+namespace One.Networking.Packets
 {
     [StructLayout(LayoutKind.Sequential, Pack = 1)]
     public unsafe struct MsgLogin
