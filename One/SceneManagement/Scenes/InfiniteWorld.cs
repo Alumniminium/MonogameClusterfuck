@@ -86,8 +86,8 @@ namespace One.SceneManagement.Scenes
             SpriteBatch.End();
             Engine.Instance.GraphicsDevice.SetRenderTarget(lightsTarget);
             Engine.Instance.GraphicsDevice.Clear(Color.Black);
-            SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive);
-            SpriteBatch.Draw(lightMask,new Vector2(Graphics.PreferredBackBufferWidth / 2 - lightMask.Width, Graphics.PreferredBackBufferHeight /2 - lightMask.Height), null, Color.Red, 0, Vector2.Zero,Vector2.One + Vector2.One, SpriteEffects.None, 0f);
+            SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive,transformMatrix: Camera.Transform);
+            SpriteBatch.Draw(lightMask,new Vector2(10000*32, 10000*32), null, Color.White, 0, Vector2.Zero,Vector2.One + Vector2.One, SpriteEffects.None, 0f);
             SpriteBatch.End();
             Engine.Instance.GraphicsDevice.SetRenderTarget(mainTarget);
             SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
@@ -164,17 +164,13 @@ namespace One.SceneManagement.Scenes
                     }
                 }
             }            
+            base.DrawGame();
             SpriteBatch.End();
             Engine.Instance.GraphicsDevice.SetRenderTarget(null);
-            Engine.Instance.GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-
             effect1.Parameters["lightMask"].SetValue(lightsTarget);
             effect1.CurrentTechnique.Passes[0].Apply();
             SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
-            SpriteBatch.End();
-            SpriteBatch.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.PointClamp, transformMatrix: Camera.Transform);
-            base.DrawGame();
         }
     }
 }

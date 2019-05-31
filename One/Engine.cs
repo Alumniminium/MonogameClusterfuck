@@ -73,8 +73,8 @@ namespace One
             SpriteBatch.End();
             
             base.Draw(gameTime);
-            Sw.Stop();
             FpsCounter.Frametime = Sw.Elapsed.TotalMilliseconds;
+            Sw.Stop();
         }
     }
 }
