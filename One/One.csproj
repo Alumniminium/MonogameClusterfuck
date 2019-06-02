@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
-    <RootNamespace>MonoGameClusterFuck</RootNamespace>
+    <RootNamespace>One</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <ApplicationIcon />
     <StartupObject />
@@ -39,6 +39,12 @@
     <None Update="GraphicsConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Primitives\Tiles\Light\" />
+    <Folder Include="Primitives\Tiles\Entities\" />
+    <Folder Include="Primitives\Tiles\Wall\" />
   </ItemGroup>
 
 </Project>

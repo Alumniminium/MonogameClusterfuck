@@ -69,7 +69,7 @@ namespace One.Entities
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(16 + (32 * 10000), 32 * 10000);
+            //Position = new Vector2(16 + (32 * 10000), 32 * 10000);
             Destination = Position;
             Camera.Position = Position;
             CurrentAnimation = WalkAnimations.IdleDown;

@@ -2,12 +2,12 @@
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using One.Entities;
 using One.Primitives;
 using One.Systems;
 using NoiseGen;
 using System;
 using One.SceneManagement.Primitives;
+using Player = One.Entities.Player;
 
 namespace One.SceneManagement.Scenes
 {
@@ -73,6 +73,8 @@ namespace One.SceneManagement.Scenes
             var left = ((viewbounds.Left / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
             var top = ((viewbounds.Top / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
 
+            var lightLowerTile = TileSet.Tiles[102];
+            var lightUpperTile = TileSet.Tiles[103];
             var floorTile = TileSet.Tiles[69];
             var wallTile = TileSet.Tiles[144];
             var upperWallTile = TileSet.Tiles[143];
@@ -86,7 +88,6 @@ namespace One.SceneManagement.Scenes
             Engine.Instance.GraphicsDevice.SetRenderTarget(mainTarget);
             if (InputState.DrawTileSet)
             {
-                destRect.Location = viewbounds.Location;
                 DrawTileset(destRect);
             }
             else
@@ -101,6 +102,12 @@ namespace One.SceneManagement.Scenes
                         destRect.Location = new Point(x, y);
                         if (value.Type == TileType.Ground)
                         {
+                            if (Core.Success(10))
+                            {
+                                SpriteBatch.Draw(lightLowerTile.Texture, destRect, lightLowerTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                                destRect.Location = new Point(x, y-32);
+                                SpriteBatch.Draw(lightUpperTile.Texture, destRect, lightUpperTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                            }
                             SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
                         }
                         else if (value.Type == TileType.Wall)
@@ -144,7 +151,7 @@ namespace One.SceneManagement.Scenes
                     count = 0;
                 destRect.Location = new Point(xoffset * 64, yoffset * 128);
                 var stringDest = new Vector2(destRect.Location.X, destRect.Y - 32);
-                Engine.SpriteBatch.DrawString(Fonts.ProFont, count.ToString(), stringDest, Color.Black, 0, Vector2.One, 1, SpriteEffects.None, 1.0f);
+                Engine.SpriteBatch.DrawString(Fonts.ProFont, count.ToString(), stringDest, Color.Magenta, 0, Vector2.One, 1, SpriteEffects.None, 1.0f);
                 Engine.SpriteBatch.Draw(TileSet.Atlas, destRect, TileSet.Tiles[count].Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1.0f);
                 count++;
                 xoffset++;

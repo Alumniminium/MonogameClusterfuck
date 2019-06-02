@@ -1,6 +1,6 @@
 using System;
 
-namespace Server
+namespace One
 {
     public static class Core
     {
