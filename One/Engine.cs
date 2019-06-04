@@ -17,7 +17,7 @@ namespace One
         public Engine()
         {
             ThreadedConsole.WriteLine("[Engine] Initializing Engine...");
-            IsFixedTimeStep = false;
+            IsFixedTimeStep = true;
             Graphics = new GraphicsDeviceManager(this)
             {
                 SynchronizeWithVerticalRetrace = GraphicsSettings.Instance.VSync,

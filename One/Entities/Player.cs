@@ -1,3 +1,4 @@
+using System.Collections.Specialized;
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +16,7 @@ namespace One.Entities
         public uint UniqueId;
         public NetworkClient Socket;
         public Camera Camera;
-        public float Speed = 200;
+        public float Speed = 100;
         public override Vector2 Position
         {
             get => base.Position;
@@ -35,11 +36,32 @@ namespace One.Entities
                 }
             }
         }
-        public Vector2 Destination;
+        public Vector2 Direction
+        {
+            get => _direction;
+            set
+            {
+                PreviousDirection = _direction;
+                _direction = value;
+            }
+        }
+
+        public Vector2 Destination
+        {
+            get => _destination;
+            set
+            {
+                PreviousDestination = _destination;
+                _destination = value;
+            }
+        }
+
+        private Vector2 _destination;
+        private Vector2 _direction;
+        public Vector2 PreviousDirection, PreviousDestination;
         public WalkAnimations WalkAnimations;
         public Animation CurrentAnimation;
         public TextBlock TextBlock;
-        public Vector2 LastDirection;
 
         public Player(int size, float layerDepth) : base(size, layerDepth)
         {
@@ -69,7 +91,7 @@ namespace One.Entities
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            //Position = new Vector2(16 + (32 * 10000), 32 * 10000);
+            Position = new Vector2(16 + (32 * 200000), 32 * 200000);
             Destination = Position;
             Camera.Position = Position;
             CurrentAnimation = WalkAnimations.IdleDown;
@@ -82,11 +104,17 @@ namespace One.Entities
                 return;
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var velocity = InputManager.Keyboard.GetInputAxisConstrained();
+            
 
             if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
+            {
                 Destination += (velocity * 32);
+                Direction = velocity;
+            }
 
-            UpdateMove(deltaTime);
+            if (Position != Destination)
+                UpdateMove(delta);
+
             TextBlock.Position.X = Position.X - TextBlock.Width / 2f;
             TextBlock.Position.Y = Position.Y - 32;
             TextBlock.Update(deltaTime);
@@ -97,41 +125,35 @@ namespace One.Entities
             Camera.Update(deltaTime);
         }
 
-        private void UpdateMove(GameTime deltaTime)
+        private void UpdateMove(float deltaTime)
         {
-                var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
+            var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
+            var delta = deltaTime;
+            var distance = Vector2.Distance(Position, Destination);
+            var direction = Vector2.Normalize(Destination - Position);
+            var velocity = direction * Speed * delta;
+            ThreadedConsole.WriteLine("[ENTITY][UpdateMove] Pos: " + Position + " Dest: " + Destination);
 
-            if (Position != Destination || keyboardAxis != Vector2.Zero)
+            if (Vector2.Distance(Position + velocity, Destination) > distance)
             {
-                ThreadedConsole.WriteLine("[ENTITY][UpdateMove] Pos: "+Position +" Dest: "+Destination);
-                var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
-                var distance = Vector2.Distance(Position, Destination);
-                var direction = Vector2.Normalize(Destination - Position);
-                var velocity = direction * Speed * delta;
-                LastDirection= direction;
-                Position += velocity;
-                if (Vector2.Distance(Position, Destination) > distance)
-                {
-                    Position = Destination;
+                Position = Destination;
 
-                    if ((keyboardAxis != Vector2.Zero) && Position == Destination)
-                    {
-                        Destination += (keyboardAxis * 32);
-                        direction = Vector2.Normalize(Destination - Position);
-                        velocity = direction * Speed * delta;
-                        //Position += velocity;
-                        
-                    }
-                    else
-                    {
-                        CurrentAnimation= WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
-                    }
-                }
-                else
+                if (keyboardAxis != Vector2.Zero)
                 {
-                    CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(direction);
+                    Destination += (keyboardAxis * 32);
+                    direction = Vector2.Normalize(Destination - Position);
+                    Direction = direction;
                 }
             }
+            if (Position != Destination)
+            {
+                Position += velocity;
+
+                if (Destination != PreviousDestination)
+                    CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(Direction);
+            }
+            else
+                CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
         }
 
         public override void Draw()

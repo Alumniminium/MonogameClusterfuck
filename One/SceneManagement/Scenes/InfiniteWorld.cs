@@ -104,9 +104,9 @@ namespace One.SceneManagement.Scenes
                         {
                             if (Core.Success(10))
                             {
-                                SpriteBatch.Draw(lightLowerTile.Texture, destRect, lightLowerTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                                destRect.Location = new Point(x, y-32);
-                                SpriteBatch.Draw(lightUpperTile.Texture, destRect, lightUpperTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                                //SpriteBatch.Draw(lightLowerTile.Texture, destRect, lightLowerTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                                //destRect.Location = new Point(x, y-32);
+                                //SpriteBatch.Draw(lightUpperTile.Texture, destRect, lightUpperTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
                             }
                             SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
                         }
