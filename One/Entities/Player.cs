@@ -37,29 +37,9 @@ namespace One.Entities
                 }
             }
         }
-        public Vector2 Direction
-        {
-            get => _direction;
-            set
-            {
-                PreviousDirection = _direction;
-                _direction = value;
-            }
-        }
 
-        public Vector2 Destination
-        {
-            get => _destination;
-            set
-            {
-                PreviousDestination = _destination;
-                _destination = value;
-            }
-        }
-
-        private Vector2 _destination;
-        private Vector2 _direction;
-        public Vector2 PreviousDirection, PreviousDestination;
+        public Vector2 Direction;
+        public Vector2 Destination;
         public WalkAnimations WalkAnimations;
         public Animation CurrentAnimation;
         public TextBlock TextBlock;
