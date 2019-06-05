@@ -8,6 +8,7 @@ using One.Networking.Packets;
 using One.Primitives;
 using One.Systems;
 using One.UI.Controls;
+using One.SceneManagement.Scenes;
 
 namespace One.Entities
 {
@@ -91,7 +92,7 @@ namespace One.Entities
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(16 + (32 * 200000), 32 * 200000);
+            Position = new Vector2(16 + (32 * 200000), 32 * 200000 + 32);
             Destination = Position;
             Camera.Position = Position;
             CurrentAnimation = WalkAnimations.IdleDown;
@@ -104,11 +105,20 @@ namespace One.Entities
                 return;
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var velocity = InputManager.Keyboard.GetInputAxisConstrained();
-            
+
 
             if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
             {
-                Destination += (velocity * 32);
+                var destinationTest = Destination + (velocity * 32);
+                if (InfiniteWorld.NoiseGen.GetCubic(destinationTest.X - 16, destinationTest.Y) > 0.10f)
+                {
+                    var direction = Vector2.Normalize(destinationTest - Position);
+                    CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(direction);
+                    CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
+                    return;
+                }
+
+                Destination = destinationTest;
                 Direction = velocity;
             }
 
@@ -138,9 +148,10 @@ namespace One.Entities
             {
                 Position = Destination;
 
-                if (keyboardAxis != Vector2.Zero)
+                var destinationTest = Destination + (keyboardAxis * 32);
+                if (keyboardAxis != Vector2.Zero && InfiniteWorld.NoiseGen.GetCubic(destinationTest.X - 16, destinationTest.Y) < 0.10f)
                 {
-                    Destination += (keyboardAxis * 32);
+                    Destination = destinationTest;
                     direction = Vector2.Normalize(Destination - Position);
                     Direction = direction;
                 }
