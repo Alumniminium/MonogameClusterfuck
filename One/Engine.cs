@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using One.SceneManagement;
@@ -25,6 +26,7 @@ namespace One
                 PreferredBackBufferWidth = GraphicsSettings.Instance.Width,
                 IsFullScreen = GraphicsSettings.Instance.Fullscreen,
             };
+            TargetElapsedTime = TimeSpan.FromMilliseconds(6);
             ThreadedConsole.WriteLine("[Engine] Applying Graphics Settings...");
             Graphics.ApplyChanges();
             Content.RootDirectory = "Content";

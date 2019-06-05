@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -30,10 +29,8 @@ namespace One.Systems
             var (x1, y1) = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
             var (f2, y2) = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
 
-            var (x2, f3) = new Vector2(MathHelper.Min(x, MathHelper.Min(f, MathHelper.Min(x1, f2))),
-                MathHelper.Min(y, MathHelper.Min(f1, MathHelper.Min(y1, y2))));
-            var (x3, y3) = new Vector2(MathHelper.Max(x, MathHelper.Max(f, MathHelper.Max(x1, f2))),
-                MathHelper.Max(y, MathHelper.Max(f1, MathHelper.Max(y1, y2))));
+            var (x2, f3) = new Vector2(MathHelper.Min(x, MathHelper.Min(f, MathHelper.Min(x1, f2))),MathHelper.Min(y, MathHelper.Min(f1, MathHelper.Min(y1, y2))));
+            var (x3, y3) = new Vector2(MathHelper.Max(x, MathHelper.Max(f, MathHelper.Max(x1, f2))),MathHelper.Max(y, MathHelper.Max(f1, MathHelper.Max(y1, y2))));
             VisibleArea = new Rectangle((int)x2, (int)f3, (int)(x3 - x2), (int)(y3 - f3));
         }
 
@@ -48,13 +45,13 @@ namespace One.Systems
         public void AdjustZoom(float zoomAmount)
         {
             Zoom += zoomAmount;
-            if (Zoom < .20f)
+            if (Zoom < .50f)
             {
-                Zoom = .10f;
+                Zoom = .50f;
             }
-            if (Zoom > 8f)
+            if (Zoom > 2f)
             {
-                Zoom = 3f;
+                Zoom = 2f;
             }
 
             ThreadedConsole.WriteLine("[Camera][Zoom] = "+Zoom);

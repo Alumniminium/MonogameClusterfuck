@@ -30,7 +30,7 @@ namespace One.Systems
         }
         public void Draw()
         {
-            var stringSize = Fonts.ProFont.MeasureString($"FPS:{Fps:000} ({Frametime:00.00}ms) PING: {Ping:000}");
+            var stringSize = Fonts.ProFont.MeasureString($"FPS:{Fps:000} (FrameTime: {Frametime:00.00}ms) PING: {Ping:000}");
             var stringPos =  new Vector2(Engine.Instance.GraphicsDevice.Viewport.Width - stringSize.X, 0);
             var bgRect = new Rectangle((int)stringPos.X-4,(int)stringPos.Y,(int)stringSize.X+4,(int)stringSize.Y);
             Engine.SpriteBatch.Draw(Background,bgRect,new Rectangle(0,0,1,1),Color.Black);

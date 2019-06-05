@@ -17,14 +17,14 @@ namespace One.Entities
         public uint UniqueId;
         public NetworkClient Socket;
         public Camera Camera;
-        public float Speed = 100;
+        public float Speed = 200;
         public override Vector2 Position
         {
             get => base.Position;
             set
             {
                 Camera.Position = base.Position = value;
-                ThreadedConsole.WriteLine($"[Player][Position] X={value.X} Y={value.Y}");
+                //ThreadedConsole.WriteLine($"[Player][Position] X={value.X} Y={value.Y}");
 
                 if (Socket == null || value == Socket.ServerPosition)
                     return;
@@ -103,31 +103,31 @@ namespace One.Entities
         {
             if (State != SpriteState.Ready)
                 return;
+
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
-            var velocity = InputManager.Keyboard.GetInputAxisConstrained();
-
-
-            if ((velocity.X != 0 || velocity.Y != 0) && Position == Destination)
+            var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
+            
+            if (keyboardAxis != Vector2.Zero && Position == Destination)
             {
-                var destinationTest = Destination + (velocity * 32);
-                if (InfiniteWorld.NoiseGen.GetCubic(destinationTest.X - 16, destinationTest.Y) > 0.10f)
+                var destinationTest = Destination + (keyboardAxis * 32);
+                if (IsWalkable(destinationTest))
                 {
-                    var direction = Vector2.Normalize(destinationTest - Position);
-                    CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(direction);
-                    CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
-                    return;
+                    Destination = destinationTest;
+                    Direction = Vector2.Normalize(destinationTest - Position);
                 }
-
-                Destination = destinationTest;
-                Direction = velocity;
             }
 
             if (Position != Destination)
+            {
                 UpdateMove(delta);
+                CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(Direction);
+            }
+            else
+                CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(Direction);
 
-            TextBlock.Position.X = Position.X - TextBlock.Width / 2f;
-            TextBlock.Position.Y = Position.Y - 32;
-            TextBlock.Update(deltaTime);
+            //TextBlock.Position.X = Position.X - TextBlock.Width / 2f;
+            //TextBlock.Position.Y = Position.Y - 32;
+            //TextBlock.Update(deltaTime);
 
             Source = CurrentAnimation.CurrentRectangle;
             CurrentAnimation.Update(deltaTime);
@@ -135,36 +135,30 @@ namespace One.Entities
             Camera.Update(deltaTime);
         }
 
-        private void UpdateMove(float deltaTime)
-        {
-            var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
-            var delta = deltaTime;
-            var distance = Vector2.Distance(Position, Destination);
-            var direction = Vector2.Normalize(Destination - Position);
-            var velocity = direction * Speed * delta;
-            ThreadedConsole.WriteLine("[ENTITY][UpdateMove] Pos: " + Position + " Dest: " + Destination);
 
-            if (Vector2.Distance(Position + velocity, Destination) > distance)
+        private void UpdateMove(float delta)
+        {
+            var velocity = Direction * Speed * delta;
+            var distance = Vector2.Distance(Position, Destination);
+            var distanceAfterMove = Vector2.Distance(Position + velocity, Destination);
+            
+            if (distanceAfterMove > distance)
             {
                 Position = Destination;
 
-                var destinationTest = Destination + (keyboardAxis * 32);
-                if (keyboardAxis != Vector2.Zero && InfiniteWorld.NoiseGen.GetCubic(destinationTest.X - 16, destinationTest.Y) < 0.10f)
+                var destinationTest = Destination + velocity;
+                if (velocity != Vector2.Zero && IsWalkable(destinationTest))
                 {
                     Destination = destinationTest;
-                    direction = Vector2.Normalize(Destination - Position);
-                    Direction = direction;
+                    Direction = Vector2.Normalize(Destination - Position);
                 }
             }
             if (Position != Destination)
-            {
                 Position += velocity;
-
-                if (Destination != PreviousDestination)
-                    CurrentAnimation = WalkAnimations.GetWalkingAnimationFrom(Direction);
-            }
-            else
-                CurrentAnimation = WalkAnimations.GetIdleAnimationFrom(CurrentAnimation);
+        }
+        private static bool IsWalkable(Vector2 destinationTest)
+        {
+            return InfiniteWorld.NoiseGen.GetCubic(destinationTest.X - 16, destinationTest.Y) < 0.10f;
         }
 
         public override void Draw()

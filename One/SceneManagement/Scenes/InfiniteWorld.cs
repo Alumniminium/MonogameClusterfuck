@@ -1,11 +1,8 @@
-﻿using System.Threading.Tasks.Dataflow;
-using System.Text.RegularExpressions;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using One.Primitives;
 using One.Systems;
 using NoiseGen;
-using System;
 using One.SceneManagement.Primitives;
 using Player = One.Entities.Player;
 
