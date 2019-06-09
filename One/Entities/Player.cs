@@ -92,7 +92,7 @@ namespace One.Entities
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(16 + (32 * 200000), 32 * 200000 + 32);
+            Position = new Vector2(16 + (32 * 1), 32 * 1 + 32);
             Destination = Position;
             Camera.Position = Position;
             CurrentAnimation = WalkAnimations.IdleDown;
@@ -110,11 +110,11 @@ namespace One.Entities
             if (keyboardAxis != Vector2.Zero && Position == Destination)
             {
                 var destinationTest = Destination + (keyboardAxis * 32);
-                if (IsWalkable(destinationTest))
-                {
+                //if (IsWalkable(destinationTest))
+                //{
                     Destination = destinationTest;
                     Direction = Vector2.Normalize(destinationTest - Position);
-                }
+                //}
             }
 
             if (Position != Destination)

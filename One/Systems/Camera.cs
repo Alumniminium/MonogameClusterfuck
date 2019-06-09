@@ -45,9 +45,9 @@ namespace One.Systems
         public void AdjustZoom(float zoomAmount)
         {
             Zoom += zoomAmount;
-            if (Zoom < .50f)
+            if (Zoom < .05f)
             {
-                Zoom = .50f;
+                Zoom = .05f;
             }
             if (Zoom > 2f)
             {

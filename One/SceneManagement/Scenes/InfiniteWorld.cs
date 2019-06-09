@@ -5,6 +5,7 @@ using One.Systems;
 using NoiseGen;
 using One.SceneManagement.Primitives;
 using Player = One.Entities.Player;
+using System;
 
 namespace One.SceneManagement.Scenes
 {
@@ -70,52 +71,52 @@ namespace One.SceneManagement.Scenes
             var left = ((viewbounds.Left / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
             var top = ((viewbounds.Top / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
 
-            var lightLowerTile = TileSet.Tiles[102];
-            var lightUpperTile = TileSet.Tiles[103];
-            var floorTile = TileSet.Tiles[69];
-            var wallTile = TileSet.Tiles[144];
-            var upperWallTile = TileSet.Tiles[143];
-            var wallTileLeft = TileSet.Tiles[176];
-            var wallTileRight = TileSet.Tiles[112];
-            var upperWallTileRight = TileSet.Tiles[110];
-            var upperWallTileLeft = TileSet.Tiles[175];
+            //var lightLowerTile = TileSet.Tiles[102];
+            //var lightUpperTile = TileSet.Tiles[103];
+            //var floorTile = TileSet.Tiles[69];
+            //var wallTile = TileSet.Tiles[144];
+            //var upperWallTile = TileSet.Tiles[143];
+            //var wallTileLeft = TileSet.Tiles[176];
+            //var wallTileRight = TileSet.Tiles[112];
+            //var upperWallTileRight = TileSet.Tiles[110];
+            //var upperWallTileLeft = TileSet.Tiles[175];
 
-            Sprite sprite = floorTile;
+            Sprite sprite = TileSet.Tiles[69];
 
             Engine.Instance.GraphicsDevice.SetRenderTarget(mainTarget);
+
             if (InputState.DrawTileSet)
             {
                 DrawTileset(destRect);
             }
             else
             {
-                for (var x = left; x <= viewbounds.Right; x += TileSet.TileSize)
+                for (var x = left; x <= viewbounds.Right; x += TileSet.TileSize * 8)
                 {
-                    for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize)
+                    for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize * 8)
                     {
-                        var value = new TileInfo((x, y));
-                        var a = new TileInfo((x, y - 32));
-                        var b = new TileInfo((x, y + 32));
-                        destRect.Location = new Point(x, y);
-                        if (value.Type == TileType.Ground)
-                        {
-                            if (Core.Success(10))
-                            {
-                                //SpriteBatch.Draw(lightLowerTile.Texture, destRect, lightLowerTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                                //destRect.Location = new Point(x, y-32);
-                                //SpriteBatch.Draw(lightUpperTile.Texture, destRect, lightUpperTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                            }
-                            SpriteBatch.Draw(floorTile.Texture, destRect, floorTile.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                        }
-                        else if (value.Type == TileType.Wall)
-                        {
-                            sprite = wallTile;
-                            if (b.Type == TileType.Ground)
-                                sprite = wallTile;
-                            if (b.Type == TileType.Wall)
-                                sprite = upperWallTile;
+                        var tiles = WorldGen.GenerateChunk(x, y);
 
-                            SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.99f);
+                        for (int cx = 0; cx < 8; cx++)
+                        {
+                            for (int cy = 0; cy < 8; cy++)
+                            {
+                                var tile = tiles[cx, cy];
+                                if (tile > 0)
+                                    sprite = TileSet.Tiles[52]; //water
+                                if (tile > 0.3)
+                                    sprite = TileSet.Tiles[35]; //sand
+                                if (tile > 0.4)
+                                    sprite = TileSet.Tiles[41]; //grass
+                                if (tile > 0.85)
+                                    sprite = TileSet.Tiles[227]; //dirt
+                                if (tile > 0.9)
+                                    sprite = TileSet.Tiles[323]; //rock
+                                if (tile == 1)
+                                    sprite = TileSet.Tiles[593]; //snow
+                                destRect = new Rectangle(x+ 32*cx, y+32*cy,32,32);
+                                SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
+                            }
                         }
                     }
                 }
@@ -165,11 +166,11 @@ namespace One.SceneManagement.Scenes
             Engine.Instance.GraphicsDevice.SetRenderTarget(lightsTarget);
             Engine.Instance.GraphicsDevice.Clear(Color.Black);
             SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, transformMatrix: Camera.Transform);
-            SpriteBatch.Draw(lightMask, new Vector2(10000 * 32, 10000 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            SpriteBatch.Draw(lightMask, new Vector2(10001 * 32, 10010 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            SpriteBatch.Draw(lightMask, new Vector2(10010 * 32, 10001 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            SpriteBatch.Draw(lightMask, new Vector2(10017 * 32, 10020 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
-            SpriteBatch.Draw(lightMask, new Vector2(10020 * 32, 10004 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(lightMask, new Vector2(1 * 32, 1 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(lightMask, new Vector2(1 * 32, 10 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(lightMask, new Vector2(10 * 32, 1 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(lightMask, new Vector2(17 * 32, 20 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
+            SpriteBatch.Draw(lightMask, new Vector2(2 * 32, 29 * 32), null, Color.White, 0, Vector2.Zero, Vector2.One, SpriteEffects.None, 0f);
             SpriteBatch.End();
 
             Engine.Instance.GraphicsDevice.SetRenderTarget(null);

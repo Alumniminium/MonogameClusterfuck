@@ -90,18 +90,7 @@ namespace One.SceneManagement.Scenes
                     break;
             }
 
-
-
-
-
-
-
-
-
-
-
-
-            if (SceneActivatedTime.AddSeconds(5) < DateTime.UtcNow)
+            if (SceneActivatedTime.AddSeconds(0) < DateTime.UtcNow)
             {
                 SceneManager.SetState(SceneEnum.InfiniteWorld);
                 ThreadedConsole.WriteLine("[Scene][Splash] Transitioning to Scene 2");
