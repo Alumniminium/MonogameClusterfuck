@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/monogame.csproj"
+                "${workspaceFolder}/One/One.sln"
             ],
             "problemMatcher": "$msCompile"
         }

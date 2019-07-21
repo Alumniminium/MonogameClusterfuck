@@ -34,7 +34,7 @@ namespace One.Networking
         private void Connected()
         {
             ThreadedConsole.WriteLine("[Player][Net] CONNECTED! :D");
-               IsConnected = true;
+            IsConnected = true;
         }
 
         private void Disconnected()
@@ -45,6 +45,10 @@ namespace One.Networking
 
         private void OnPacket(ClientSocket client, byte[] buffer) => PacketHandler.Handle((NetworkClient)client.StateObject, buffer);
 
-        public void Send(byte[] packet) => Socket.Send(packet);
+        public void Send(byte[] packet)
+        {
+            if (Socket != null && Socket.IsConnected)
+                Socket.Send(packet);
+        }
     }
 }

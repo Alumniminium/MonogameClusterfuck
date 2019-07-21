@@ -5,7 +5,7 @@ namespace One.Systems
 {
     public class Camera
     {
-        public float Zoom { get; set; }
+        public static float Zoom { get; set; }
         public static Vector2 Position { get; set; }
         public Rectangle Bounds { get; protected set; }
         public static Rectangle VisibleArea { get; protected set; }
@@ -29,15 +29,15 @@ namespace One.Systems
             var (x1, y1) = Vector2.Transform(new Vector2(0, Bounds.Y), inverseViewMatrix);
             var (f2, y2) = Vector2.Transform(new Vector2(Bounds.Width, Bounds.Height), inverseViewMatrix);
 
-            var (x2, f3) = new Vector2(MathHelper.Min(x, MathHelper.Min(f, MathHelper.Min(x1, f2))),MathHelper.Min(y, MathHelper.Min(f1, MathHelper.Min(y1, y2))));
-            var (x3, y3) = new Vector2(MathHelper.Max(x, MathHelper.Max(f, MathHelper.Max(x1, f2))),MathHelper.Max(y, MathHelper.Max(f1, MathHelper.Max(y1, y2))));
+            var (x2, f3) = new Vector2(MathHelper.Min(x, MathHelper.Min(f, MathHelper.Min(x1, f2))), MathHelper.Min(y, MathHelper.Min(f1, MathHelper.Min(y1, y2))));
+            var (x3, y3) = new Vector2(MathHelper.Max(x, MathHelper.Max(f, MathHelper.Max(x1, f2))), MathHelper.Max(y, MathHelper.Max(f1, MathHelper.Max(y1, y2))));
             VisibleArea = new Rectangle((int)x2, (int)f3, (int)(x3 - x2), (int)(y3 - f3));
         }
 
         private void UpdateMatrix()
         {
             Transform = Matrix.CreateTranslation(new Vector3(-Position.X, -Position.Y, 0)) *
-                    Matrix.CreateScale(Zoom,Zoom,1) *
+                    Matrix.CreateScale(Zoom, Zoom, 1) *
                     Matrix.CreateTranslation(new Vector3(Bounds.Width * 0.5f, Bounds.Height * 0.5f, 0));
             UpdateVisibleArea();
         }
@@ -54,24 +54,24 @@ namespace One.Systems
                 Zoom = 2f;
             }
 
-            ThreadedConsole.WriteLine("[Camera][Zoom] = "+Zoom);
+            ThreadedConsole.WriteLine("[Camera][Zoom] = " + Zoom);
         }
         public static bool IsOnScreen(Vector2 position, Vector2 size)
         {
-            var tl = new Vector2(Position.X,Position.Y);
-            var tr = new Vector2(Position.X+size.X,Position.Y);
-            var bl = new Vector2(Position.X,Position.Y+size.Y);
-            var br = new Vector2(Position.X + size.X,position.Y+size.Y);
+            var tl = new Vector2(Position.X, Position.Y);
+            var tr = new Vector2(Position.X + size.X, Position.Y);
+            var bl = new Vector2(Position.X, Position.Y + size.Y);
+            var br = new Vector2(Position.X + size.X, position.Y + size.Y);
 
-            if(tr.X < VisibleArea.Left && tr.Y < VisibleArea.Top)
+            if (tr.X < VisibleArea.Left && tr.Y < VisibleArea.Top)
                 return false;
-            if(tl.X > VisibleArea.Right && tl.Y > VisibleArea.Bottom)
+            if (tl.X > VisibleArea.Right && tl.Y > VisibleArea.Bottom)
                 return false;
-            if(br.X < VisibleArea.Left && br.Y > VisibleArea.Bottom)
+            if (br.X < VisibleArea.Left && br.Y > VisibleArea.Bottom)
                 return false;
-            if(bl.X > VisibleArea.Right && bl.Y < VisibleArea.Top)
+            if (bl.X > VisibleArea.Right && bl.Y < VisibleArea.Top)
                 return false;
-                
+
             return true;
         }
         public static Vector2 WorldToScreen(Vector2 worldPosition)

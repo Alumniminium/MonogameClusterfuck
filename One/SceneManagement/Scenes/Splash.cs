@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using One.Helpers;
 using One.Systems;
+using One.UI;
 
 namespace One.SceneManagement.Scenes
 {

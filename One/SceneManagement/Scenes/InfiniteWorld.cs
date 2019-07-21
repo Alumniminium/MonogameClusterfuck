@@ -6,6 +6,9 @@ using NoiseGen;
 using One.SceneManagement.Primitives;
 using Player = One.Entities.Player;
 using System;
+using One.UI;
+using System.Collections.Generic;
+using One.Primitives.WorldGen;
 
 namespace One.SceneManagement.Scenes
 {
@@ -40,8 +43,9 @@ namespace One.SceneManagement.Scenes
         public override void LoadContent()
         {
             ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Loading content...");
-            lightMask = Engine.Instance.Content.Load<Texture2D>("Shaders/lightmask");
-            effect1 = Engine.Instance.Content.Load<Effect>("Shaders/lighteffect");
+            UIRect.Initialize();
+            //lightMask = Engine.Instance.Content.Load<Texture2D>("Shaders/lightmask");
+            //effect1 = Engine.Instance.Content.Load<Effect>("Shaders/lighteffect");
             ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Loading handed over to base class.");
             base.LoadContent();
         }
@@ -50,15 +54,28 @@ namespace One.SceneManagement.Scenes
         {
             if (!Loaded)
                 return;
+            var viewbounds = Camera.VisibleArea;
+            var left = ((viewbounds.Left / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
+            var top = ((viewbounds.Top / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
+            for (var x = left; x <= viewbounds.Right; x += Chunk.ChunkSize * TileSet.TileSize)
+            {
+                for (var y = top; y <= viewbounds.Bottom; y += Chunk.ChunkSize * TileSet.TileSize)
+                {
+                    SimulationManager.LoadArea(viewbounds);
+                }
+            }
 
             base.Update(gameTime);
         }
 
+        UIRectangle UIRect = new UIRectangle(100, 40, Color.Purple);
         public override void DrawUI()
         {
             if (!Loaded)
                 return;
             FpsCounter.Draw();
+            UIRect.Position = new Vector2(350, 200);
+            UIRect.Draw();
             base.DrawUI();
         }
         public override void DrawGame()
@@ -67,9 +84,6 @@ namespace One.SceneManagement.Scenes
                 return;
 
             var destRect = new Rectangle(Point.Zero, new Point(TileSet.TileSize));
-            var viewbounds = Camera.VisibleArea;
-            var left = ((viewbounds.Left / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
-            var top = ((viewbounds.Top / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
 
             //var lightLowerTile = TileSet.Tiles[102];
             //var lightUpperTile = TileSet.Tiles[103];
@@ -91,48 +105,33 @@ namespace One.SceneManagement.Scenes
             }
             else
             {
-                for (var x = left; x <= viewbounds.Right; x += TileSet.TileSize * 8)
+                foreach (var (location, chunk) in SimulationManager.LoadedChunks)
                 {
-                    for (var y = top; y <= viewbounds.Bottom; y += TileSet.TileSize * 8)
+                    for (int x = 0; x < Chunk.ChunkSize; x++)
                     {
-                        var tiles = WorldGen.GenerateChunk(x, y);
-
-                        for (int cx = 0; cx < 8; cx++)
+                        for (int y = 0; y < Chunk.ChunkSize; y++)
                         {
-                            for (int cy = 0; cy < 8; cy++)
-                            {
-                                var tile = tiles[cx, cy];
-                                if (tile > 0)
-                                    sprite = TileSet.Tiles[52]; //water
-                                if (tile > 0.3)
-                                    sprite = TileSet.Tiles[35]; //sand
-                                if (tile > 0.4)
-                                    sprite = TileSet.Tiles[41]; //grass
-                                if (tile > 0.85)
-                                    sprite = TileSet.Tiles[227]; //dirt
-                                if (tile > 0.9)
-                                    sprite = TileSet.Tiles[323]; //rock
-                                if (tile == 1)
-                                    sprite = TileSet.Tiles[593]; //snow
-                                destRect = new Rectangle(x+ 32*cx, y+32*cy,32,32);
-                                SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                            }
+                            sprite = TileSet.Tiles[chunk.Cells[x, y].SpriteId];
+
+                            destRect = new Rectangle(x * 32, y * 32, 32, 32);
+                            destRect.Location += location.ToPoint();
+                            SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
                         }
                     }
                 }
-            }
-            base.DrawGame();
-            SpriteBatch.End();
+                base.DrawGame();
+                SpriteBatch.End();
 
-            if (InputState.UseLighting)
-            {
-                DrawLights();
-            }
-            else
-            {
-                Engine.Instance.GraphicsDevice.SetRenderTarget(null);
-                SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
-                SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
+                if (InputState.UseLighting)
+                {
+                    DrawLights();
+                }
+                else
+                {
+                    Engine.Instance.GraphicsDevice.SetRenderTarget(null);
+                    SpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
+                    SpriteBatch.Draw(mainTarget, Vector2.Zero, Color.White);
+                }
             }
         }
 

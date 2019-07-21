@@ -90,8 +90,8 @@ namespace One.Entities
         public override void Start()
         {
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
-            Socket.ConnectAsync("127.0.0.1", 13338);
-            Socket.Send(MsgLogin.Create("Test", "123"));
+            //Socket.ConnectAsync("127.0.0.1", 13338);
+            //Socket.Send(MsgLogin.Create("Test", "123"));
             Position = new Vector2(16 + (32 * 1), 32 * 1 + 32);
             Destination = Position;
             Camera.Position = Position;
@@ -106,14 +106,14 @@ namespace One.Entities
 
             var delta = (float)deltaTime.ElapsedGameTime.TotalSeconds;
             var keyboardAxis = InputManager.Keyboard.GetInputAxisConstrained();
-            
+
             if (keyboardAxis != Vector2.Zero && Position == Destination)
             {
                 var destinationTest = Destination + (keyboardAxis * 32);
                 //if (IsWalkable(destinationTest))
                 //{
-                    Destination = destinationTest;
-                    Direction = Vector2.Normalize(destinationTest - Position);
+                Destination = destinationTest;
+                Direction = Vector2.Normalize(destinationTest - Position);
                 //}
             }
 
@@ -141,7 +141,7 @@ namespace One.Entities
             var velocity = Direction * Speed * delta;
             var distance = Vector2.Distance(Position, Destination);
             var distanceAfterMove = Vector2.Distance(Position + velocity, Destination);
-            
+
             if (distanceAfterMove > distance)
             {
                 Position = Destination;
