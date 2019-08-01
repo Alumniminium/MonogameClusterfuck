@@ -54,16 +54,6 @@ namespace One.SceneManagement.Scenes
         {
             if (!Loaded)
                 return;
-            var viewbounds = Camera.VisibleArea;
-            var left = ((viewbounds.Left / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
-            var top = ((viewbounds.Top / TileSet.TileSize) * TileSet.TileSize) - TileSet.TileSize;
-            for (var x = left; x <= viewbounds.Right; x += Chunk.ChunkSize * TileSet.TileSize)
-            {
-                for (var y = top; y <= viewbounds.Bottom; y += Chunk.ChunkSize * TileSet.TileSize)
-                {
-                    SimulationManager.LoadArea(viewbounds);
-                }
-            }
 
             base.Update(gameTime);
         }
@@ -78,12 +68,11 @@ namespace One.SceneManagement.Scenes
             UIRect.Draw();
             base.DrawUI();
         }
+        Sprite sprite = new Sprite(32, 1f);
         public override void DrawGame()
         {
             if (!Loaded)
                 return;
-
-            var destRect = new Rectangle(Point.Zero, new Point(TileSet.TileSize));
 
             //var lightLowerTile = TileSet.Tiles[102];
             //var lightUpperTile = TileSet.Tiles[103];
@@ -95,28 +84,36 @@ namespace One.SceneManagement.Scenes
             //var upperWallTileRight = TileSet.Tiles[110];
             //var upperWallTileLeft = TileSet.Tiles[175];
 
-            Sprite sprite = TileSet.Tiles[69];
 
             Engine.Instance.GraphicsDevice.SetRenderTarget(mainTarget);
 
             if (InputState.DrawTileSet)
             {
-                DrawTileset(destRect);
+                DrawTileset(new Rectangle(0, 0, Engine.Graphics.PreferredBackBufferWidth, Engine.Graphics.PreferredBackBufferHeight));
             }
             else
             {
-                foreach (var (location, chunk) in SimulationManager.LoadedChunks)
+                for (int x = Camera.VisibleArea.Left; x < Camera.VisibleArea.Right; x += 32)
                 {
-                    for (int x = 0; x < Chunk.ChunkSize; x++)
+                    for (int y = Camera.VisibleArea.Top; y < Camera.VisibleArea.Bottom; y += 32)
                     {
-                        for (int y = 0; y < Chunk.ChunkSize; y++)
-                        {
-                            sprite = TileSet.Tiles[chunk.Cells[x, y].SpriteId];
+                        var tile = NoiseGen.GetPerlin(x / 100, y / 100);
+                        var spriteId = 52;
 
-                            destRect = new Rectangle(x * 32, y * 32, 32, 32);
-                            destRect.Location += location.ToPoint();
-                            SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
-                        }
+                        if (tile > 0.3)
+                            spriteId = 35; //sand
+                        if (tile > 0.4)
+                            spriteId = 41; //grass
+                        if (tile > 0.70)
+                            spriteId = 227; //dirt
+                        if (tile > 0.89)
+                            spriteId = 323; //rock
+                        if (tile == 1)
+                            spriteId = 593; //snow
+
+                        sprite = TileSet.Tiles[spriteId];
+                        var destRect = new Rectangle(x, y, 32, 32);
+                        SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1f);
                     }
                 }
                 base.DrawGame();
