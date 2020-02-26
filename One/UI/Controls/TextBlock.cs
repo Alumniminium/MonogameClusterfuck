@@ -20,6 +20,7 @@ namespace One.UI.Controls
         {
             LayerDepth = LayerDepth - 0.01f;
             backgroundd = new UserControl("selectionrect");
+            Texture = Engine.Instance.Content.Load<Texture2D>(TextureName);
             backgroundd.Initialize();
             AddChild(backgroundd);
             stringSize = Fonts.ProFont.MeasureString(Text);

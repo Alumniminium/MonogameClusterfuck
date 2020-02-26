@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using One.Helpers;
 using One.Systems;
+using One.UI;
 
 namespace One.SceneManagement.Scenes
 {
@@ -90,18 +91,7 @@ namespace One.SceneManagement.Scenes
                     break;
             }
 
-
-
-
-
-
-
-
-
-
-
-
-            if (SceneActivatedTime.AddSeconds(5) < DateTime.UtcNow)
+            if (SceneActivatedTime.AddSeconds(0) < DateTime.UtcNow)
             {
                 SceneManager.SetState(SceneEnum.InfiniteWorld);
                 ThreadedConsole.WriteLine("[Scene][Splash] Transitioning to Scene 2");

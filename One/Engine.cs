@@ -36,7 +36,7 @@ namespace One
             ThreadedConsole.WriteLine("[Engine] Creating SpriteBatch...");
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             ThreadedConsole.WriteLine("[Engine] Starting Scene 0...");
-            SceneManager.SetState(0);
+            SceneManager.SetState(SceneEnum.Splash);
         }
 
         protected override void Initialize()

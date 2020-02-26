@@ -17,29 +17,42 @@ namespace One.UI.Controls
         public float Rotation;
         public List<UserControl> Children;
 
+        public UserControl(int width, int height, Color color)
+        {
+            Children = new List<UserControl>();
+            Texture = new Texture2D(Engine.Graphics.GraphicsDevice,width,height);
+            var pixels = new Color[width*height];
+            for(int i = 0; i<pixels.Length; i++)
+            {
+                pixels[i] = color;
+            }
+            Texture.SetData<Color>(pixels);
+        }
         public UserControl(string textureName)
         {
-            TextureName = textureName;
             Children = new List<UserControl>();
+            TextureName = textureName;
         }
 
         public void AddChild(UserControl child)
         {
-            child.Parent=this;
+            child.Parent = this;
             Children.Add(child);
         }
 
         public virtual void Initialize()
         {
-            Texture = Engine.Instance.Content.Load<Texture2D>(TextureName);
+            if (!string.IsNullOrEmpty(TextureName))
+                Texture = Engine.Instance.Content.Load<Texture2D>(TextureName);
+
             RotationOrigin = new Vector2(Texture.Width / 2f, Texture.Height / 2f);
             SourceRect = new Rectangle(0, 0, Texture.Width, Texture.Height);
             Scale = Vector2.One;
 
-            if(Parent != null)
+            if (Parent != null)
             {
                 Position = Parent.Position;
-                LayerDepth = Parent.LayerDepth+0.01f;
+                LayerDepth = Parent.LayerDepth + 0.01f;
             }
         }
 
@@ -48,11 +61,11 @@ namespace One.UI.Controls
 
         }
 
-        public virtual void Draw() 
-        {    
-            Engine.SpriteBatch.Draw(Texture,Position,SourceRect,Color.White,Rotation,RotationOrigin,Scale,SpriteEffects.None,LayerDepth);
-            foreach(var child in Children)
+        public virtual void Draw()
+        {
+            Engine.SpriteBatch.Draw(Texture, Position, SourceRect, Color.White, Rotation, RotationOrigin, Scale, SpriteEffects.None, LayerDepth);
+            foreach (var child in Children)
                 child.Draw();
-        } 
+        }
     }
 }
