@@ -16,7 +16,7 @@ namespace Server
 
             var t = new Thread(() =>
             {
-                            Console.WriteLine($"Heartbeat Thread started.");
+                Console.WriteLine($"Heartbeat Thread started.");
                 while (true)
                 {
                     foreach (var kvp in Collections.Players)

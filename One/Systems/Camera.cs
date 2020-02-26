@@ -6,18 +6,28 @@ namespace One.Systems
     public class Camera
     {
         public float Zoom { get; set; }
-        public static Vector2 Position { get; set; }
+
+        public static Vector2 Position
+        {
+            get => _position;
+            set
+            {
+                _position = value;
+            }
+        }
+
         public Rectangle Bounds { get; protected set; }
         public static Rectangle VisibleArea { get; protected set; }
         public static Matrix Transform { get; protected set; }
 
         private float _currentMouseWheelValue, _previousMouseWheelValue, _zoom, _previousZoom;
+        private static Vector2 _position;
 
         public Camera()
         {
             Bounds = Engine.Graphics.GraphicsDevice.Viewport.Bounds;
             Zoom = 1f;
-            Position = new Vector2(Engine.Graphics.GraphicsDevice.Viewport.Width / 2f, Engine.Graphics.GraphicsDevice.Viewport.Height / 2f);
+            Position = Vector2.Zero;
         }
 
         private void UpdateVisibleArea()

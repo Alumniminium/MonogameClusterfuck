@@ -24,7 +24,7 @@ namespace One.Entities
             set
             {
                 Camera.Position = base.Position = value;
-                //ThreadedConsole.WriteLine($"[Player][Position] X={value.X} Y={value.Y}");
+                ThreadedConsole.WriteLine($"[Player][Position] X={value.X} Y={value.Y}");
 
                 if (Socket == null || value == Socket.ServerPosition)
                     return;
@@ -48,6 +48,8 @@ namespace One.Entities
         {
             ThreadedConsole.WriteLine("[Player] Constructor called!");
             TextBlock = new TextBlock();
+            Initialize();
+            LoadContent();
         }
         public override void Initialize()
         {
@@ -72,7 +74,7 @@ namespace One.Entities
             ThreadedConsole.WriteLine("[Player] Startup Sequence activated...");
             Socket.ConnectAsync("127.0.0.1", 13338);
             Socket.Send(MsgLogin.Create("Test", "123"));
-            Position = new Vector2(16 + (32 * 200000), 32 * 200000 + 32);
+            Position = new Vector2(16 + (32 * 200), 32 * 200 + 32);
             Destination = Position;
             Camera.Position = Position;
             CurrentAnimation = WalkAnimations.IdleDown;

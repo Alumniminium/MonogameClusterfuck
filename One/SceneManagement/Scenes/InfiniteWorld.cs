@@ -28,7 +28,7 @@ namespace One.SceneManagement.Scenes
             ThreadedConsole.WriteLine("[Scene][InfiniteWorld] Initializing components...");
             TileSet = new TileSet(32);
             TileSet.Slice();
-            Entities.Add(new Player(32, 0.01f));
+            Entities.Add(new Player(32, 0.1f));
             Entities.Add(new Cursor(32));
             lightsTarget = new RenderTarget2D(Engine.Graphics.GraphicsDevice, Engine.Graphics.PreferredBackBufferWidth, Engine.Graphics.PreferredBackBufferHeight);
             mainTarget = new RenderTarget2D(Engine.Graphics.GraphicsDevice, Engine.Graphics.PreferredBackBufferWidth, Engine.Graphics.PreferredBackBufferHeight);
@@ -115,7 +115,7 @@ namespace One.SceneManagement.Scenes
                             if (b.Type == TileType.Wall)
                                 sprite = upperWallTile;
 
-                            SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 0.99f);
+                            SpriteBatch.Draw(sprite.Texture, destRect, sprite.Source, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
                         }
                     }
                 }

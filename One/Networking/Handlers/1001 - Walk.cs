@@ -1,3 +1,4 @@
+using Microsoft.Xna.Framework;
 using One.Entities;
 using One.Networking.Packets;
 using One.SceneManagement;
@@ -10,7 +11,7 @@ namespace One.Networking.Handlers
         public static void Handle(Player player, MsgWalk packet)
         {
             var uniqueId = packet.UniqueId;
-            var location = packet.Location;
+            var location = new Vector2(packet.X,packet.Y);
             var tickCount = packet.TickCount;
             Entity entity = null;
 

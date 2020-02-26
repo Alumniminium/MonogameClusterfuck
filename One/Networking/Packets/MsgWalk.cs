@@ -11,7 +11,7 @@ namespace One.Networking.Packets
         public ushort Id;
         public int TickCount;
         public uint UniqueId;
-        public Vector2 Location;
+        public int X,Y;
         
         public static MsgWalk Create(uint uniqueId, Vector2 location)
         {
@@ -20,7 +20,8 @@ namespace One.Networking.Packets
             msg->Id = 1001;
             msg->TickCount = Environment.TickCount;
             msg->UniqueId = uniqueId;
-            msg->Location = location;
+            msg->X = (int)location.X;
+            msg->Y = (int)location.Y;
             return *msg;
         }
         public static implicit operator byte[] (MsgWalk msg)

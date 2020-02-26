@@ -42,7 +42,8 @@ namespace Server
                 {
                     var msgWalk = (MsgWalk)buffer;
                     var player = (Player)socket.StateObject;
-                    player.Location = msgWalk.Location;
+                    player.Location.X = msgWalk.X;
+                    player.Location.Y = msgWalk.Y;
                     msgWalk.TickCount = Environment.TickCount;
                     Console.WriteLine($"Player: {player.Username} ({msgWalk.UniqueId}) moved to: {player.Location.X},{player.Location.Y}");
 

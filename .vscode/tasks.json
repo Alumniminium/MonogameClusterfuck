@@ -7,9 +7,9 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/monogame.csproj"
+                "${workspaceFolder}/One/One.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$tsc"
         }
     ]
 }
